@@ -10,3 +10,6 @@
 [submodule "Carthage/Checkouts/MotorControl-iOS"]
 	path = Carthage/Checkouts/MotorControl-iOS
 	url = https://github.com/Sage-Bionetworks/MotorControl-iOS.git
+[submodule "Carthage/Checkouts/polar-ble-sdk"]
+	path = Carthage/Checkouts/polar-ble-sdk
+	url = https://github.com/polarofficial/polar-ble-sdk.git

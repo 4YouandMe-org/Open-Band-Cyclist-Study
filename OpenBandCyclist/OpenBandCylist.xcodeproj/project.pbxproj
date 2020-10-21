@@ -18,6 +18,8 @@
 		CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */; };
 		CB624601253FA9E0006838B7 /* OpenBandCyclistValidation.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FE253FA425006838B7 /* OpenBandCyclistValidation.strings */; };
 		CB624603253FEAF8006838B7 /* ValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB624602253FEAF8006838B7 /* ValidationViewController.swift */; };
+		CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BA2540AC5200E22BA5 /* BridgeInfo.plist */; };
+		CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */; };
 		CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */; };
 		CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA0250823FC6B2500604F2D /* Main.storyboard */; };
 		CBC6519423F391BC00C3FF0C /* OpenBandCyclistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC6519323F391BC00C3FF0C /* OpenBandCyclistTests.swift */; };
@@ -176,6 +178,8 @@
 		CB6245FC253FA412006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclist.strings; sourceTree = "<group>"; };
 		CB6245FF253FA425006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclistValidation.strings; sourceTree = "<group>"; };
 		CB624602253FEAF8006838B7 /* ValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewController.swift; sourceTree = "<group>"; };
+		CB68E8BA2540AC5200E22BA5 /* BridgeInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BridgeInfo.plist; sourceTree = "<group>"; };
+		CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BridgeInfo.plist; sourceTree = "<group>"; };
 		CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyTaskFactory.swift; sourceTree = "<group>"; };
 		CB9F5E4022E0C27C003FBCEF /* OpenBandCylistValidationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenBandCylistValidationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9F5E4422E0C27D003FBCEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 				CBC6519523F392C700C3FF0C /* OpenBandCyclist.entitlements */,
 				CBDCDC7023F383DC00E5CEB8 /* BridgeInfo-private.plist */,
 				CBDCDC6B23F383DC00E5CEB8 /* open-band-cyclist.pem */,
+				CB68E8BA2540AC5200E22BA5 /* BridgeInfo.plist */,
 				FFABCBCD22DD1EEC00D11109 /* Info.plist */,
 			);
 			name = "Support Files";
@@ -352,6 +357,7 @@
 				CBD67D8622DFC45200998516 /* OpenBandCyclistValidation.entitlements */,
 				FF5010A722DD22A50035E83C /* BridgeInfo-private.plist */,
 				FF5010A622DD22A50035E83C /* open-band-cyclist.pem */,
+				CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */,
 				FFABCBF322DD1F2800D11109 /* Info.plist */,
 			);
 			name = "Support Files";
@@ -657,6 +663,7 @@
 				CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */,
 				FFABCBCC22DD1EEC00D11109 /* LaunchScreen.storyboard in Resources */,
 				CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */,
+				CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */,
 				CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
@@ -671,6 +678,7 @@
 				FFABCBF222DD1F2800D11109 /* LaunchScreen.storyboard in Resources */,
 				CB624601253FA9E0006838B7 /* OpenBandCyclistValidation.strings in Resources */,
 				FFABCBEF22DD1F2800D11109 /* Assets.xcassets in Resources */,
+				CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */,
 				CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */,
 				FFABCBED22DD1F2800D11109 /* Main.storyboard in Resources */,
 				FF5010A822DD22A50035E83C /* open-band-cyclist.pem in Resources */,
@@ -1042,7 +1050,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "-D VALIDATION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclistvalidation;
 				PRODUCT_NAME = OpenBandCyclistValidation;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1068,7 +1076,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "-D VALIDATION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclistvalidation;
 				PRODUCT_NAME = OpenBandCyclistValidation;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

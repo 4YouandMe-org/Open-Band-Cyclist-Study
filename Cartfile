@@ -1,3 +1,4 @@
 github "Sage-Bionetworks/SageResearch" ~> 2.3
 github "Sage-Bionetworks/BridgeApp-Apple-SDK" ~> 3.0
 github "Sage-Bionetworks/MotorControl-iOS" ~> 1.7
+github "polarofficial/polar-ble-sdk" ~> 2.2.2
