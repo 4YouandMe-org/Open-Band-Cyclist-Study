@@ -36,8 +36,10 @@ import UIKit
 import ResearchUI
 import BridgeSDK
 import CoreBluetooth
+import PolarBleSdk
+import RxSwift
 
-open class ValidationViewController : UIViewController, CBPeripheralDelegate, CBCentralManagerDelegate {
+open class ValidationViewController : UIViewController, CBPeripheralDelegate, CBCentralManagerDelegate, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver {
     
     /// Label for displaying polar state info
     @IBOutlet public var polarLabel: UILabel!
@@ -62,6 +64,10 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
     var ppgReadStartTime: TimeInterval?
     var accByteReadCount: Int = 0
     var accReadStartTime: TimeInterval?
+    var polarEcgByteReadCount: Int = 0
+    var polarEcgReadStartTime: TimeInterval?
+    var polarAccByteReadCount: Int = 0
+    var polarAccReadStartTime: TimeInterval?
     
     // Properties
     private var centralManager: CBCentralManager!
@@ -73,11 +79,34 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
     private var gyroChar: CBCharacteristic?
     private var magChar: CBCharacteristic?
     
+    // Polar vars
+    var autoConnect: Disposable?
+    var ecgToggle: Disposable?
+    var accToggle: Disposable?
+    
+    // API reference for polar
+    var api = PolarBleApiDefaultImpl.polarImplementation(DispatchQueue.main, features: Features.allFeatures.rawValue)
+    
+    var deviceId = "" // replace this with your device id
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         
         guard BridgeSDK.authManager.isAuthenticated() else { return }
+        
+        // Open Band BLE manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        
+        // Polar manager setup
+        api.observer = self
+        api.deviceHrObserver = self
+        api.deviceInfoObserver = self
+        api.deviceFeaturesObserver = self
+        api.polarFilter(false)
+        print("\(PolarBleApiDefaultImpl.versionInfo())")
+        
+        // Start trying to auto connect to the nearest polar device
+        autoConnectPolar()
     }
     
     // If we're powered on, start scanning
@@ -176,6 +205,7 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
                     let elapsedTime = Date().timeIntervalSince1970 - self.ppgReadStartTime!
                     let kBperS = (Double(self.ppgByteReadCount) / 1000.0) / elapsedTime
                     print("PPG trasmission rate = \(kBperS)kB/s")
+                    print("Example PPG values = \(values)")
                 }
             }
             
@@ -190,6 +220,7 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
                     let elapsedTime = Date().timeIntervalSince1970 - self.accReadStartTime!
                     let kBperS = (Double(self.accByteReadCount) / 1000.0) / elapsedTime
                     print("Accelerometer trasmission rate = \(kBperS)kB/s")
+                    print("Example Accelerometer values = \(values)")
                 }
             }
         } else {
@@ -235,6 +266,156 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             }
         }
     }
+    
+    // Polar functionality
+    
+    func autoConnectPolar() {
+        autoConnect?.dispose()
+        autoConnect = api.startAutoConnectToDevice(-55, service: nil, polarDeviceType: nil).subscribe{ e in
+            switch e {
+            case .completed:
+                NSLog("auto connect search complete")
+            case .error(let err):
+                NSLog("auto connect failed: \(err)")
+            }
+        }
+    }
+    
+    func ecgTogglePolar() {
+        if ecgToggle == nil {
+            ecgToggle = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
+                return self.api.startEcgStreaming(self.deviceId, settings: settings.maxSettings())
+            }).observeOn(MainScheduler.instance).subscribe{ e in
+                switch e {
+                case .next(let data):
+                    if self.polarEcgReadStartTime == nil {
+                        self.polarEcgReadStartTime = Date().timeIntervalSince1970
+                    }
+                    let previousModCount = self.polarEcgByteReadCount % 1000
+                    self.polarEcgByteReadCount += data.samples.count
+                    
+                    // Log the trasmission rate about every 1000 samples
+                    if (self.polarEcgByteReadCount % 1000) != previousModCount {
+                        print("µV: \(data.samples)")
+                        let elapsedTime = Date().timeIntervalSince1970 - self.polarEcgReadStartTime!
+                        let kBperS = Double(self.polarEcgByteReadCount) / elapsedTime
+                        print("Polar ECG trasmission rate = \(kBperS)samples/s")
+                    }
+                case .error(let err):
+                    print("start ecg error: \(err)")
+                    self.ecgToggle = nil
+                case .completed:
+                    break
+                }
+            }
+        } else {
+            ecgToggle?.dispose()
+            ecgToggle = nil
+        }
+    }
+    
+    func accTogglePolar() {
+        if accToggle == nil {
+            accToggle = api.requestAccSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarAccData> in
+                NSLog("settings: \(settings.settings)")
+                return self.api.startAccStreaming(self.deviceId, settings: settings.maxSettings())
+            }).observeOn(MainScheduler.instance).subscribe{ e in
+                switch e {
+                case .next(let data):
+                    
+                    if self.polarAccReadStartTime == nil {
+                        self.polarAccReadStartTime = Date().timeIntervalSince1970
+                    }
+                    let previousModCount = self.polarAccByteReadCount % 1000
+                    self.polarAccByteReadCount += data.samples.count
+                    
+                    // Log the trasmission rate about every 4000 samples
+                    if (self.polarAccByteReadCount % 4000) != previousModCount {
+                        let accSample = data.samples.first
+                        print("polar acc x: \(accSample?.x) y: \(accSample?.y) z: \(accSample?.z)")
+                        let elapsedTime = Date().timeIntervalSince1970 - self.polarAccReadStartTime!
+                        let kBperS = Double(self.polarAccByteReadCount) / elapsedTime
+                        print("Polar ACC trasmission rate = \(kBperS)samples/s")
+                    }
+                    
+                case .error(let err):
+                    NSLog("ACC error: \(err)")
+                    self.accToggle = nil
+                case .completed:
+                    break
+                }
+            }
+        } else {
+            accToggle?.dispose()
+            accToggle = nil
+        }
+    }
+    
+    // PolarBleApiObserver
+    public func deviceConnecting(_ polarDeviceInfo: PolarDeviceInfo) {
+        NSLog("DEVICE CONNECTING: \(polarDeviceInfo)")
+    }
+    
+    public func deviceConnected(_ polarDeviceInfo: PolarDeviceInfo) {
+        NSLog("DEVICE CONNECTED: \(polarDeviceInfo)")
+        deviceId = polarDeviceInfo.deviceId
+    }
+    
+    public func deviceDisconnected(_ polarDeviceInfo: PolarDeviceInfo) {
+        NSLog("DISCONNECTED: \(polarDeviceInfo)")
+    }
+    
+    // PolarBleApiDeviceInfoObserver
+    public func batteryLevelReceived(_ identifier: String, batteryLevel: UInt) {
+        NSLog("battery level updated: \(batteryLevel)")
+    }
+    
+    public func disInformationReceived(_ identifier: String, uuid: CBUUID, value: String) {
+        NSLog("dis info: \(uuid.uuidString) value: \(value)")
+    }
+    
+    // PolarBleApiDeviceHrObserver
+    public func hrValueReceived(_ identifier: String, data: PolarHrData) {
+        NSLog("(\(identifier)) HR notification: \(data.hr) rrs: \(data.rrs) rrsMs: \(data.rrsMs) c: \(data.contact) s: \(data.contactSupported)")
+    }
+    
+    public func hrFeatureReady(_ identifier: String) {
+        NSLog("HR READY")
+    }
+    
+    // PolarBleApiDeviceEcgObserver
+    public func ecgFeatureReady(_ identifier: String) {
+        NSLog("ECG READY \(identifier)")
+        ecgTogglePolar()
+    }
+    
+    // PolarBleApiDeviceAccelerometerObserver
+    public func accFeatureReady(_ identifier: String) {
+        NSLog("ACC READY")
+        accTogglePolar()
+    }
+    
+    public func ohrPPGFeatureReady(_ identifier: String) {
+        NSLog("OHR PPG ready")
+    }
+    
+    public func ohrPPIFeatureReady(_ identifier: String) {
+        print("ohrPPI ready")
+    }
+    
+    public func ftpFeatureReady(_ identifier: String) {
+        print("ftp ready")
+    }
+    
+    // PolarBleApiPowerStateObserver
+    func blePowerOn() {
+        NSLog("BLE ON")
+    }
+    
+    func blePowerOff() {
+        NSLog("BLE OFF")
+    }
+    
         
 //        self.peripheral?.enableNotify(for: characteristic, handler: { (error) in
 //            if error != nil {
