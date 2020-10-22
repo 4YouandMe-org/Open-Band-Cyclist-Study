@@ -11,7 +11,7 @@
         <!--Validation View Controller-->
         <scene sceneID="6e4-68-XmG">
             <objects>
-                <viewController id="qQ7-xK-kbZ" customClass="ValidationViewController" customModule="OpenBandCyclist" sceneMemberID="viewController">
+                <viewController id="qQ7-xK-kbZ" customClass="ValidationViewController" customModule="OpenBandCyclistValidation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NEc-UA-y3Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

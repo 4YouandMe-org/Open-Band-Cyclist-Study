@@ -14,10 +14,12 @@
 		CB422D2A23316EB700787FEE /* BridgeAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB422D2923316EB700787FEE /* BridgeAppUI.framework */; };
 		CB422D2B23316EB700787FEE /* BridgeAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB422D2923316EB700787FEE /* BridgeAppUI.framework */; };
 		CB422D2C23316EB700787FEE /* BridgeAppUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB422D2923316EB700787FEE /* BridgeAppUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB553AE52541075D00D29995 /* OpenBandPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB553AE42541075D00D29995 /* OpenBandPeripheral.swift */; };
+		CB553AFC25410D1600D29995 /* ValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB624602253FEAF8006838B7 /* ValidationViewController.swift */; };
+		CB553AFD25410D2400D29995 /* OpenBandPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB553AE42541075D00D29995 /* OpenBandPeripheral.swift */; };
 		CB6245EF253F84CC006838B7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB6245EE253F84CC006838B7 /* HealthKit.framework */; };
 		CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */; };
 		CB624601253FA9E0006838B7 /* OpenBandCyclistValidation.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FE253FA425006838B7 /* OpenBandCyclistValidation.strings */; };
-		CB624603253FEAF8006838B7 /* ValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB624602253FEAF8006838B7 /* ValidationViewController.swift */; };
 		CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BA2540AC5200E22BA5 /* BridgeInfo.plist */; };
 		CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */; };
 		CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */; };
@@ -167,13 +169,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExternalIDRegistrationViewController.xib; sourceTree = "<group>"; };
-		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalIDRegistrationViewController.swift; sourceTree = "<group>"; };
+		CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExternalIDRegistrationViewController.xib; path = OpenBandCyclist/ExternalIDRegistrationViewController.xib; sourceTree = SOURCE_ROOT; };
+		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
 		CB077FBE253E651100CF56C4 /* TaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
 		CB16BF4723E4B90B0099FD08 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../gpuimage/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		CB2219A324611FC4007546CD /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = ../Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenBandCyclistValidationTests.swift; sourceTree = "<group>"; };
 		CB422D2923316EB700787FEE /* BridgeAppUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BridgeAppUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB553AE42541075D00D29995 /* OpenBandPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBandPeripheral.swift; sourceTree = "<group>"; };
 		CB6245EE253F84CC006838B7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		CB6245FC253FA412006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclist.strings; sourceTree = "<group>"; };
 		CB6245FF253FA425006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclistValidation.strings; sourceTree = "<group>"; };
@@ -270,8 +273,6 @@
 		CB077FB8253E645800CF56C4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */,
-				CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */,
 				CB624602253FEAF8006838B7 /* ValidationViewController.swift */,
 			);
 			name = ViewControllers;
@@ -314,6 +315,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		CB553AE22540F99200D29995 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */,
+				CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CB553AE32541074900D29995 /* OpenBand */ = {
+			isa = PBXGroup;
+			children = (
+				CB553AE42541075D00D29995 /* OpenBandPeripheral.swift */,
+			);
+			name = OpenBand;
+			sourceTree = "<group>";
+		};
 		CB9F5E4122E0C27D003FBCEF /* OpenBandCyclistValidationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +344,7 @@
 		CBBE0F6024039A4F0072452C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB553AE32541074900D29995 /* OpenBand */,
 				CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */,
 			);
 			name = Model;
@@ -394,6 +413,7 @@
 				FFABCBCA22DD1EEC00D11109 /* LaunchScreen.storyboard */,
 				CBDD30E12416C7D1003B0488 /* OpenBandCyclistAssets.xcassets */,
 				CBBE0F6024039A4F0072452C /* Model */,
+				CB553AE22540F99200D29995 /* ViewControllers */,
 				CB36E612253F82F700B7F5FB /* Resources */,
 				FF50109C22DD20DE0035E83C /* Support Files */,
 			);
@@ -711,7 +731,7 @@
 				CB36E611253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift in Sources */,
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
 				FFABCBC222DD1EEB00D11109 /* AppDelegate.swift in Sources */,
-				CB624603253FEAF8006838B7 /* ValidationViewController.swift in Sources */,
+				CB553AE52541075D00D29995 /* OpenBandPeripheral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +742,8 @@
 				FFABCBE822DD1F2800D11109 /* AppDelegate.swift in Sources */,
 				CB077FBF253E651100CF56C4 /* TaskFactory.swift in Sources */,
 				CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */,
+				CB553AFC25410D1600D29995 /* ValidationViewController.swift in Sources */,
+				CB553AFD25410D2400D29995 /* OpenBandPeripheral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
