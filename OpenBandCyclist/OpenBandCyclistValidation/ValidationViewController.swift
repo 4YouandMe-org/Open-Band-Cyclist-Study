@@ -59,16 +59,6 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
     /// The button for transitioning to different recording states
     @IBOutlet public var recordingButton: RSDRoundedButton!
     
-    // Benchmarking vars
-    var ppgByteReadCount: Int = 0
-    var ppgReadStartTime: TimeInterval?
-    var accByteReadCount: Int = 0
-    var accReadStartTime: TimeInterval?
-    var polarEcgByteReadCount: Int = 0
-    var polarEcgReadStartTime: TimeInterval?
-    var polarAccByteReadCount: Int = 0
-    var polarAccReadStartTime: TimeInterval?
-    
     // Properties
     private var centralManager: CBCentralManager!
     private var peripheral: CBPeripheral!
@@ -78,6 +68,9 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
     private var accChar: CBCharacteristic?
     private var gyroChar: CBCharacteristic?
     private var magChar: CBCharacteristic?
+    
+    // Benchmarking helper class
+    var benchmark = ValidationBenchmarkingHelper()
     
     // Polar vars
     var autoConnect: Disposable?
@@ -195,33 +188,11 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             let values = [UInt8](data)
             
             if characteristic == ppgChar {
-                if self.ppgReadStartTime == nil {
-                    self.ppgReadStartTime = Date().timeIntervalSince1970
-                }
-                ppgByteReadCount += values.count
-                
-                // Log the trasmission rate about every 1 second, assuming 4kB/s
-                if (self.ppgByteReadCount % (values.count * 250) == 0) {
-                    let elapsedTime = Date().timeIntervalSince1970 - self.ppgReadStartTime!
-                    let kBperS = (Double(self.ppgByteReadCount) / 1000.0) / elapsedTime
-                    print("PPG trasmission rate = \(kBperS)kB/s")
-                    print("Example PPG values = \(values)")
-                }
+                self.benchmark.updateOBPpg(with: values)
             }
             
             if characteristic == accChar {
-                if self.accReadStartTime == nil {
-                    self.accReadStartTime = Date().timeIntervalSince1970
-                }
-                accByteReadCount += values.count
-                
-                // Log the trasmission rate about every 1 second, assuming 4kB/s
-                if (self.accByteReadCount % (values.count * 250) == 0) {
-                    let elapsedTime = Date().timeIntervalSince1970 - self.accReadStartTime!
-                    let kBperS = (Double(self.accByteReadCount) / 1000.0) / elapsedTime
-                    print("Accelerometer trasmission rate = \(kBperS)kB/s")
-                    print("Example Accelerometer values = \(values)")
-                }
+                self.benchmark.updateOBAccel(with: values)
             }
         } else {
             print("Error reading values")
@@ -288,19 +259,7 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             }).observeOn(MainScheduler.instance).subscribe{ e in
                 switch e {
                 case .next(let data):
-                    if self.polarEcgReadStartTime == nil {
-                        self.polarEcgReadStartTime = Date().timeIntervalSince1970
-                    }
-                    let previousModCount = self.polarEcgByteReadCount % 1000
-                    self.polarEcgByteReadCount += data.samples.count
-                    
-                    // Log the trasmission rate about every 1000 samples
-                    if (self.polarEcgByteReadCount % 1000) != previousModCount {
-                        print("µV: \(data.samples)")
-                        let elapsedTime = Date().timeIntervalSince1970 - self.polarEcgReadStartTime!
-                        let kBperS = Double(self.polarEcgByteReadCount) / elapsedTime
-                        print("Polar ECG trasmission rate = \(kBperS)samples/s")
-                    }
+                    self.benchmark.updatePolarEcg(for: data)
                 case .error(let err):
                     print("start ecg error: \(err)")
                     self.ecgToggle = nil
@@ -322,22 +281,7 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             }).observeOn(MainScheduler.instance).subscribe{ e in
                 switch e {
                 case .next(let data):
-                    
-                    if self.polarAccReadStartTime == nil {
-                        self.polarAccReadStartTime = Date().timeIntervalSince1970
-                    }
-                    let previousModCount = self.polarAccByteReadCount % 1000
-                    self.polarAccByteReadCount += data.samples.count
-                    
-                    // Log the trasmission rate about every 4000 samples
-                    if (self.polarAccByteReadCount % 4000) != previousModCount {
-                        let accSample = data.samples.first
-                        print("polar acc x: \(accSample?.x) y: \(accSample?.y) z: \(accSample?.z)")
-                        let elapsedTime = Date().timeIntervalSince1970 - self.polarAccReadStartTime!
-                        let kBperS = Double(self.polarAccByteReadCount) / elapsedTime
-                        print("Polar ACC trasmission rate = \(kBperS)samples/s")
-                    }
-                    
+                    self.benchmark.updatePolarAccel(for: data)
                 case .error(let err):
                     NSLog("ACC error: \(err)")
                     self.accToggle = nil
@@ -470,4 +414,95 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
 //        writeLEDValueToChar( withCharacteristic: blueChar!, withValue: Data([slider]))
 //
 //    }
+}
+
+class ValidationBenchmarkingHelper {
+    // Benchmarking vars
+    var ppgByteReadCount: Int = 0
+    var ppgReadStartTime: TimeInterval?
+    var accByteReadCount: Int = 0
+    var accReadStartTime: TimeInterval?
+    var polarEcgByteReadCount: Int = 0
+    var polarEcgReadStartTime: TimeInterval?
+    var polarAccByteReadCount: Int = 0
+    var polarAccReadStartTime: TimeInterval?
+    
+    func updateOBPpg(with values: [UInt8]) {
+        if self.ppgReadStartTime == nil {
+            self.ppgReadStartTime = Date().timeIntervalSince1970
+        }
+        ppgByteReadCount += values.count
+        // Log the trasmission rate about every 1 second, assuming 4kB/s
+        if (self.ppgByteReadCount % (values.count * 250) == 0) {
+            let elapsedTime = Date().timeIntervalSince1970 - self.ppgReadStartTime!
+            let kBperS = (Double(self.ppgByteReadCount) / 1000.0) / elapsedTime
+            print("PPG trasmission rate = \(kBperS)kB/s")
+            print("Example PPG values = \(values)")
+            
+            // Refresh the stats
+            self.ppgReadStartTime = Date().timeIntervalSince1970
+            self.ppgByteReadCount = 0
+        }
+    }
+    
+    func updateOBAccel(with values: [UInt8]) {
+        if self.accReadStartTime == nil {
+            self.accReadStartTime = Date().timeIntervalSince1970
+        }
+        accByteReadCount += values.count
+        
+        // Log the trasmission rate about every 1 second, assuming 4kB/s
+        if (self.accByteReadCount % (values.count * 250) == 0) {
+            let elapsedTime = Date().timeIntervalSince1970 - self.accReadStartTime!
+            let kBperS = (Double(self.accByteReadCount) / 1000.0) / elapsedTime
+            print("Accelerometer trasmission rate = \(kBperS)kB/s")
+            print("Example Accelerometer values = \(values)")
+            
+            // Refresh the stats
+            self.accReadStartTime = Date().timeIntervalSince1970
+            self.accByteReadCount = 0
+        }
+    }
+    
+    func updatePolarEcg(for data: PolarBleSdk.PolarEcgData) {
+        if self.polarEcgReadStartTime == nil {
+            self.polarEcgReadStartTime = Date().timeIntervalSince1970
+        }
+        let previousModCount = self.polarEcgByteReadCount % 1000
+        self.polarEcgByteReadCount += data.samples.count
+        
+        // Log the trasmission rate about every 1000 samples
+        if (self.polarEcgByteReadCount % 1000) != previousModCount {
+            let elapsedTime = Date().timeIntervalSince1970 - self.polarEcgReadStartTime!
+            let kBperS = Double(self.polarEcgByteReadCount) / elapsedTime
+            print("Polar ECG trasmission rate = \(kBperS)samples/s")
+            print("µV: \(data.samples)")
+            
+            // Refresh the stats
+            self.polarEcgReadStartTime = Date().timeIntervalSince1970
+            self.polarEcgByteReadCount = 0
+        }
+    }
+    
+    func updatePolarAccel(for data: PolarBleSdk.PolarAccData) {
+        if self.polarAccReadStartTime == nil {
+            self.polarAccReadStartTime = Date().timeIntervalSince1970
+        }
+        let previousModCount = self.polarAccByteReadCount % 1000
+        self.polarAccByteReadCount += data.samples.count
+        
+        // Log the trasmission rate about every 4000 samples
+        if (self.polarAccByteReadCount % 1000) != previousModCount {
+            let accSample = data.samples.first
+            print("polar acc x: \(accSample?.x) y: \(accSample?.y) z: \(accSample?.z)")
+            let elapsedTime = Date().timeIntervalSince1970 - self.polarAccReadStartTime!
+            let kBperS = Double(self.polarAccByteReadCount) / elapsedTime
+            print("Polar ACC trasmission rate = \(kBperS)samples/s")
+            
+            
+            // Refresh the stats
+            self.polarAccReadStartTime = Date().timeIntervalSince1970
+            self.polarAccByteReadCount = 0
+        }
+    }
 }
