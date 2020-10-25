@@ -9,8 +9,18 @@
 /* Begin PBXBuildFile section */
 		CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */; };
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
-		CB077FBF253E651100CF56C4 /* TaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBE253E651100CF56C4 /* TaskFactory.swift */; };
-		CB36E611253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */; };
+		CB3075B225438BC5004983A4 /* PolarBleRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075B125438BC5004983A4 /* PolarBleRecorder.swift */; };
+		CB3075B425438BD3004983A4 /* OpenBandBleRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075B325438BD3004983A4 /* OpenBandBleRecorder.swift */; };
+		CB3075B52543B57E004983A4 /* PolarBleRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075B125438BC5004983A4 /* PolarBleRecorder.swift */; };
+		CB3075B62543B57E004983A4 /* OpenBandBleRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075B325438BD3004983A4 /* OpenBandBleRecorder.swift */; };
+		CB3075CE25449BF1004983A4 /* Validation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB3075CD25449BF1004983A4 /* Validation.json */; };
+		CB3075CF25449FA0004983A4 /* StudyTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */; };
+		CB3075D12545027C004983A4 /* BleConnectionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */; };
+		CB3075D325450374004983A4 /* BleConnectionStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */; };
+		CB3075D425450374004983A4 /* BleConnectionStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */; };
+		CB3075D52545458B004983A4 /* OpenBandCyclistValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */; };
+		CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */; };
+		CB3075D7254545D1004983A4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
 		CB422D2A23316EB700787FEE /* BridgeAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB422D2923316EB700787FEE /* BridgeAppUI.framework */; };
 		CB422D2B23316EB700787FEE /* BridgeAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB422D2923316EB700787FEE /* BridgeAppUI.framework */; };
 		CB422D2C23316EB700787FEE /* BridgeAppUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB422D2923316EB700787FEE /* BridgeAppUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -179,9 +189,13 @@
 /* Begin PBXFileReference section */
 		CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExternalIDRegistrationViewController.xib; path = OpenBandCyclist/ExternalIDRegistrationViewController.xib; sourceTree = SOURCE_ROOT; };
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
-		CB077FBE253E651100CF56C4 /* TaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
 		CB16BF4723E4B90B0099FD08 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../gpuimage/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		CB2219A324611FC4007546CD /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = ../Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		CB3075B125438BC5004983A4 /* PolarBleRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarBleRecorder.swift; sourceTree = "<group>"; };
+		CB3075B325438BD3004983A4 /* OpenBandBleRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBandBleRecorder.swift; sourceTree = "<group>"; };
+		CB3075CD25449BF1004983A4 /* Validation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Validation.json; path = OpenBandCyclist/Validation.json; sourceTree = SOURCE_ROOT; };
+		CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleConnectionStepViewController.swift; sourceTree = "<group>"; };
+		CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BleConnectionStepViewController.xib; sourceTree = "<group>"; };
 		CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenBandCyclistValidationTests.swift; sourceTree = "<group>"; };
 		CB422D2923316EB700787FEE /* BridgeAppUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BridgeAppUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB553AE42541075D00D29995 /* OpenBandPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenBandPeripheral.swift; sourceTree = "<group>"; };
@@ -292,14 +306,6 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		CB077FBD253E64FB00CF56C4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CB077FBE253E651100CF56C4 /* TaskFactory.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		CB16BF4823E4B90B0099FD08 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,9 +327,34 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CB3075B025437873004983A4 /* Recorders */ = {
+			isa = PBXGroup;
+			children = (
+				CB3075B125438BC5004983A4 /* PolarBleRecorder.swift */,
+				CB3075B325438BD3004983A4 /* OpenBandBleRecorder.swift */,
+			);
+			name = Recorders;
+			sourceTree = "<group>";
+		};
+		CB3075C925449BA5004983A4 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
+		CB3075CC25449BE8004983A4 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				CB3075CD25449BF1004983A4 /* Validation.json */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		CB36E612253F82F700B7F5FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB3075C925449BA5004983A4 /* JSON */,
 				CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */,
 			);
 			name = Resources;
@@ -334,6 +365,8 @@
 			children = (
 				CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */,
 				CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */,
+				CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */,
+				CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -358,6 +391,7 @@
 		CBBE0F6024039A4F0072452C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB3075B025437873004983A4 /* Recorders */,
 				CB553AE32541074900D29995 /* OpenBand */,
 				CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */,
 			);
@@ -367,6 +401,7 @@
 		CBD67D7F22DFB8C400998516 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB3075CC25449BE8004983A4 /* JSON */,
 				CB6245FE253FA425006838B7 /* OpenBandCyclistValidation.strings */,
 			);
 			name = Resources;
@@ -450,7 +485,6 @@
 				FFABCBEB22DD1F2800D11109 /* Main.storyboard */,
 				FFABCBEE22DD1F2800D11109 /* Assets.xcassets */,
 				FFABCBF022DD1F2800D11109 /* LaunchScreen.storyboard */,
-				CB077FBD253E64FB00CF56C4 /* Model */,
 				CB077FB8253E645800CF56C4 /* ViewControllers */,
 				CBD67D7F22DFB8C400998516 /* Resources */,
 				FF50109D22DD20F70035E83C /* Support Files */,
@@ -703,6 +737,7 @@
 				CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
+				CB3075D325450374004983A4 /* BleConnectionStepViewController.xib in Resources */,
 				CBDD30E62416C7D1003B0488 /* OpenBandCyclistAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -711,11 +746,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB3075CE25449BF1004983A4 /* Validation.json in Resources */,
 				FFABCBF222DD1F2800D11109 /* LaunchScreen.storyboard in Resources */,
 				CB624601253FA9E0006838B7 /* OpenBandCyclistValidation.strings in Resources */,
 				FFABCBEF22DD1F2800D11109 /* Assets.xcassets in Resources */,
 				CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */,
 				CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */,
+				CB3075D425450374004983A4 /* BleConnectionStepViewController.xib in Resources */,
 				FFABCBED22DD1F2800D11109 /* Main.storyboard in Resources */,
 				FF5010A822DD22A50035E83C /* open-band-cyclist.pem in Resources */,
 				FF5010A922DD22A50035E83C /* BridgeInfo-private.plist in Resources */,
@@ -729,6 +766,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB3075D52545458B004983A4 /* OpenBandCyclistValidationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,9 +782,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB36E611253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift in Sources */,
+				CB3075B425438BD3004983A4 /* OpenBandBleRecorder.swift in Sources */,
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
+				CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */,
+				CB3075D7254545D1004983A4 /* ExternalIDRegistrationViewController.swift in Sources */,
 				FFABCBC222DD1EEB00D11109 /* AppDelegate.swift in Sources */,
+				CB3075B225438BC5004983A4 /* PolarBleRecorder.swift in Sources */,
 				CB553AE52541075D00D29995 /* OpenBandPeripheral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,9 +797,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFABCBE822DD1F2800D11109 /* AppDelegate.swift in Sources */,
-				CB077FBF253E651100CF56C4 /* TaskFactory.swift in Sources */,
 				CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */,
 				CB553AFC25410D1600D29995 /* ValidationViewController.swift in Sources */,
+				CB3075B52543B57E004983A4 /* PolarBleRecorder.swift in Sources */,
+				CB3075CF25449FA0004983A4 /* StudyTaskFactory.swift in Sources */,
+				CB3075B62543B57E004983A4 /* OpenBandBleRecorder.swift in Sources */,
+				CB3075D12545027C004983A4 /* BleConnectionStepViewController.swift in Sources */,
 				CB553AFD25410D2400D29995 /* OpenBandPeripheral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

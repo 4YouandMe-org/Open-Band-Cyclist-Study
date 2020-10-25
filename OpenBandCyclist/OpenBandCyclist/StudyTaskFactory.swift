@@ -34,22 +34,37 @@
 import BridgeApp
 
 extension RSDStepType {
+    public static let bleConnection: RSDStepType = "bleConnection"
 }
 
-open class StudyTaskFactory: TaskFactory {
-    
-    override open func decodeProfileManager(from decoder: Decoder) throws -> SBAProfileManager {
-        let typeName: String = try decoder.factory.typeName(from: decoder) ?? SBAProfileManagerType.profileManager.rawValue
-        let type = SBAProfileManagerType(rawValue: typeName)
-        
-        return try super.decodeProfileManager(from: decoder)
-    }
+extension RSDAsyncActionType {
+    public static let polarBle: RSDAsyncActionType = "polarBle"
+    public static let openBandBle: RSDAsyncActionType = "openBandBle"
+}
+
+open class StudyTaskFactory: SBAFactory {
     
     /// Override the base factory to vend Open Band Cyclist specific step objects.
     override open func decodeStep(from decoder: Decoder, with type: RSDStepType) throws -> RSDStep? {
         switch type {
+        case .bleConnection:
+            return try BleConnectionStepObject(from: decoder)
         default:
             return try super.decodeStep(from: decoder, with: type)
+        }
+    }
+    
+    override open func decodeAsyncActionConfiguration(from decoder:Decoder, with typeName: String) throws -> RSDAsyncActionConfiguration? {
+        
+        // Look to see if there is a standard permission to map to this config.
+        let type = RSDAsyncActionType(rawValue: typeName)
+        switch type {
+        case .polarBle:
+            return try PolarBleRecorderConfiguration(from: decoder)
+        case .openBandBle:
+            return try OpenBandBleRecorderConfiguration(from: decoder)
+        default:
+            return try super.decodeAsyncActionConfiguration(from: decoder, with: typeName)
         }
     }
 }

@@ -68,6 +68,11 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
         }
     }
     
+    /// Override to set the shared factory on startup.
+    override open func instantiateFactory() -> RSDFactory {
+        return StudyTaskFactory()
+    }
+    
     override func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         // Set up localization.

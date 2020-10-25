@@ -1,0 +1,83 @@
+{
+  "identifier": "Validation",
+  "taskIdentifier": "Validation",
+  "schemaIdentifier": "Validation",
+  "asyncActions": [
+    {
+      "identifier": "polarBle",
+      "type": "polarBle",
+      "requiresBackgroundAudio": true,
+      "startStepIdentifier": "bleConnection",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "openBandBle",
+      "type": "openBandBle",
+      "requiresBackgroundAudio": true,
+      "startStepIdentifier": "bleConnection",
+      "stopStepIdentifier": "bleData"
+    }
+  ],
+  "steps": [
+      {
+          "identifier": "inrto",
+          "type": "instruction",
+          "title": "Validation",
+          "text": "This task will connect to both polar h10 and open band devices, and collect the data for 30 seconds before uploading it to bridge."
+      },
+    {
+      "identifier": "bleConnection",
+      "type": "bleConnection",
+      "title": "Polar H10:",
+      "text": "Open Band:",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Begin"
+        }
+      }
+    },
+    {
+        "identifier": "countdown",
+        "type": "countdown",
+        "text": "Begin in...",
+        "duration": 5,
+        "commands": ["playSoundOnStart", "transitionAutomatically", "speakWarningOnPause"],
+        "spokenInstructions": {
+            "start": "Place the phone in your pocket."
+        }
+    },
+    {
+      "identifier": "bleData",
+      "type": "active",
+      "title": "Collection data from each device",
+      "duration": 30,
+      "commands": [
+        "transitionAutomatically",
+        "shouldDisableIdleTimer",
+        "vibrate",
+        "playSound"
+      ],
+      "spokenInstructions": {
+        "start": "Collection data from each device",
+        "halfway": "Halfway done."
+      }
+    },
+    {
+      "identifier": "completion",
+      "type": "instruction",
+      "title": "Data collected",
+      "text": "You have completed the validation capture activity. Your data will be uploaded to bridge.",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Done"
+        }
+      },
+      "shouldHideActions": [
+        "goBackward",
+        "cancel"
+      ]
+    }
+  ]
+}

@@ -59,6 +59,11 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
     override open var defaultOrientationLock: UIInterfaceOrientationMask {
         return .portrait
     }
+        
+    // Override to set the shared factory on startup.
+    override open func instantiateFactory() -> RSDFactory {
+        return StudyTaskFactory()
+    }
     
     func showAppropriateViewController(animated: Bool) {
         if BridgeSDK.authManager.isAuthenticated() {

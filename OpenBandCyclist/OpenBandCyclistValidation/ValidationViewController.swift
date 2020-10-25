@@ -33,13 +33,14 @@
 
 import Foundation
 import UIKit
+import BridgeApp
 import ResearchUI
 import BridgeSDK
 import CoreBluetooth
 import PolarBleSdk
 import RxSwift
 
-open class ValidationViewController : UIViewController, CBPeripheralDelegate, CBCentralManagerDelegate, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver {
+open class ValidationViewController : UIViewController, CBPeripheralDelegate, CBCentralManagerDelegate, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver, RSDTaskViewControllerDelegate {
     
     /// Label for displaying polar state info
     @IBOutlet public var polarLabel: UILabel!
@@ -82,24 +83,26 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
     
     var deviceId = "" // replace this with your device id
     
+    let scheduleManager = SBAScheduleManager()
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         
         guard BridgeSDK.authManager.isAuthenticated() else { return }
         
         // Open Band BLE manager
-        centralManager = CBCentralManager(delegate: self, queue: nil)
-        
-        // Polar manager setup
-        api.observer = self
-        api.deviceHrObserver = self
-        api.deviceInfoObserver = self
-        api.deviceFeaturesObserver = self
-        api.polarFilter(false)
-        print("\(PolarBleApiDefaultImpl.versionInfo())")
-        
-        // Start trying to auto connect to the nearest polar device
-        autoConnectPolar()
+//        centralManager = CBCentralManager(delegate: self, queue: nil)
+//
+//        // Polar manager setup
+//        api.observer = self
+//        api.deviceHrObserver = self
+//        api.deviceInfoObserver = self
+//        api.deviceFeaturesObserver = self
+//        api.polarFilter(false)
+//        print("\(PolarBleApiDefaultImpl.versionInfo())")
+//
+//        // Start trying to auto connect to the nearest polar device
+//        autoConnectPolar()
     }
     
     // If we're powered on, start scanning
@@ -109,8 +112,21 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             print("Central is not powered on")
         } else {
             print("Central scanning for \(OpenBandPeripheral.timestampService) and \(OpenBandPeripheral.imuService)");
-            centralManager.scanForPeripherals(withServices: [],
-                                              options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
+//            centralManager.scanForPeripherals(withServices: [],
+//                                              options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
+        }
+    }
+    
+    @IBAction func validationButtonTapped(_ sender: Any) {
+        let resource = RSDResourceTransformerObject(resourceName: "Validation.json", bundle: Bundle.main)
+        do {
+            let task = try RSDFactory.shared.decodeTask(with: resource)
+            let vc = RSDTaskViewController(task: task)
+            vc.modalPresentationStyle = .fullScreen
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        } catch let error {
+            print("Error creating validation task from JSON \(error)")
         }
     }
 
@@ -293,6 +309,15 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             accToggle?.dispose()
             accToggle = nil
         }
+    }
+    
+    public func taskController(_ taskController: RSDTaskController, didFinishWith reason: RSDTaskFinishReason, error: Error?) {
+        self.scheduleManager.taskController(taskController, didFinishWith: reason, error: error)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    public func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {
+        self.scheduleManager.taskController(taskController, readyToSave: taskViewModel)
     }
     
     // PolarBleApiObserver

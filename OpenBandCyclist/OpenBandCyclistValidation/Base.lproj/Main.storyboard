@@ -16,18 +16,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello World" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWx-Od-kPs">
-                                <rect key="frame" x="24" y="166" width="366" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap button below to begin validation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWx-Od-kPs">
+                                <rect key="frame" x="24" y="166" width="366" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzK-df-feR" customClass="RSDRoundedButton" customModule="ResearchUI">
+                                <rect key="frame" x="24" y="786" width="366" height="52"/>
+                                <state key="normal" title="Run Validation Task"/>
+                                <connections>
+                                    <action selector="validationButtonTapped:" destination="qQ7-xK-kbZ" eventType="touchUpInside" id="OwC-8L-JHy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="DEk-g8-nYG" firstAttribute="trailing" secondItem="ZWx-Od-kPs" secondAttribute="trailing" constant="24" id="9go-Nw-LcV"/>
                             <constraint firstItem="ZWx-Od-kPs" firstAttribute="leading" secondItem="DEk-g8-nYG" secondAttribute="leading" constant="24" id="H9Y-fC-FDM"/>
+                            <constraint firstItem="jzK-df-feR" firstAttribute="bottom" secondItem="DEk-g8-nYG" secondAttribute="bottom" constant="-24" id="Tt5-5o-Mq7"/>
+                            <constraint firstItem="jzK-df-feR" firstAttribute="leading" secondItem="DEk-g8-nYG" secondAttribute="leading" constant="24" id="gqQ-vw-hbs"/>
                             <constraint firstItem="ZWx-Od-kPs" firstAttribute="top" secondItem="DEk-g8-nYG" secondAttribute="top" constant="122" id="mA3-1T-DDf"/>
+                            <constraint firstItem="DEk-g8-nYG" firstAttribute="trailing" secondItem="jzK-df-feR" secondAttribute="trailing" constant="24" id="rlN-ya-Tjb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DEk-g8-nYG"/>
                     </view>
