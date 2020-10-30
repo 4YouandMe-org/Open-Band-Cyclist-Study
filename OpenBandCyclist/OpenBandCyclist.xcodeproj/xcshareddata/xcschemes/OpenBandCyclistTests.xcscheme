@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1170"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,10 +16,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB9F5E3F22E0C27C003FBCEF"
-               BuildableName = "OpenBandCylistValidationTests.xctest"
-               BlueprintName = "OpenBandCylistValidationTests"
-               ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+               BlueprintIdentifier = "CB2FD138254B9237005B476F"
+               BuildableName = "OpenBandCyclistTests.xctest"
+               BlueprintName = "OpenBandCyclistTests"
+               ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

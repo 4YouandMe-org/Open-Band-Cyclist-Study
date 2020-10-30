@@ -13,7 +13,9 @@
                 <outlet property="navigationFooter" destination="Ncg-SY-6dE" id="SLP-DO-Xlo"/>
                 <outlet property="navigationHeader" destination="kjp-vl-acf" id="7ON-iy-iGV"/>
                 <outlet property="openBandStatusLabel" destination="fYf-Ku-FlP" id="p9v-Iy-WPP"/>
+                <outlet property="openBandTitleLabel" destination="6X4-PC-7Ik" id="Sjv-4c-qqb"/>
                 <outlet property="polarStatusLabel" destination="Wcq-dy-kAV" id="AMf-Li-hOo"/>
+                <outlet property="polarTitleLabel" destination="eMZ-8x-koe" id="wRg-o7-yIw"/>
                 <outlet property="view" destination="Be1-UX-e65" id="BEo-OJ-8Gt"/>
             </connections>
         </placeholder>
@@ -80,11 +82,9 @@
                             </constraints>
                             <connections>
                                 <outlet property="cancelButton" destination="gYt-76-z57" id="ErZ-Hc-PSH"/>
-                                <outlet property="textLabel" destination="6X4-PC-7Ik" id="VyU-oN-dy6"/>
-                                <outlet property="titleLabel" destination="eMZ-8x-koe" id="oVn-Ub-ERi"/>
                             </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-SY-6dE" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-SY-6dE" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
                             <rect key="frame" x="0.0" y="599" width="375" height="101"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>

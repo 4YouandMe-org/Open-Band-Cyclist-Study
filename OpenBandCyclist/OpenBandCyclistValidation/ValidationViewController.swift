@@ -40,7 +40,7 @@ import CoreBluetooth
 import PolarBleSdk
 import RxSwift
 
-open class ValidationViewController : UIViewController, CBPeripheralDelegate, CBCentralManagerDelegate, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver, RSDTaskViewControllerDelegate {
+open class ValidationViewController : UIViewController, RSDTaskViewControllerDelegate {
     
     /// Label for displaying polar state info
     @IBOutlet public var polarLabel: UILabel!
@@ -89,34 +89,8 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
         super.viewDidLoad()
         
         guard BridgeSDK.authManager.isAuthenticated() else { return }
-        
-        // Open Band BLE manager
-//        centralManager = CBCentralManager(delegate: self, queue: nil)
-//
-//        // Polar manager setup
-//        api.observer = self
-//        api.deviceHrObserver = self
-//        api.deviceInfoObserver = self
-//        api.deviceFeaturesObserver = self
-//        api.polarFilter(false)
-//        print("\(PolarBleApiDefaultImpl.versionInfo())")
-//
-//        // Start trying to auto connect to the nearest polar device
-//        autoConnectPolar()
     }
-    
-    // If we're powered on, start scanning
-    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("Central state update")
-        if central.state != .poweredOn {
-            print("Central is not powered on")
-        } else {
-            print("Central scanning for \(OpenBandPeripheral.timestampService) and \(OpenBandPeripheral.imuService)");
-//            centralManager.scanForPeripherals(withServices: [],
-//                                              options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
-        }
-    }
-    
+
     @IBAction func validationButtonTapped(_ sender: Any) {
         let resource = RSDResourceTransformerObject(resourceName: "Validation.json", bundle: Bundle.main)
         do {
@@ -129,187 +103,6 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
             print("Error creating validation task from JSON \(error)")
         }
     }
-
-    // Handles the result of the scan
-    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-                                
-        print("Found peripheral \(peripheral)")
-        if peripheral.name == "Open Health Band" {
-            // We've found it so stop scan
-            self.centralManager.stopScan()
-            
-            // Copy the peripheral instance
-            self.peripheral = peripheral
-            
-            self.peripheral.delegate = self
-            self.centralManager.connect(self.peripheral, options: nil)
-        }
-    }
-    
-    // The handler if we do connect succesfully
-    public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        if peripheral == self.peripheral {
-            print("Connected to your Open Band")
-            peripheral.discoverServices([]);
-        }
-    }
-    
-    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if peripheral == self.peripheral {
-            print("Disconnected")
-            
-            self.peripheral = nil
-            
-            // Start scanning again
-            print("Central scanning for \(OpenBandPeripheral.timestampService) and \(OpenBandPeripheral.imuService)");
-            centralManager.scanForPeripherals(withServices: [OpenBandPeripheral.timestampService, OpenBandPeripheral.imuService],
-                                              options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
-        }
-    }
-    
-    // Handles discovery event
-    public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        if let services = peripheral.services {
-            for service in services {
-                print("Did discover service \(service)")
-                peripheral.discoverCharacteristics([], for: service)
-//                if service.uuid == OpenBandPeripheral.timestampService {
-//                    print("LED service found")
-//                    //Now kick off discovery of characteristics
-//                    peripheral.discoverCharacteristics([OpenBandPeripheral.ppgCharacteristic], for: service)
-//                }
-//                if( service.uuid == OpenBandPeripheral.imuService) {
-//                    print("Battery service found")
-//                    peripheral.discoverCharacteristics([OpenBandPeripheral.accCharacteristic, OpenBandPeripheral.gyroCharacteristic, OpenBandPeripheral.magCharacteristic], for: service)
-//                }
-            }
-        }
-    }
-    
-    public func peripheral(_ peripheral: CBPeripheral,
-                     didUpdateNotificationStateFor characteristic: CBCharacteristic,
-                     error: Error?) {
-        print("Enabling notify ", characteristic.uuid)
-        
-        if error != nil {
-            print("Enable notify error")
-        }
-    }
-
-    public func peripheral(_ peripheral: CBPeripheral,
-                     didUpdateValueFor characteristic: CBCharacteristic,
-                     error: Error?) {
-        
-        if let data = characteristic.value {
-            let values = [UInt8](data)
-            
-            if characteristic == ppgChar {
-                self.benchmark.updateOBPpg(with: values)
-            }
-            
-            if characteristic == accChar {
-                self.benchmark.updateOBAccel(with: values)
-            }
-        } else {
-            print("Error reading values")
-        }
-    }
-    
-    // Handling discovery of characteristics
-    public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        if let characteristics = service.characteristics {
-            for characteristic in characteristics {
-                print("Did discover characteristic \(characteristic)")
-                
-                
-                
-                if characteristic.uuid == OpenBandPeripheral.ppgCharacteristic {
-                    print("PPG characteristic found")
-
-                    // Set the characteristic
-                    ppgChar = characteristic
-                    
-                    self.peripheral.setNotifyValue(true, for: characteristic)
-                    
-                } else if characteristic.uuid == OpenBandPeripheral.accCharacteristic {
-                    print("Accelerometer characteristic found")
-
-                    // Set the characteristic
-                    accChar = characteristic
-                    
-                    self.peripheral.setNotifyValue(true, for: characteristic)
-                }
-//                } else if characteristic.uuid == OpenBandPeripheral.gyroCharacteristic {
-//                    print("Gyroscope characteristic found")
-//
-//                    // Set the characteristic
-//                    gyroChar = characteristic
-//                } else if characteristic.uuid == OpenBandPeripheral.magCharacteristic {
-//                    print("Magnetometer characteristic found")
-//
-//                    // Set the characteristic
-//                    magChar = characteristic
-//                }
-            }
-        }
-    }
-    
-    // Polar functionality
-    
-    func autoConnectPolar() {
-        autoConnect?.dispose()
-        autoConnect = api.startAutoConnectToDevice(-55, service: nil, polarDeviceType: nil).subscribe{ e in
-            switch e {
-            case .completed:
-                NSLog("auto connect search complete")
-            case .error(let err):
-                NSLog("auto connect failed: \(err)")
-            }
-        }
-    }
-    
-    func ecgTogglePolar() {
-        if ecgToggle == nil {
-            ecgToggle = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
-                return self.api.startEcgStreaming(self.deviceId, settings: settings.maxSettings())
-            }).observeOn(MainScheduler.instance).subscribe{ e in
-                switch e {
-                case .next(let data):
-                    self.benchmark.updatePolarEcg(for: data)
-                case .error(let err):
-                    print("start ecg error: \(err)")
-                    self.ecgToggle = nil
-                case .completed:
-                    break
-                }
-            }
-        } else {
-            ecgToggle?.dispose()
-            ecgToggle = nil
-        }
-    }
-    
-    func accTogglePolar() {
-        if accToggle == nil {
-            accToggle = api.requestAccSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarAccData> in
-                NSLog("settings: \(settings.settings)")
-                return self.api.startAccStreaming(self.deviceId, settings: settings.maxSettings())
-            }).observeOn(MainScheduler.instance).subscribe{ e in
-                switch e {
-                case .next(let data):
-                    self.benchmark.updatePolarAccel(for: data)
-                case .error(let err):
-                    NSLog("ACC error: \(err)")
-                    self.accToggle = nil
-                case .completed:
-                    break
-                }
-            }
-        } else {
-            accToggle?.dispose()
-            accToggle = nil
-        }
-    }
     
     public func taskController(_ taskController: RSDTaskController, didFinishWith reason: RSDTaskFinishReason, error: Error?) {
         self.scheduleManager.taskController(taskController, didFinishWith: reason, error: error)
@@ -319,126 +112,6 @@ open class ValidationViewController : UIViewController, CBPeripheralDelegate, CB
     public func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {
         self.scheduleManager.taskController(taskController, readyToSave: taskViewModel)
     }
-    
-    // PolarBleApiObserver
-    public func deviceConnecting(_ polarDeviceInfo: PolarDeviceInfo) {
-        NSLog("DEVICE CONNECTING: \(polarDeviceInfo)")
-    }
-    
-    public func deviceConnected(_ polarDeviceInfo: PolarDeviceInfo) {
-        NSLog("DEVICE CONNECTED: \(polarDeviceInfo)")
-        deviceId = polarDeviceInfo.deviceId
-    }
-    
-    public func deviceDisconnected(_ polarDeviceInfo: PolarDeviceInfo) {
-        NSLog("DISCONNECTED: \(polarDeviceInfo)")
-    }
-    
-    // PolarBleApiDeviceInfoObserver
-    public func batteryLevelReceived(_ identifier: String, batteryLevel: UInt) {
-        NSLog("battery level updated: \(batteryLevel)")
-    }
-    
-    public func disInformationReceived(_ identifier: String, uuid: CBUUID, value: String) {
-        NSLog("dis info: \(uuid.uuidString) value: \(value)")
-    }
-    
-    // PolarBleApiDeviceHrObserver
-    public func hrValueReceived(_ identifier: String, data: PolarHrData) {
-        NSLog("(\(identifier)) HR notification: \(data.hr) rrs: \(data.rrs) rrsMs: \(data.rrsMs) c: \(data.contact) s: \(data.contactSupported)")
-    }
-    
-    public func hrFeatureReady(_ identifier: String) {
-        NSLog("HR READY")
-    }
-    
-    // PolarBleApiDeviceEcgObserver
-    public func ecgFeatureReady(_ identifier: String) {
-        NSLog("ECG READY \(identifier)")
-        ecgTogglePolar()
-    }
-    
-    // PolarBleApiDeviceAccelerometerObserver
-    public func accFeatureReady(_ identifier: String) {
-        NSLog("ACC READY")
-        accTogglePolar()
-    }
-    
-    public func ohrPPGFeatureReady(_ identifier: String) {
-        NSLog("OHR PPG ready")
-    }
-    
-    public func ohrPPIFeatureReady(_ identifier: String) {
-        print("ohrPPI ready")
-    }
-    
-    public func ftpFeatureReady(_ identifier: String) {
-        print("ftp ready")
-    }
-    
-    // PolarBleApiPowerStateObserver
-    func blePowerOn() {
-        NSLog("BLE ON")
-    }
-    
-    func blePowerOff() {
-        NSLog("BLE OFF")
-    }
-    
-        
-//        self.peripheral?.enableNotify(for: characteristic, handler: { (error) in
-//            if error != nil {
-//                print("Error reading characteristic")
-//            }
-//            if self.startTime == nil {
-//                let startTimeUnwrapped = Date().timeIntervalSince1970
-//                self.startTime = startTimeUnwrapped
-//                print("Reading characteristic started after \(startTimeUnwrapped - self.dataReadStartTime)")
-//            }
-//            if let data = characteristic.value {
-//               let values = [UInt8](data)
-//               print("\n\(identifier) New values \(values)")
-//           } else {
-//               print("Error reading values")
-//           }
-//
-//            //print("data read ")
-//            self.dataReadCount = self.dataReadCount + 1
-//            let timePassed = Date().timeIntervalSince1970 - self.dataReadStartTime
-//            let hz = Double(self.dataReadCount) / timePassed
-//            print("\nNotify count \(self.dataReadCount) over \(timePassed) seconds\nSpeed is \(hz) Hz or \(hz*16) bytes/sec with each notify at 16 bytes")
-//
-//
-//        })
-
-//    private func writeLEDValueToChar( withCharacteristic characteristic: CBCharacteristic, withValue value: Data) {
-//
-//        // Check if it has the write property
-//        if characteristic.properties.contains(.writeWithoutResponse) && peripheral != nil {
-//
-//            peripheral.writeValue(value, for: characteristic, type: .withoutResponse)
-//        }
-//    }
-//
-//    @IBAction func redChanged(_ sender: Any) {
-//        print("red:",redSlider.value);
-//        let slider:UInt8 = UInt8(redSlider.value)
-//        writeLEDValueToChar( withCharacteristic: redChar!, withValue: Data([slider]))
-//
-//    }
-//
-//    @IBAction func greenChanged(_ sender: Any) {
-//        print("green:",greenSlider.value);
-//        let slider:UInt8 = UInt8(greenSlider.value)
-//        writeLEDValueToChar( withCharacteristic: greenChar!, withValue: Data([slider]))
-//    }
-//
-//    @IBAction func blueChanged(_ sender: Any) {
-//        print("blue:",blueSlider.value);
-//        let slider:UInt8 = UInt8(blueSlider.value)
-//        writeLEDValueToChar( withCharacteristic: blueChar!, withValue: Data([slider]))
-//
-//    }
 }
 
 class ValidationBenchmarkingHelper {
@@ -519,7 +192,7 @@ class ValidationBenchmarkingHelper {
         // Log the trasmission rate about every 4000 samples
         if (self.polarAccByteReadCount % 1000) != previousModCount {
             let accSample = data.samples.first
-            print("polar acc x: \(accSample?.x) y: \(accSample?.y) z: \(accSample?.z)")
+            print("polar acc x: \(String(describing: accSample?.x)) y: \(String(describing: accSample?.y)) z: \(String(describing: accSample?.z))")
             let elapsedTime = Date().timeIntervalSince1970 - self.polarAccReadStartTime!
             let kBperS = Double(self.polarAccByteReadCount) / elapsedTime
             print("Polar ACC trasmission rate = \(kBperS)samples/s")

@@ -39,20 +39,27 @@ import CoreBluetooth
 import PolarBleSdk
 import RxSwift
 
+public enum PolarDataType: String, Codable {
+    case ecg, hr, accelerometer
+}
+
 /// The configuration for the heart rate recorder.
 public struct PolarBleRecorderConfiguration : RSDRecorderConfiguration, RSDAsyncActionVendor, Codable {
 
     /// A unique string used to identify the recorder.
     public let identifier: String
     
-    /// The step used to mark when we should connect the user to the BLE peripheral.
-    public var connectionStepIdentifier: String?
-    
     /// The step used to mark when to start the recorder.
     public var startStepIdentifier: String?
     
     /// The step used to mark when to stop the recorder and also disconnect the BLE peripheral.
     public var stopStepIdentifier: String?
+    
+    /// The type of data to write to the logger file
+    public var dataType: PolarDataType?
+    
+    /// Set the flag to `true` to encode the samples as a CSV file.
+    public var usesCSVEncoding : Bool?
     
     /// Default initializer.
     /// - parameter identifier: A unique string used to identify the recorder.
@@ -87,66 +94,30 @@ public struct PolarBleRecorderConfiguration : RSDRecorderConfiguration, RSDAsync
     }
 }
 
-public protocol PolarBleRecorderDelegate: class {
-    func onConnectionChange(recorder: PolarBleRecorder)
-}
-
-public class PolarBleRecorder : RSDSampleRecorder, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver, CBCentralManagerDelegate {
-
-    public enum PolarBleRecorderError : Error {
-        case permissionIssue(CBManagerState)
-    }
-    
+public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAccelDataDelegate, PolarHrDataDelegate {
+        
     public var polarBleConfiguration : PolarBleRecorderConfiguration? {
         return self.configuration as? PolarBleRecorderConfiguration
     }
     
-    // ECG Sensor info
-    // Input impedance = 2 MΩ (with moistened ProStrap)
-    // Bandwidth = 0.7 - 40 Hz (with moistened ProStrap)
-    // Dynamic input range = +- 20 000 µV
-    // Sample rate = 130 Hz ± 2 % (Tamb = +20 … +40 °C)
-    // 130 Hz ± 5 % (Tamb = -20 … +70 °C)
-    // Accurate timestamps of samples available
-    // Assuming 130 Hz, we can accurately calculate the timestamp of each sample in the array
-    let timeBetweenSamples = TimeInterval(1.0 / 130.0)
-    
-    // The connected device ID
-    var connectedDeviceId: String?
-    public var isConnected: Bool {
-        return connectedDeviceId != nil
-    }
-    weak var polarDelegate: PolarBleRecorderDelegate?
-    
-    var api = PolarBleApiDefaultImpl.polarImplementation(DispatchQueue.main, features: Features.allFeatures.rawValue)
-    var autoConnect: Disposable?
-    var ecgDisposable: Disposable?
-    var accDisposable: Disposable?
-    
-    // The central BT manager, used to manage permission requests
-    var centralManager: CBCentralManager?
-    var permissionCompletion: RSDAsyncActionCompletionHandler?
-    
-    // The BLE connection can be running without writing to the logger
-    // When isRecording is true, samples from the BLE device will be logged
-    var isRecording = false
-    
     deinit {
         // TODO: mdephillips 10/23/20 do we need to de-allocate anything?
-    }
+    }    
     
-//    This did not seem to work, becuase the recorder needs to be running to have this function called
-//    /// Override to check if the step is the one where we should connect to the polar device
-//    override public func moveTo(step: RSDStep, taskViewModel: RSDPathComponent) {
-//
-//        // Call super. This will update the step path and add a step change marker.
-//        super.moveTo(step: step, taskViewModel: taskViewModel)
-//
-//        // Look to see if the configuration has a connection step and update state accordingly.
-//        if let _ = self.polarBleConfiguration?.connectionStepIdentifier {
-//            self.autoConnectBleDevice()
-//        }
-//    }
+    /// Returns the string encoding format to use for this file. Default is `nil`. If this is `nil`
+    /// then the file will be formatted using JSON encoding.
+    override public func stringEncodingFormat() -> RSDStringSeparatedEncodingFormat? {
+        if self.polarBleConfiguration?.usesCSVEncoding == true {
+            if self.polarBleConfiguration?.dataType == PolarDataType.ecg {
+                return CSVEncodingFormat<PolarEcgSample>()
+            } else if self.polarBleConfiguration?.dataType == PolarDataType.hr {
+                return CSVEncodingFormat<PolarHrSample>()
+            } else if self.polarBleConfiguration?.dataType == PolarDataType.accelerometer {
+                return CSVEncodingFormat<PolarAccelSample>()
+            }
+        }
+        return nil
+    }
     
     public override func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
         
@@ -156,261 +127,165 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarBleApiObserver, PolarBle
             return
         }
         
-        // Creating the bluetooth manager will trigger requesting the permission
-        if self.centralManager == nil {
-            self.centralManager = CBCentralManager(delegate: self, queue: nil)
-        }
-        self.centralManager?.delegate = self
-        
-        switch self.centralManager?.authorization {
-        case .allowedAlways:
-            if self.centralManager?.state == CBManagerState.poweredOff {
-                completion(self, nil, PolarBleRecorderError.permissionIssue(CBManagerState.poweredOff))
-            } else {
-                completion(self, nil, nil)
-            }
-        case .denied, .restricted:
-            completion(self, nil, PolarBleRecorderError.permissionIssue(.unauthorized))
-        default: // Not determined
-            // When the permission is not determined, the central manager creation
-            // triggers the permission request, and will be shown at this point
-            // Now we just need to wait for the delegate to communicate the change in permission
-            self.permissionCompletion = completion
-        }
-    }
-    
-    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        guard #available(iOS 13, *) else { return }
-        
-        switch self.centralManager?.authorization {
-        case .allowedAlways:
-            if self.centralManager?.state == CBManagerState.poweredOff {
-                self.permissionCompletion?(self, nil, PolarBleRecorderError.permissionIssue(CBManagerState.poweredOff))
-            } else {
-                self.permissionCompletion?(self, nil, nil)
-            }
-        case .denied, .restricted:
-            self.permissionCompletion?(self, nil, PolarBleRecorderError.permissionIssue(.unauthorized))
-        default: // Not determined
-            break
-        }
+        // TODO: mdephillips 10/22/20 deal with permission on iOS 13
+        completion(self, nil, nil)
     }
     
     public override func startRecorder(_ completion: @escaping ((RSDAsyncActionStatus, Error?) -> Void)) {
-        guard let _ = self.connectedDeviceId else {
+        let bleManager = BleConnectionManager.shared
+        
+        // Check that the Polar H10 is connected
+        guard bleManager.isConnected(type: .polar) else {
             completion(.failed, nil)
             return
         }
-        self.isRecording = true
+        
+        // Subscribe to Polar BLE data updates to write to the log file
+        if self.polarBleConfiguration?.dataType == PolarDataType.ecg {
+            bleManager.polarEcgDataDelegate = self
+        } else if self.polarBleConfiguration?.dataType == PolarDataType.hr {
+            bleManager.polarHrDataDelegate = self
+        } else if self.polarBleConfiguration?.dataType == PolarDataType.accelerometer {
+            bleManager.polarAccelDataDelegate = self
+        }
+        
         completion(.running, nil)
     }
     
     public override func stopRecorder(_ completion: @escaping ((RSDAsyncActionStatus) -> Void)) {
-        self.isRecording = false
-        self.autoConnect?.dispose()
-        self.autoConnect = nil
-        self.ecgDisposable?.dispose()
-        self.ecgDisposable = nil
-        self.accDisposable?.dispose()
-        self.accDisposable = nil
-        self.disconnectFromDevice()
+        let bleManager = BleConnectionManager.shared
+        if self.polarBleConfiguration?.dataType == PolarDataType.ecg {
+            bleManager.polarEcgDataDelegate = nil
+        } else if self.polarBleConfiguration?.dataType == PolarDataType.hr {
+            bleManager.polarHrDataDelegate = nil
+        } else if self.polarBleConfiguration?.dataType == PolarDataType.accelerometer {
+            bleManager.polarAccelDataDelegate = nil
+        }
         super.stopRecorder(completion)
     }
     
-    public func disconnectFromDevice() {
-        guard let deviceId = self.connectedDeviceId else { return }
-        do{
-            try self.api.disconnectFromDevice(deviceId)
-        } catch let err {
-            print("\(err)")
+    public func onPolarEcgData(data: PolarEcgData) {
+        /// Polar Ecg data
+        ///     - timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000
+        ///     - samples: ecg sample in µVolts
+        let lastTimeStampSec = TimeInterval(Double(data.timeStamp) / 1000000000.0)
+        
+        //let recorderSamples =
+        let samples = data.samples.enumerated().map { (i, value) -> PolarEcgSample in
+            // Calculate time interval since start time
+            let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * PolarConstants.timeBetweenSamples)
+            
+            return PolarEcgSample(uptime: timestampSec, timestamp: nil, stepPath: self.currentStepPath, ecg: value)
         }
+        
+        // Write the samples to the logging queue
+        self.writeSamples(samples)
     }
     
-    public func autoConnectBleDevice() {
+    public func onPolarAccelData(data: PolarAccData) {
+        /// Polar acc data
+        ///     - Timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000 for H10.
+        ///     - samples: Acceleration samples list x,y,z in millig signed value
+        let lastTimeStampSec = TimeInterval(Double(data.timeStamp) / 1000000000.0)
         
-        // Polar manager setup
-        self.api.observer = self
-        self.api.deviceHrObserver = self
-        self.api.deviceInfoObserver = self
-        self.api.deviceFeaturesObserver = self
-        self.api.polarFilter(false)
-        print("\(PolarBleApiDefaultImpl.versionInfo())")
-        
-        self.autoConnect?.dispose()
-        self.autoConnect = api.startAutoConnectToDevice(-55, service: nil, polarDeviceType: nil).subscribe{ e in
-            switch e {
-            case .completed:
-                print("auto connect search complete")
-            case .error(let err):
-                print("auto connect failed: \(err)")
-            @unknown default:
-                print("auto connect unknown case")
-            }
+        //let recorderSamples =
+        let samples = data.samples.enumerated().map { (i, value) -> PolarAccelSample in
+            // Calculate time interval since start time
+            let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * PolarConstants.timeBetweenSamples)
+            return PolarAccelSample(uptime: timestampSec, timestamp: nil, stepPath: self.currentStepPath, x: value.x, y: value.y, z: value.z)
         }
-    }
-    
-    func startStreamingData() {
-        guard let deviceId = self.connectedDeviceId else { return }
         
-        self.accDisposable?.dispose()
-        self.accDisposable = api.requestAccSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarAccData> in
-                    NSLog("settings: \(settings.settings)")
-                    return self.api.startAccStreaming(deviceId, settings: settings.maxSettings())
-                }).observeOn(MainScheduler.instance).subscribe{ e in
-                    switch e {
-                    case .next(let data):
-                        
-                        if self.isRecording {
-                            /// Polar acc data
-                            ///     - Timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000 for H10.
-                            ///     - samples: Acceleration samples list x,y,z in millig signed value
-                            let lastTimeStampSec = TimeInterval(Double(data.timeStamp) / 1000000000.0)
-                            
-                            //let recorderSamples =
-                            let samples = data.samples.enumerated().map { (i, value) -> PolarBleSample in
-                                // Calculate time interval since start time
-                                let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * self.timeBetweenSamples)
-                                return PolarBleSample(uptime: timestampSec, timestamp: timestampSec, stepPath: self.currentStepPath, e: nil, hr: nil, rriMs: nil, x: value.x, y: value.y, z: value.z)
-                            }
-                            
-                            // Write the samples to the logging queue
-                            self.writeSamples(samples)
-                        }
-                        
-                    case .error(let err):
-                        NSLog("ACC error: \(err)")
-                        self.accDisposable = nil
-                    case .completed:
-                        break
-                    }
-                }
-                
-                self.ecgDisposable?.dispose()
-                self.ecgDisposable = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
-                    return self.api.startEcgStreaming(deviceId, settings: settings.maxSettings())
-                }).observeOn(MainScheduler.instance).subscribe{ e in
-                    switch e {
-                    case .next(let data):
-                        if self.isRecording {
-                            /// Polar Ecg data
-                            ///     - timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000
-                            ///     - samples: ecg sample in µVolts
-                            let lastTimeStampSec = TimeInterval(Double(data.timeStamp) / 1000000000.0)
-                            
-                            //let recorderSamples =
-                            let samples = data.samples.enumerated().map { (i, value) -> PolarBleSample in
-                                // Calculate time interval since start time
-                                let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * self.timeBetweenSamples)
-                                return PolarBleSample(uptime: timestampSec, timestamp: timestampSec, stepPath: self.currentStepPath, e: value, hr: nil, rriMs: nil, x: nil, y: nil, z: nil)
-                            }
-                            
-                            // Write the samples to the logging queue
-                            self.writeSamples(samples)
-                        }
-                        
-                    case .error(let err):
-                        // TODO: mdephillips 10/23/2020 show error to user
-                        print("start ecg error: \(err)")
-                        self.ecgDisposable = nil
-                    case .completed:
-                        break
-                    }
-                }
+        // Write the samples to the logging queue
+        self.writeSamples(samples)
     }
     
-    // PolarBleApiObserver
-    public func deviceConnecting(_ polarDeviceInfo: PolarDeviceInfo) {
-        NSLog("DEVICE CONNECTING: \(polarDeviceInfo)")
-    }
-    
-    public func deviceConnected(_ polarDeviceInfo: PolarDeviceInfo) {
-        NSLog("DEVICE CONNECTED: \(polarDeviceInfo)")
-        self.connectedDeviceId = polarDeviceInfo.deviceId
-        self.polarDelegate?.onConnectionChange(recorder: self)
-        // Immediately begin streaming data
-        // Data will not be recorded until recorder is officially started
-        self.startStreamingData()
-    }
-    
-    public func deviceDisconnected(_ polarDeviceInfo: PolarDeviceInfo) {
-        NSLog("DISCONNECTED: \(polarDeviceInfo)")
-        self.connectedDeviceId = nil
-        self.polarDelegate?.onConnectionChange(recorder: self)
-    }
-    
-    // PolarBleApiDeviceInfoObserver
-    public func batteryLevelReceived(_ identifier: String, batteryLevel: UInt) {
-        NSLog("battery level updated: \(batteryLevel)")
-    }
-    
-    public func disInformationReceived(_ identifier: String, uuid: CBUUID, value: String) {
-        NSLog("dis info: \(uuid.uuidString) value: \(value)")
-    }
-    
-    // PolarBleApiDeviceHrObserver
-    public func hrValueReceived(_ identifier: String, data: PolarBleApiDeviceHrObserver.PolarHrData) {
+    public func onPolarHrData(data: PolarBleApiDeviceHrObserver.PolarHrData, timestamp: TimeInterval) {
         /// Polar hr data
         ///     - hr in BPM
         ///     - rrs RR interval in 1/1024. R is a the top highest peak in the QRS complex of the ECG wave and RR is the interval between successive Rs.
         ///     - rrs RR interval in ms.
         ///     - contact status between the device and the users skin
         ///     - contactSupported if contact is supported
-        print("(\(identifier)) HR notification: \(data.hr) rrs: \(data.rrs) rrsMs: \(data.rrsMs) c: \(data.contact) s: \(data.contactSupported)")
+        let sample = PolarHrSample(uptime: timestamp, timestamp: nil, stepPath: self.currentStepPath, hr: data.hr, rriMs: data.rrsMs)
         
-        let uptime = Date().timeIntervalSince(self.startDate)
-        let timestamp = Date().timeIntervalSince1970
-        let sample = PolarBleSample(uptime: uptime, timestamp: timestamp, stepPath: self.currentStepPath, e: nil, hr: data.hr, rriMs: data.rrsMs, x: nil, y: nil, z: nil)
         self.writeSample(sample)
-    }
-    
-    public func ohrPPGFeatureReady(_ identifier: String) {
-        // no op
-    }
-    
-    public func ohrPPIFeatureReady(_ identifier: String) {
-        // no op
-    }
-    
-    public func ftpFeatureReady(_ identifier: String) {
-        // no op
-    }
-    
-    public func hrFeatureReady(_ identifier: String) {
-        print("HR READY")
-    }
-    
-    // PolarBleApiDeviceEcgObserver
-    public func ecgFeatureReady(_ identifier: String) {
-        print("ECG READY \(identifier)")
-    }
-    
-    // PolarBleApiDeviceAccelerometerObserver
-    public func accFeatureReady(_ identifier: String) {
-        print("ACC READY")
     }
 }
 
-public struct PolarBleSample : RSDSampleRecord {
+public struct PolarEcgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
+    
     public let uptime: TimeInterval
     public let timestamp: TimeInterval?
     public var timestampDate: Date?
     public let stepPath: String
-    public let e: Int32?
-    public let hr: UInt8?
-    public let rriMs: [Int]?
-    public let x: Int32?
-    public let y: Int32?
-    public let z: Int32?
+    public let ecg: Int32
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, e: Int32?, hr: UInt8?, rriMs: [Int]?, x: Int32?, y: Int32?, z: Int32?) {
+    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, ecg: Int32) {
+        self.uptime = uptime
+        self.timestamp = timestamp
+        self.stepPath = stepPath
+        self.ecg = ecg
+    }
+    
+    public static func codingKeys() -> [CodingKey] {
+        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.ecg]
+    }
+    
+    private enum CodingKeys : String, CodingKey, CaseIterable {
+        case uptime, timestamp, timestampDate, stepPath, ecg
+    }
+}
+
+public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
+    
+    public let uptime: TimeInterval
+    public let timestamp: TimeInterval?
+    public var timestampDate: Date?
+    public let stepPath: String
+    public let hr: UInt8
+    public let rriMs: [Int]
+    
+    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, hr: UInt8, rriMs: [Int]) {
         self.uptime = uptime
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.hr = hr
         self.rriMs = rriMs
-        self.e = e
+    }
+    
+    public static func codingKeys() -> [CodingKey] {
+        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.hr, CodingKeys.rriMs]
+    }
+    
+    private enum CodingKeys : String, CodingKey, CaseIterable {
+        case uptime, timestamp, timestampDate, stepPath, hr, rriMs
+    }
+}
+
+public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
+    
+    public let uptime: TimeInterval
+    public let timestamp: TimeInterval?
+    public var timestampDate: Date?
+    public let stepPath: String
+    public let x: Int32
+    public let y: Int32
+    public let z: Int32
+    
+    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, x: Int32, y: Int32, z: Int32) {
+        self.uptime = uptime
+        self.timestamp = timestamp
+        self.stepPath = stepPath
         self.x = x
         self.y = y
         self.z = z
+    }
+    
+    public static func codingKeys() -> [CodingKey] {
+        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.x, CodingKeys.y, CodingKeys.z]
+    }
+    
+    private enum CodingKeys : String, CodingKey, CaseIterable {
+        case uptime, timestamp, timestampDate, stepPath, x, y, z
     }
 }

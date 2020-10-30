@@ -1,6 +1,6 @@
 //
-//  StudyTaskFactory.swift
-//  OpenBandCyclist
+//  ByteMathUtils.swift
+//  OpenBandCylist
 //
 //  Copyright © 2020 4YouandMe. All rights reserved.
 //
@@ -31,21 +31,15 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UIKit
-import CoreBluetooth
+import Foundation
 
-protocol OpenBandPeripheralDelegate {
+public class ByteMathUtils {
     
-}
-
-class OpenBandPeripheral: NSObject {
+    public static func toOpenBandTimestamp(byte0: UInt8, byte1: UInt8, byte2: UInt8, byte3: UInt8) -> UInt32 {
+        return UInt32(byte3) | (UInt32(byte2) << 8) | (UInt32(byte1) << 16) | (UInt32(byte0) << 24)
+    }
     
-    /// MARK: - Open Band services and charcteristics Identifiers
-
-    public static let timestampService      = CBUUID.init(string: "1165")
-    public static let imuService            = CBUUID.init(string: "1101")
-    public static let ppgCharacteristic     = CBUUID.init(string: "1166")
-    public static let accCharacteristic     = CBUUID.init(string: "1102")
-    public static let gyroCharacteristic    = CBUUID.init(string: "1103")
-    public static let magCharacteristic     = CBUUID.init(string: "1104")
+    public static func toOpenBandAccelFloat(byte0: UInt8, byte1: UInt8) -> Float {
+        return 0.0
+    }
 }

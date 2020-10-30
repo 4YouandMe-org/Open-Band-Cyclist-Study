@@ -49,43 +49,45 @@ class BleConnectionStepObject : RSDUIStepObject, RSDStepViewControllerVendor {
     }
 }
 
-open class BleConnectionStepViewController: RSDStepViewController, PolarBleRecorderDelegate, OpenBandBleRecorderDelegate {
+open class BleConnectionStepViewController: RSDStepViewController, BleConnectionRecorderDelegate {
     
     // These labels will be updated to reflect scanning and connection status
     @IBOutlet weak var polarStatusLabel: UILabel?
     @IBOutlet weak var openBandStatusLabel: UILabel?
     
-    var polarRecorder: PolarBleRecorder? {
-        return self.taskController?.currentAsyncControllers.first(where: {$0 is PolarBleRecorder}) as? PolarBleRecorder
+    // Title labels for connection status'
+    @IBOutlet weak var polarTitleLabel: UILabel?
+    @IBOutlet weak var openBandTitleLabel: UILabel?
+    
+    var connectionRecorder: BleConnectionRecorder? {
+        return self.taskController?.currentAsyncControllers.first(where: {$0 is BleConnectionRecorder}) as? BleConnectionRecorder
     }
     
-    var openBandRecorder: OpenBandBleRecorder? {
-        return self.taskController?.currentAsyncControllers.first(where: {$0 is OpenBandBleRecorder}) as? OpenBandBleRecorder
+    var includedTypes: [BleDeviceType] {
+        self.connectionRecorder?.bleConnectionConfiguration?.deviceTypes ?? []
     }
     
-//    /// Override the default background for all the placements
-//    open override func defaultBackgroundColorTile(for placement: RSDColorPlacement) -> RSDColorTile {
-//        if placement == .header || placement == .footer {
-//            return RSDColorTile(RSDColor.clear, usesLightStyle: false)
-//        } else {
-//            return self.designSystem.colorRules.palette?.grayScale.veryLightGray ?? RSDColorTile(RSDColor.white, usesLightStyle: false)
-//        }
-//    }
+    func includesDeviceType(type: BleDeviceType) -> Bool {
+        return self.connectionRecorder?.bleConnectionConfiguration?.deviceTypes?.contains(type) ?? false
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.designSystem = AppDelegate.designSystem
+        self.updateUiState()
         
-        self.openBandRecorder?.openBandDelegate = self
-        if !(self.openBandRecorder?.isConnected ?? false) {
-            self.openBandRecorder?.autoConnectBleDevice()
+        self.connectionRecorder?.connectionDelegate = self
+        // TODO: mdephillips 10/22/20 recorder start function should trigger
+        // ble connections, however need to sync with shannon why that isnt working
+        // for now just start the ble connections in this class                
+        BleConnectionManager.shared.delegate = self.connectionRecorder
+        for type in self.includedTypes {
+            BleConnectionManager.shared.connect(type: type)
         }
-        
-        self.polarRecorder?.polarDelegate = self
-        if !(self.polarRecorder?.isConnected ?? false) {
-            // Initiate connection and wait for response
-            self.polarRecorder?.autoConnectBleDevice()
-        }
+    }
+
+    public func onBleDeviceConnectionChange(type: BleDeviceType, connected: Bool) {
+        self.updateUiState()
     }
     
     public func onConnectionChange(recorder: PolarBleRecorder) {
@@ -105,19 +107,28 @@ open class BleConnectionStepViewController: RSDStepViewController, PolarBleRecor
         self.updatePolarStatus()
         self.updateOpenBandStatus()
         self.updateNextButtonState()
+        self.updateLabelVisibility()
+    }
+    
+    public func updateLabelVisibility() {
+        self.polarStatusLabel?.isHidden = !self.includesDeviceType(type: .polar)
+        self.polarTitleLabel?.isHidden = !self.includesDeviceType(type: .polar)
+        self.openBandStatusLabel?.isHidden = !self.includesDeviceType(type: .openBand)
+        self.openBandTitleLabel?.isHidden = !self.includesDeviceType(type: .openBand)
     }
     
     public func updateNextButtonState() {
-        if (self.openBandRecorder?.isConnected ?? false) &&
-            (self.polarRecorder?.isConnected ?? false) {
-            self.navigationFooter?.nextButton?.isEnabled = true
-        } else {
-            self.navigationFooter?.nextButton?.isEnabled = false
+        var allConnected = true
+        for type in self.includedTypes {
+            if !(self.connectionRecorder?.isConnected(type: type) ?? false) {
+                allConnected = false
+            }
         }
+        self.navigationFooter?.nextButton?.isEnabled = allConnected
     }
     
     public func updateOpenBandStatus() {
-        if self.openBandRecorder?.isConnected ?? false {
+        if self.connectionRecorder?.isConnected(type: .openBand) ?? false {
             self.openBandStatusLabel?.text = "Connected"
         } else {
             self.openBandStatusLabel?.text = "Scanning..."
@@ -125,7 +136,7 @@ open class BleConnectionStepViewController: RSDStepViewController, PolarBleRecor
     }
     
     public func updatePolarStatus() {
-        if self.polarRecorder?.isConnected ?? false {
+        if self.connectionRecorder?.isConnected(type: .polar) ?? false {
             self.polarStatusLabel?.text = "Connected"
         } else {
             self.polarStatusLabel?.text = "Scanning..."

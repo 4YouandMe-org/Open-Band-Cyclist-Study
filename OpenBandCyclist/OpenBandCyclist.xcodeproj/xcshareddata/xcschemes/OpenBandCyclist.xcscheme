@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FFABCBBD22DD1EEB00D11109"
                BuildableName = "OpenBandCyclist.app"
-               BlueprintName = "OpenBandCylist"
-               ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+               BlueprintName = "OpenBandCyclist"
+               ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,8 +32,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFABCBBD22DD1EEB00D11109"
             BuildableName = "OpenBandCyclist.app"
-            BlueprintName = "OpenBandCylist"
-            ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+            BlueprintName = "OpenBandCyclist"
+            ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -44,7 +44,17 @@
                BlueprintIdentifier = "CB9F5E4E22E0C2BA003FBCEF"
                BuildableName = "OpenBandCylistTests.xctest"
                BlueprintName = "OpenBandCylistTests"
-               ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+               ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CB2FD138254B9237005B476F"
+               BuildableName = "OpenBandCyclistTests.xctest"
+               BlueprintName = "OpenBandCyclistTests"
+               ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,8 +75,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFABCBBD22DD1EEB00D11109"
             BuildableName = "OpenBandCyclist.app"
-            BlueprintName = "OpenBandCylist"
-            ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+            BlueprintName = "OpenBandCyclist"
+            ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,8 +92,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFABCBBD22DD1EEB00D11109"
             BuildableName = "OpenBandCyclist.app"
-            BlueprintName = "OpenBandCylist"
-            ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+            BlueprintName = "OpenBandCyclist"
+            ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

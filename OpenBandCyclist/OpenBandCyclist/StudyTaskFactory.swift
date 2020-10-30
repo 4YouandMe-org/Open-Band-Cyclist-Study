@@ -40,6 +40,7 @@ extension RSDStepType {
 extension RSDAsyncActionType {
     public static let polarBle: RSDAsyncActionType = "polarBle"
     public static let openBandBle: RSDAsyncActionType = "openBandBle"
+    public static let bleConnections: RSDAsyncActionType = "bleConnections"
 }
 
 open class StudyTaskFactory: SBAFactory {
@@ -63,6 +64,8 @@ open class StudyTaskFactory: SBAFactory {
             return try PolarBleRecorderConfiguration(from: decoder)
         case .openBandBle:
             return try OpenBandBleRecorderConfiguration(from: decoder)
+        case .bleConnections:
+            return try BleConnectionRecorderConfiguration(from: decoder)
         default:
             return try super.decodeAsyncActionConfiguration(from: decoder, with: typeName)
         }

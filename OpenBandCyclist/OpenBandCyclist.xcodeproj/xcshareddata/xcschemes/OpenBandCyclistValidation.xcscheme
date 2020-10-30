@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FFABCBE422DD1F2800D11109"
                BuildableName = "OpenBandCyclistValidation.app"
-               BlueprintName = "OpenBandCylistValidation"
-               ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+               BlueprintName = "OpenBandCyclistValidation"
+               ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,8 +32,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFABCBE422DD1F2800D11109"
             BuildableName = "OpenBandCyclistValidation.app"
-            BlueprintName = "OpenBandCylistValidation"
-            ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+            BlueprintName = "OpenBandCyclistValidation"
+            ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -42,9 +42,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB9F5E3F22E0C27C003FBCEF"
-               BuildableName = "OpenBandCylistValidationTests.xctest"
-               BlueprintName = "OpenBandCylistValidationTests"
-               ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+               BuildableName = "OpenBandCyclistValidationTests.xctest"
+               BlueprintName = "OpenBandCyclistValidationTests"
+               ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,8 +65,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFABCBE422DD1F2800D11109"
             BuildableName = "OpenBandCyclistValidation.app"
-            BlueprintName = "OpenBandCylistValidation"
-            ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+            BlueprintName = "OpenBandCyclistValidation"
+            ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,8 +82,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FFABCBE422DD1F2800D11109"
             BuildableName = "OpenBandCyclistValidation.app"
-            BlueprintName = "OpenBandCylistValidation"
-            ReferencedContainer = "container:OpenBandCylist.xcodeproj">
+            BlueprintName = "OpenBandCyclistValidation"
+            ReferencedContainer = "container:OpenBandCyclist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
