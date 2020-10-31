@@ -162,78 +162,36 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
     public func onOpenBandPpgData(data: Data?) {
         guard let dataUnwrapped = data else { return }
         let values = [UInt8](dataUnwrapped)
+
+        guard values.count >= 16 else {
+            // TODO: mdephillips 10/22/20 log invalid sample ?
+            return
+        }
+        let timestamp = ByteMathUtils.toOpenBandTimestamp(byte0: values[0], byte1: values[1], byte2: values[2], byte3: values[3])
+        let red = ByteMathUtils.toOpenBandPpgValue(byte0: values[4], byte1: values[5], byte2: values[6], byte3: values[7])
+        let ir = ByteMathUtils.toOpenBandPpgValue(byte0: values[8], byte1: values[9], byte2: values[10], byte3: values[11])
+        let green = ByteMathUtils.toOpenBandPpgValue(byte0: values[12], byte1: values[13], byte2: values[14], byte3: values[15])
         
-        // Values come through in little endian format
-        // timestamp = [0-3]
-        // redPPG = [4-7]
-        // irPPG = [8-11]
-        // greenPPG = [12-15]
-        
-        // timestamp is the number of milliseconds passed since the Arduino board began running the current program. This number will overflow (go back to zero), after approximately 50 days.
-        let timestamp = Int32(bigEndian: values[0..<4].reversed().withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int32.self, capacity: 1) { $0 })
-        }.pointee)
-        let redPPG = Int32(bigEndian: values[4..<8].reversed().withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int32.self, capacity: 1) { $0 })
-        }.pointee)
-        let irPPG = Int32(bigEndian: values[8..<12].reversed().withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int32.self, capacity: 1) { $0 })
-        }.pointee)
-        let greenPPG = Int32(bigEndian: values[12..<16].reversed().withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int32.self, capacity: 1) { $0 })
-        }.pointee)
-        
-        let sample = OpenBandPpgSample(uptime: TimeInterval(timestamp), timestamp: nil, stepPath: self.currentStepPath, r: redPPG, g: greenPPG, i: irPPG)
+        let sample = OpenBandPpgSample(uptime: TimeInterval(timestamp), timestamp: nil, stepPath: self.currentStepPath, r: red, g: green, i: ir)
         
         self.writeSample(sample)
     }
     
-    var accelCounter = 0
     public func onOpenBandAccelData(data: Data?) {
         guard let dataUnwrapped = data else { return }
         let values = [UInt8](dataUnwrapped)
-        
-        // Values come through in little endian format
-        // timestamp = [0-3]
-        // acc_x = [4-5]
-        // acc_y = [6-7]
-        // acc_z = [8-9]
-        
-        // This is the storage buffer for the sensor, so some scaling calculation
-        // is needed for a float version of the value.
-        // From MPU9250_asukiaaa.cpp in the firmware project the calculation is:
-        // float MPU9250_asukiaaa::accelGet(uint8_t highIndex, uint8_t lowIndex) {
-        // int16_t v = ((int16_t) accelBuf[highIndex]) << 8 | accelBuf[lowIndex];
-        //   return ((float) -v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
-        // }
-        // or 2.0 / 32768.0 = 0.00006103515625
-        
-        // timestamp is the number of milliseconds passed since the Arduino board began running the current program. This number will overflow (go back to zero), after approximately 50 days.
-        //let timestamp: UInt32 = 
-        
-        let timestamp = Int32(bigEndian: values[0..<4].reversed().withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int32.self, capacity: 1) { $0 })
-        }.pointee)
 
-        let accX = Int16(bigEndian: values[4..<6].withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int16.self, capacity: 1) { $0 })
-        }.pointee)
-        let accXFloat: Float = Float(-accX) * OpenBandConstants.accelScalingFactor
-        let accY = Int16(bigEndian: values[6..<8].withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int16.self, capacity: 1) { $0 })
-        }.pointee)
-        let accYFloat: Float = Float(-accY) * OpenBandConstants.accelScalingFactor
-        let accZ = Int16(bigEndian: values[8..<10].withUnsafeBufferPointer {
-                 ($0.baseAddress!.withMemoryRebound(to: Int16.self, capacity: 1) { $0 })
-        }.pointee)
-        let accZFloat: Float = Float(-accZ) * OpenBandConstants.accelScalingFactor
-        
-        if (accelCounter % 100 == 0) {
-            print("t=\(timestamp), x=\(accXFloat), y=\(accYFloat), z=\(accZFloat)")
+        guard values.count >= 10 else {
+            // TODO: mdephillips 10/22/20 log invalid sample ?
+            return
         }
-        accelCounter = accelCounter + 1
         
-        let sample = OpenBandAccelSample(uptime: TimeInterval(timestamp), timestamp: nil, stepPath: self.currentStepPath, x: accXFloat, y: accYFloat, z: accZFloat)
+        let timestamp = ByteMathUtils.toOpenBandTimestamp(byte0: values[0], byte1: values[1], byte2: values[2], byte3: values[3])
+        let x = ByteMathUtils.toOpenBandAccelFloat(byte0: values[4], byte1: values[5])
+        let y = ByteMathUtils.toOpenBandAccelFloat(byte0: values[6], byte1: values[7])
+        let z = ByteMathUtils.toOpenBandAccelFloat(byte0: values[8], byte1: values[9])
+        
+        let sample = OpenBandAccelSample(uptime: TimeInterval(timestamp), timestamp: nil, stepPath: self.currentStepPath, x: x, y: y, z: z)
         
         self.writeSample(sample)
     }
@@ -245,11 +203,11 @@ public struct OpenBandPpgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodabl
     public let timestamp: TimeInterval?
     public var timestampDate: Date?
     public let stepPath: String
-    public let r: Int32?
-    public let g: Int32?
-    public let i: Int32?
+    public let r: UInt32
+    public let g: UInt32
+    public let i: UInt32
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, r: Int32?, g: Int32?, i: Int32?) {
+    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, r: UInt32, g: UInt32, i: UInt32) {
         self.uptime = uptime
         self.timestamp = timestamp
         self.stepPath = stepPath
@@ -273,11 +231,11 @@ public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncoda
     public let timestamp: TimeInterval?
     public var timestampDate: Date?
     public let stepPath: String
-    public let x: Float?
-    public let y: Float?
-    public let z: Float?
+    public let x: Float
+    public let y: Float
+    public let z: Float
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, x: Float?, y: Float?, z: Float?) {
+    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, x: Float, y: Float, z: Float) {
         self.uptime = uptime
         self.timestamp = timestamp
         self.stepPath = stepPath

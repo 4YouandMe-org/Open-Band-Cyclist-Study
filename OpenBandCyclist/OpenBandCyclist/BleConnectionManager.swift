@@ -72,8 +72,16 @@ public final class OpenBandConstants {
     public static let gyroCharacteristic    = CBUUID.init(string: "1103")
     public static let magCharacteristic     = CBUUID.init(string: "1104")
     
-    // The scaling factor to convert to floating point accel values
-    public static let accelScalingFactor: Float = 2.0 / 32768.0
+    /// The scaling factor to convert to floating point accel values
+    /// See Arduino code MPU9250_asukiaaa.cpp for more details.
+    /// The byte values are the storage buffers for the hardware accel sensor.
+    /// From MPU9250_asukiaaa.cpp in the firmware project the calculation is:
+    /// float MPU9250_asukiaaa::accelGet(uint8_t highIndex, uint8_t lowIndex) {
+    /// int16_t v = ((int16_t) accelBuf[highIndex]) << 8 | accelBuf[lowIndex];
+    ///   return ((float) -v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
+    /// }
+    /// where the firmware code sets "accelRange" = 16.0
+    public static let accelScalingFactor: Float = 16.0 / 32768.0
 }
 
 /// MARK: - Open Band services and charcteristics Identifiers

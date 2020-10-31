@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */; };
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
+		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12D254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12F254B9159005B476F /* BleConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12E254B9159005B476F /* BleConnectionManager.swift */; };
@@ -196,6 +197,7 @@
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
 		CB16BF4723E4B90B0099FD08 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../gpuimage/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		CB2219A324611FC4007546CD /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = ../Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteMathUtilsTests.swift; sourceTree = "<group>"; };
 		CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConnectionRecorder.swift; sourceTree = "<group>"; };
 		CB2FD12E254B9159005B476F /* BleConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConnectionManager.swift; sourceTree = "<group>"; };
 		CB2FD132254B9178005B476F /* ByteMathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteMathUtils.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			children = (
 				CB9F5E4422E0C27D003FBCEF /* Info.plist */,
 				CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */,
+				CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */,
 			);
 			path = OpenBandCyclistValidationTests;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB3075D52545458B004983A4 /* OpenBandCyclistValidationTests.swift in Sources */,
+				CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -896,7 +900,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KA9Z8R6M6K;
+				DEVELOPMENT_TEAM = 25S45RFPZF;
 				INFOPLIST_FILE = OpenBandCyclistTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -920,7 +924,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KA9Z8R6M6K;
+				DEVELOPMENT_TEAM = 25S45RFPZF;
 				INFOPLIST_FILE = OpenBandCyclistTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -940,9 +944,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KA9Z8R6M6K;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 25S45RFPZF;
 				INFOPLIST_FILE = OpenBandCyclistValidationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -963,9 +969,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KA9Z8R6M6K;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 25S45RFPZF;
 				INFOPLIST_FILE = OpenBandCyclistValidationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

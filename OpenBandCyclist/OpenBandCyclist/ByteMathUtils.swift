@@ -35,11 +35,33 @@ import Foundation
 
 public class ByteMathUtils {
     
+    
+    /// From the firmware code in Firmware_Peripheral.ino,
+    /// There is a simple conversion from unisgned 32 bit to 4 bytes
+    /// It is a simple bit shift operation that is easy to put back together the same way.
+    /// uint32_t timestamp=millis();
+    /// buf[3] = (uint8_t)timestamp;
+    /// buf[2] = (uint8_t)(timestamp>>=8);
+    /// buf[1] = (uint8_t)(timestamp>>=8);
+    /// buf[0] = (uint8_t)(timestamp>>=8);
     public static func toOpenBandTimestamp(byte0: UInt8, byte1: UInt8, byte2: UInt8, byte3: UInt8) -> UInt32 {
         return UInt32(byte3) | (UInt32(byte2) << 8) | (UInt32(byte1) << 16) | (UInt32(byte0) << 24)
     }
     
+    /// This is the same as the Timestamp logic, see above
+    public static func toOpenBandPpgValue(byte0: UInt8, byte1: UInt8, byte2: UInt8, byte3: UInt8) -> UInt32 {
+        return UInt32(byte3) | (UInt32(byte2) << 8) | (UInt32(byte1) << 16) | (UInt32(byte0) << 24)
+    }
+    
+    /// The byte values are the storage buffers for the hardware accel sensor.
+    /// From MPU9250_asukiaaa.cpp in the firmware project the calculation is:
+    /// float MPU9250_asukiaaa::accelGet(uint8_t highIndex, uint8_t lowIndex) {
+    /// int16_t v = ((int16_t) accelBuf[highIndex]) << 8 | accelBuf[lowIndex];
+    ///   return ((float) -v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
+    /// }
+    /// where the firmware code sets "accelRange" = 16.0
     public static func toOpenBandAccelFloat(byte0: UInt8, byte1: UInt8) -> Float {
-        return 0.0
+        let acc =  Int16(bitPattern: ((UInt16(byte0) << 8) | UInt16(byte1)))
+        return Float(-acc) * OpenBandConstants.accelScalingFactor
     }
 }
