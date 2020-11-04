@@ -6,7 +6,7 @@
       {
         "identifier": "bleConnections",
         "type": "bleConnections",
-        "deviceTypes": ["openBand"],
+        "deviceTypes": ["openBand", "polar"],
         "usesCSVEncoding": true,
         "requiresBackgroundAudio": true,
         "startStepIdentifier": "bleConnection",
@@ -22,18 +22,18 @@
       "stopStepIdentifier": "bleData"
     },
     {
-      "identifier": "polarHr",
+      "identifier": "polarAccel",
       "type": "polarBle",
-      "dataType": "hr",
+      "dataType": "accelerometer",
       "usesCSVEncoding": true,
       "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
     },
     {
-      "identifier": "polarAccel",
+      "identifier": "polarHr",
       "type": "polarBle",
-      "dataType": "accelerometer",
+      "dataType": "hr",
       "usesCSVEncoding": true,
       "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",

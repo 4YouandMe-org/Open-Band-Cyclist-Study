@@ -62,7 +62,7 @@ public protocol OpenBandAccelDataDelegate: class {
 
 /// MARK: - Open Band services and charcteristics Identifiers
 public final class OpenBandConstants {
-    public static let OpenBandName          = "Open Health Band"
+    public static let OpenBandName          = "Open Health"
     
     // UUID of service/chars of interest
     public static let timestampService      = CBUUID.init(string: "1165")
@@ -181,7 +181,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
                                 
         print("Found peripheral \(peripheral)")
-        if peripheral.name == OpenBandConstants.OpenBandName {
+        if peripheral.name?.starts(with: OpenBandConstants.OpenBandName) ?? false {
             // We've found it so stop scan
             self.centralManager?.stopScan()
             
@@ -338,14 +338,34 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         NSLog("DEVICE CONNECTED: \(polarDeviceInfo)")
         self.polarConnectedDeviceId = polarDeviceInfo.deviceId
         self.delegate?.onBleDeviceConnectionChange(type: .polar, connected: true)
-        // Immediately begin streaming data
-        // Data will not be recorded until recorder is officially started
-        self.startStreamingPolarData()
+        // Wait for ecg and accel features to be ready to start streaming them
     }
     
-    fileprivate func startStreamingPolarData() {
+    fileprivate func startStreamingPolarEcgData() {
         guard let deviceId = self.polarConnectedDeviceId else { return }
-        
+        self.ecgDisposable?.dispose()
+        self.ecgDisposable = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
+            return self.api.startEcgStreaming(deviceId, settings: settings.maxSettings())
+        }).observeOn(MainScheduler.instance).subscribe{ e in
+            switch e {
+            case .next(let data):
+                /// Polar acc data
+                ///     - Timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000 for H10.
+                ///     - samples: Acceleration samples list x,y,z in millig signed value
+                self.lastEcgTimestamp = TimeInterval(Double(data.timeStamp) / 1000000000.0)
+                self.polarEcgDataDelegate?.onPolarEcgData(data: data)
+            case .error(let err):
+                // TODO: mdephillips 10/23/2020 show error to user?
+                print("start ecg error: \(err)")
+                self.ecgDisposable = nil
+            default: // case .completed:
+                break
+            }
+        }
+    }
+    
+    fileprivate func startStreamingPolarAccelData() {
+        guard let deviceId = self.polarConnectedDeviceId else { return }        
         self.accDisposable?.dispose()
         self.accDisposable = api.requestAccSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarAccData> in
                     NSLog("settings: \(settings.settings)")
@@ -358,26 +378,6 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
                         // TODO: mdephillips 10/23/2020 show error to user?
                         NSLog("ACC error: \(err)")
                         self.accDisposable = nil
-                    default: // case .completed:
-                        break
-                    }
-                }
-                
-                self.ecgDisposable?.dispose()
-                self.ecgDisposable = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
-                    return self.api.startEcgStreaming(deviceId, settings: settings.maxSettings())
-                }).observeOn(MainScheduler.instance).subscribe{ e in
-                    switch e {
-                    case .next(let data):
-                        /// Polar acc data
-                        ///     - Timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000 for H10.
-                        ///     - samples: Acceleration samples list x,y,z in millig signed value
-                        self.lastEcgTimestamp = TimeInterval(Double(data.timeStamp) / 1000000000.0)
-                        self.polarEcgDataDelegate?.onPolarEcgData(data: data)
-                    case .error(let err):
-                        // TODO: mdephillips 10/23/2020 show error to user?
-                        print("start ecg error: \(err)")
-                        self.ecgDisposable = nil
                     default: // case .completed:
                         break
                     }
@@ -401,6 +401,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     
     // PolarBleApiDeviceHrObserver
     public func hrValueReceived(_ identifier: String, data: PolarBleApiDeviceHrObserver.PolarHrData) {
+        print("New HR value \(data.hr)")
         // Provide the latest ECG timestamp as a comparable timestamp across files
         self.polarHrDataDelegate?.onPolarHrData(data: data, timestamp: self.lastEcgTimestamp)
     }
@@ -424,10 +425,12 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     // PolarBleApiDeviceEcgObserver
     public func ecgFeatureReady(_ identifier: String) {
         print("Polar ECG data ready to stream \(identifier)")
+        self.startStreamingPolarEcgData()
     }
     
     // PolarBleApiDeviceAccelerometerObserver
     public func accFeatureReady(_ identifier: String) {
         print("Polar ACCEL data ready to stream \(identifier)")
+        self.startStreamingPolarAccelData()
     }
 }

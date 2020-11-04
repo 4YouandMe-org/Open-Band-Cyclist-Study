@@ -206,7 +206,7 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         ///     - rrs RR interval in ms.
         ///     - contact status between the device and the users skin
         ///     - contactSupported if contact is supported
-        let sample = PolarHrSample(uptime: timestamp, timestamp: nil, stepPath: self.currentStepPath, hr: data.hr, rriMs: data.rrsMs)
+        let sample = PolarHrSample(uptime: timestamp, timestamp: nil, stepPath: self.currentStepPath, hr: data.hr/*, rriMs: data.rrsMs*/)
         
         self.writeSample(sample)
     }
@@ -243,22 +243,22 @@ public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     public var timestampDate: Date?
     public let stepPath: String
     public let hr: UInt8
-    public let rriMs: [Int]
+    //public let rriMs: [Int]
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, hr: UInt8, rriMs: [Int]) {
+    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, hr: UInt8/*, rriMs: [Int]*/) {
         self.uptime = uptime
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.hr = hr
-        self.rriMs = rriMs
+       // self.rriMs = rriMs
     }
     
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.hr, CodingKeys.rriMs]
+        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.hr/*, CodingKeys.rriMs*/]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, hr, rriMs
+        case uptime, timestamp, timestampDate, stepPath, hr//, rriMs
     }
 }
 
