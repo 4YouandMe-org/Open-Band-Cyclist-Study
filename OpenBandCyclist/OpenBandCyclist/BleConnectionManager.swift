@@ -345,7 +345,9 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         guard let deviceId = self.polarConnectedDeviceId else { return }
         self.ecgDisposable?.dispose()
         self.ecgDisposable = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
-            return self.api.startEcgStreaming(deviceId, settings: settings.maxSettings())
+            let maxSettings = settings.maxSettings()
+            print("Attempting to start polar ecg streaming with max settings: \(maxSettings)")
+            return self.api.startEcgStreaming(deviceId, settings: maxSettings)
         }).observeOn(MainScheduler.instance).subscribe{ e in
             switch e {
             case .next(let data):
@@ -368,7 +370,8 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         guard let deviceId = self.polarConnectedDeviceId else { return }        
         self.accDisposable?.dispose()
         self.accDisposable = api.requestAccSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarAccData> in
-                    NSLog("settings: \(settings.settings)")
+                    let maxSettings = settings.maxSettings()
+                    print("Attempting to start polar accel streaming with max settings: \(maxSettings)")
                     return self.api.startAccStreaming(deviceId, settings: settings.maxSettings())
                 }).observeOn(MainScheduler.instance).subscribe{ e in
                     switch e {

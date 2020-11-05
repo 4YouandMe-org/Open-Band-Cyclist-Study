@@ -172,7 +172,7 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
         let ir = ByteMathUtils.toOpenBandPpgValue(byte0: values[8], byte1: values[9], byte2: values[10], byte3: values[11])
         let green = ByteMathUtils.toOpenBandPpgValue(byte0: values[12], byte1: values[13], byte2: values[14], byte3: values[15])
         
-        let sample = OpenBandPpgSample(uptime: TimeInterval(timestamp), timestamp: nil, stepPath: self.currentStepPath, r: red, g: green, i: ir)
+        let sample = OpenBandPpgSample(timestamp: TimeInterval(timestamp), stepPath: self.currentStepPath, r: red, g: green, i: ir)
         
         self.writeSample(sample)
     }
@@ -191,24 +191,33 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
         let y = ByteMathUtils.toOpenBandAccelFloat(byte0: values[6], byte1: values[7])
         let z = ByteMathUtils.toOpenBandAccelFloat(byte0: values[8], byte1: values[9])
         
-        let sample = OpenBandAccelSample(uptime: TimeInterval(timestamp), timestamp: nil, stepPath: self.currentStepPath, x: x, y: y, z: z)
+        let sample = OpenBandAccelSample(timestamp: TimeInterval(timestamp), stepPath: self.currentStepPath, x: x, y: y, z: z)
         
         self.writeSample(sample)
     }
 }
 
 public struct OpenBandPpgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
-    
-    public let uptime: TimeInterval
+        
+    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
+    /// See Arduino API millis() function
     public let timestamp: TimeInterval?
-    public var timestampDate: Date?
+    
+    /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
+    
+    /// The red value of the PPG sensor
     public let r: UInt32
+    /// The green value of the PPG sensor
     public let g: UInt32
+    /// The Infared value of the PPG sensor
     public let i: UInt32
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, r: UInt32, g: UInt32, i: UInt32) {
-        self.uptime = uptime
+    // Unused, but required by RSDSampleRecord protocol
+    public let timestampDate: Date? = nil
+    public let uptime: TimeInterval = Date().timeIntervalSince1970
+    
+    public init(timestamp: TimeInterval, stepPath: String, r: UInt32, g: UInt32, i: UInt32) {
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.r = r
@@ -216,27 +225,57 @@ public struct OpenBandPpgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodabl
         self.i = i
     }
     
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
+        self.r = try values.decode(UInt32.self, forKey: CodingKeys.r)
+        self.g = try values.decode(UInt32.self, forKey: CodingKeys.g)
+        self.i = try values.decode(UInt32.self, forKey: CodingKeys.i)
+        
+        // This class does not support timestampDate or uptime, ignore these values
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(r, forKey: CodingKeys.r)
+        try container.encode(g, forKey: CodingKeys.g)
+        try container.encode(i, forKey: CodingKeys.i)
+        try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(stepPath, forKey: CodingKeys.stepPath)
+    }
+    
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.r, CodingKeys.g, CodingKeys.i]
+        return [CodingKeys.timestamp, CodingKeys.r, CodingKeys.g, CodingKeys.i, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, r, g, i
+        case timestamp, r, g, i, stepPath
     }
 }
 
 public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     
-    public let uptime: TimeInterval
+    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
+    /// See Arduino API millis() function
     public let timestamp: TimeInterval?
-    public var timestampDate: Date?
+    
+    /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
+    
+    /// The x-axis accelerometer value of the sensor on the Open Band
     public let x: Float
+    /// The y-axis accelerometer value of the sensor on the Open Band
     public let y: Float
+    /// The z-axis accelerometer value of the sensor on the Open Band
     public let z: Float
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, x: Float, y: Float, z: Float) {
-        self.uptime = uptime
+    // Unused, but required by RSDSampleRecord protocol
+    public let timestampDate: Date? = nil
+    public let uptime: TimeInterval = Date().timeIntervalSince1970
+    
+    public init(timestamp: TimeInterval, stepPath: String, x: Float, y: Float, z: Float) {
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.x = x
@@ -244,11 +283,32 @@ public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncoda
         self.z = z
     }
     
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
+        self.x = try values.decode(Float.self, forKey: CodingKeys.x)
+        self.y = try values.decode(Float.self, forKey: CodingKeys.y)
+        self.z = try values.decode(Float.self, forKey: CodingKeys.z)
+        
+        // This class does not support timestampDate or uptime, ignore these values
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(x, forKey: CodingKeys.x)
+        try container.encode(y, forKey: CodingKeys.y)
+        try container.encode(z, forKey: CodingKeys.z)
+        try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(stepPath, forKey: CodingKeys.stepPath)
+    }
+    
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.x, CodingKeys.y, CodingKeys.z]
+        return [CodingKeys.timestamp, CodingKeys.x, CodingKeys.y, CodingKeys.z, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, x, y, z
+        case timestamp, x, y, z, stepPath
     }
 }

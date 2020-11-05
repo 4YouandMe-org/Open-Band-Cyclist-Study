@@ -175,7 +175,7 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
             // Calculate time interval since start time
             let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * PolarConstants.timeBetweenSamples)
             
-            return PolarEcgSample(uptime: timestampSec, timestamp: nil, stepPath: self.currentStepPath, ecg: value)
+            return PolarEcgSample(timestamp: timestampSec, stepPath: self.currentStepPath, ecg: value)
         }
         
         // Write the samples to the logging queue
@@ -192,7 +192,7 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         let samples = data.samples.enumerated().map { (i, value) -> PolarAccelSample in
             // Calculate time interval since start time
             let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * PolarConstants.timeBetweenSamples)
-            return PolarAccelSample(uptime: timestampSec, timestamp: nil, stepPath: self.currentStepPath, x: value.x, y: value.y, z: value.z)
+            return PolarAccelSample(timestamp: timestampSec, stepPath: self.currentStepPath, x: value.x, y: value.y, z: value.z)
         }
         
         // Write the samples to the logging queue
@@ -206,7 +206,7 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         ///     - rrs RR interval in ms.
         ///     - contact status between the device and the users skin
         ///     - contactSupported if contact is supported
-        let sample = PolarHrSample(uptime: timestamp, timestamp: nil, stepPath: self.currentStepPath, hr: data.hr/*, rriMs: data.rrsMs*/)
+        let sample = PolarHrSample(timestamp: timestamp, stepPath: self.currentStepPath, hr: data.hr/*, rriMs: data.rrsMs*/)
         
         self.writeSample(sample)
     }
@@ -214,66 +214,126 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
 
 public struct PolarEcgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     
-    public let uptime: TimeInterval
+    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
+    /// See Arduino API millis() function
     public let timestamp: TimeInterval?
-    public var timestampDate: Date?
+    
+    /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
+    
+    /// The ecg value of the Polar band in micro-volts
     public let ecg: Int32
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, ecg: Int32) {
-        self.uptime = uptime
+    // Unused, but required by RSDSampleRecord protocol
+    public let timestampDate: Date? = nil
+    public let uptime: TimeInterval = Date().timeIntervalSince1970
+    
+    public init(timestamp: TimeInterval, stepPath: String, ecg: Int32) {
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.ecg = ecg
     }
     
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
+        self.ecg = try values.decode(Int32.self, forKey: CodingKeys.ecg)
+        
+        // This class does not support timestampDate or uptime, ignore these values
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(ecg, forKey: CodingKeys.ecg)
+        try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(stepPath, forKey: CodingKeys.stepPath)
+    }
+    
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.ecg]
+        return [CodingKeys.timestamp, CodingKeys.ecg, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, ecg
+        case timestamp, ecg, stepPath
     }
 }
 
 public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     
-    public let uptime: TimeInterval
+    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
+    /// See Arduino API millis() function
     public let timestamp: TimeInterval?
-    public var timestampDate: Date?
+    
+    /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
+    
+    /// The HR of the polar sensor in Beats per minute
     public let hr: UInt8
+    
+    // Unused, but required by RSDSampleRecord protocol
+    public let timestampDate: Date? = nil
+    public let uptime: TimeInterval = Date().timeIntervalSince1970
+    
+    // TODO: mdephillips 11/4/2020 how do we format an array of integers in csv??
     //public let rriMs: [Int]
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, hr: UInt8/*, rriMs: [Int]*/) {
-        self.uptime = uptime
+    public init(timestamp: TimeInterval, stepPath: String, hr: UInt8/*, rriMs: [Int]*/) {
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.hr = hr
+        // TODO: mdephillips 11/4/2020 how do we format an array of integers in csv??
        // self.rriMs = rriMs
     }
     
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
+        self.hr = try values.decode(UInt8.self, forKey: CodingKeys.hr)
+        
+        // This class does not support timestampDate or uptime, ignore these values
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(hr, forKey: CodingKeys.hr)
+        try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(stepPath, forKey: CodingKeys.stepPath)
+    }
+    
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.hr/*, CodingKeys.rriMs*/]
+        return [CodingKeys.timestamp, CodingKeys.hr, CodingKeys.stepPath /*, CodingKeys.rriMs*/]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, hr//, rriMs
+        case timestamp, hr, stepPath//, rriMs
     }
 }
 
 public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
-    
-    public let uptime: TimeInterval
+        
+    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
+    /// See Arduino API millis() function
     public let timestamp: TimeInterval?
-    public var timestampDate: Date?
+    
+    /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
+    
+    /// The x-axis accelerometer value in milli-g values of the sensor on the Polar
     public let x: Int32
+    /// The y-axis accelerometer value in milli-g values of the sensor on the Polar
     public let y: Int32
+    /// The z-axis accelerometer value in milli-g values of the sensor on the Polar
     public let z: Int32
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, x: Int32, y: Int32, z: Int32) {
-        self.uptime = uptime
+    // Unused, but required by RSDSampleRecord protocol
+    public let timestampDate: Date? = nil
+    public let uptime: TimeInterval = Date().timeIntervalSince1970
+    
+    public init(timestamp: TimeInterval, stepPath: String, x: Int32, y: Int32, z: Int32) {
         self.timestamp = timestamp
         self.stepPath = stepPath
         self.x = x
@@ -281,11 +341,32 @@ public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable
         self.z = z
     }
     
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
+        self.x = try values.decode(Int32.self, forKey: CodingKeys.x)
+        self.y = try values.decode(Int32.self, forKey: CodingKeys.y)
+        self.z = try values.decode(Int32.self, forKey: CodingKeys.z)
+        
+        // This class does not support timestampDate or uptime, ignore these values
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(x, forKey: CodingKeys.x)
+        try container.encode(y, forKey: CodingKeys.y)
+        try container.encode(z, forKey: CodingKeys.z)
+        try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(stepPath, forKey: CodingKeys.stepPath)
+    }
+    
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.x, CodingKeys.y, CodingKeys.z]
+        return [CodingKeys.timestamp, CodingKeys.x, CodingKeys.y, CodingKeys.z, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, x, y, z
+        case timestamp, x, y, z, stepPath
     }
 }
