@@ -4,12 +4,9 @@
 [submodule "Carthage/Checkouts/Bridge-iOS-SDK"]
 	path = Carthage/Checkouts/Bridge-iOS-SDK
 	url = https://github.com/Sage-Bionetworks/Bridge-iOS-SDK.git
-[submodule "Carthage/Checkouts/SageResearch"]
-	path = Carthage/Checkouts/SageResearch
-	url = https://github.com/Sage-Bionetworks/SageResearch.git
 [submodule "Carthage/Checkouts/MotorControl-iOS"]
 	path = Carthage/Checkouts/MotorControl-iOS
 	url = https://github.com/Sage-Bionetworks/MotorControl-iOS.git
-[submodule "Carthage/Checkouts/polar-ble-sdk"]
-	path = Carthage/Checkouts/polar-ble-sdk
-	url = https://github.com/polarofficial/polar-ble-sdk.git
+[submodule "Carthage/Checkouts/SageResearch"]
+	path = Carthage/Checkouts/SageResearch
+	url = https://github.com/Sage-Bionetworks/SageResearch.git
