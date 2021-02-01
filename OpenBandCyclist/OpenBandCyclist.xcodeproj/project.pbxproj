@@ -41,12 +41,14 @@
 		CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */; };
 		CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */; };
 		CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA0250823FC6B2500604F2D /* Main.storyboard */; };
-		CBC28A8125C7C6D0009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC285BE25C7C6C9009950B1 /* RxSwift.xcframework */; };
-		CBC28A8E25C7C6ED009950B1 /* PolarBleSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28A8D25C7C6ED009950B1 /* PolarBleSdk.xcframework */; };
-		CBC28A9225C7C766009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC285BE25C7C6C9009950B1 /* RxSwift.xcframework */; };
-		CBC28A9325C7C766009950B1 /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC285BE25C7C6C9009950B1 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CBC28A9425C7C768009950B1 /* PolarBleSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28A8D25C7C6ED009950B1 /* PolarBleSdk.xcframework */; };
-		CBC28A9525C7C768009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28A8D25C7C6ED009950B1 /* PolarBleSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBC28AB025C7D95C009950B1 /* PolarBleSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; };
+		CBC28AB125C7D95D009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBC28AB225C7D95E009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; };
+		CBC28AB325C7D95E009950B1 /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBC28AB625C7D963009950B1 /* PolarBleSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; };
+		CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBC28AB825C7D964009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; };
+		CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */ = {isa = PBXBuildFile; fileRef = CBDCDC6B23F383DC00E5CEB8 /* open-band-cyclist.pem */; };
 		CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBDCDC7023F383DC00E5CEB8 /* BridgeInfo-private.plist */; };
 		CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFABCBEE22DD1F2800D11109 /* Assets.xcassets */; };
@@ -111,7 +113,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */,
 				CBDCDCC623F385AF00E5CEB8 /* BridgeApp.framework in Embed Frameworks */,
+				CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */,
 				CBDCDCD523F385DA00E5CEB8 /* Research.framework in Embed Frameworks */,
 				CBDCDCDB23F385EC00E5CEB8 /* ResearchUI.framework in Embed Frameworks */,
 				CBDCDCD823F385E600E5CEB8 /* ResearchMotion.framework in Embed Frameworks */,
@@ -128,13 +132,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CBC28AB325C7D95E009950B1 /* RxSwift.xcframework in Embed Frameworks */,
 				FFABCC0622DD1FCF00D11109 /* BridgeApp.framework in Embed Frameworks */,
-				CBC28A9325C7C766009950B1 /* RxSwift.xcframework in Embed Frameworks */,
+				CBC28AB125C7D95D009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */,
 				FFABCC0322DD1FC900D11109 /* MotorControl.framework in Embed Frameworks */,
 				FFABCC0922DD1FDB00D11109 /* BridgeSDK.framework in Embed Frameworks */,
 				FFABCC0022DD1FBC00D11109 /* ResearchMotion.framework in Embed Frameworks */,
 				FFABCBF922DD1FAB00D11109 /* Research.framework in Embed Frameworks */,
-				CBC28A9525C7C768009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */,
 				CB422D2C23316EB700787FEE /* BridgeAppUI.framework in Embed Frameworks */,
 				FFABCBFD22DD1FB500D11109 /* ResearchUI.framework in Embed Frameworks */,
 			);
@@ -169,8 +173,8 @@
 		CB9F5E4422E0C27D003FBCEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA0250923FC6B2500604F2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CBC0C85D242BBBF000E2EE80 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBC285BE25C7C6C9009950B1 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxSwift.xcframework; path = ../../../../../Downloads/RxSwift.xcframework; sourceTree = "<group>"; };
-		CBC28A8D25C7C6ED009950B1 /* PolarBleSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = PolarBleSdk.xcframework; path = "../../../../../Downloads/polar-ble-sdk-master/polar-sdk-ios/PolarBleSdk.xcframework"; sourceTree = "<group>"; };
+		CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = RxSwift.xcframework; sourceTree = "<group>"; };
+		CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PolarBleSdk.xcframework; sourceTree = "<group>"; };
 		CBC6519323F391BC00C3FF0C /* OpenBandCyclistTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenBandCyclistTests.swift; sourceTree = "<group>"; };
 		CBC6519523F392C700C3FF0C /* OpenBandCyclist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclist.entitlements; sourceTree = "<group>"; };
 		CBD67D8622DFC45200998516 /* OpenBandCyclistValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclistValidation.entitlements; sourceTree = "<group>"; };
@@ -223,16 +227,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBC28A8125C7C6D0009950B1 /* RxSwift.xcframework in Frameworks */,
 				CBDCDCC523F385AF00E5CEB8 /* BridgeApp.framework in Frameworks */,
 				CBDCDCD423F385DA00E5CEB8 /* Research.framework in Frameworks */,
 				CBDCDCDA23F385EC00E5CEB8 /* ResearchUI.framework in Frameworks */,
 				CBDCDCD723F385E600E5CEB8 /* ResearchMotion.framework in Frameworks */,
 				CBDCDCC923F385B800E5CEB8 /* BridgeAppUI.framework in Frameworks */,
+				CBC28AB825C7D964009950B1 /* RxSwift.xcframework in Frameworks */,
 				CBDCDCCC23F385C200E5CEB8 /* BridgeSDK.framework in Frameworks */,
 				CBDCDCD123F385D400E5CEB8 /* MotorControl.framework in Frameworks */,
 				CB6245EF253F84CC006838B7 /* HealthKit.framework in Frameworks */,
-				CBC28A8E25C7C6ED009950B1 /* PolarBleSdk.xcframework in Frameworks */,
+				CBC28AB625C7D963009950B1 /* PolarBleSdk.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,11 +249,11 @@
 				FFABCC0222DD1FC900D11109 /* MotorControl.framework in Frameworks */,
 				FFABCC0822DD1FDB00D11109 /* BridgeSDK.framework in Frameworks */,
 				FFABCBFF22DD1FBC00D11109 /* ResearchMotion.framework in Frameworks */,
-				CBC28A9225C7C766009950B1 /* RxSwift.xcframework in Frameworks */,
+				CBC28AB225C7D95E009950B1 /* RxSwift.xcframework in Frameworks */,
 				CB422D2B23316EB700787FEE /* BridgeAppUI.framework in Frameworks */,
 				FFABCBF822DD1FAB00D11109 /* Research.framework in Frameworks */,
 				FFABCBFC22DD1FB500D11109 /* ResearchUI.framework in Frameworks */,
-				CBC28A9425C7C768009950B1 /* PolarBleSdk.xcframework in Frameworks */,
+				CBC28AB025C7D95C009950B1 /* PolarBleSdk.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,8 +439,8 @@
 		FFABCC0A22DD1FE800D11109 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CBC28A8D25C7C6ED009950B1 /* PolarBleSdk.xcframework */,
-				CBC285BE25C7C6C9009950B1 /* RxSwift.xcframework */,
+				CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */,
+				CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */,
 				CB6245EE253F84CC006838B7 /* HealthKit.framework */,
 				CBDCDCD923F385EC00E5CEB8 /* ResearchUI.framework */,
 				CBDCDCD623F385E600E5CEB8 /* ResearchMotion.framework */,
