@@ -82,7 +82,7 @@
         "type": "countdown",
         "text": "Begin in...",
         "duration": 5,
-        "commands": ["playSoundOnStart", "transitionAutomatically", "speakWarningOnPause"],
+        "commands": ["playSoundOnStart", "transitionAutomatically", "speakWarningOnPause", "playSoundOnFinish", "vibrateOnFinish", "vibrateOnStart"],
         "spokenInstructions": {
             "start": "Place the phone in your pocket."
         }
@@ -90,7 +90,7 @@
     {
       "identifier": "bleData",
       "type": "active",
-      "title": "Collection data from each device",
+      "title": "Collecting data from each device...",
       "duration": 30,
       "commands": [
         "transitionAutomatically",
