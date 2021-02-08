@@ -19,8 +19,6 @@
 		CB178B9B25D0F5F9008CB0FC /* ResearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9A25D0F5F9008CB0FC /* ResearchUI */; };
 		CB178B9D25D0F615008CB0FC /* BridgeApp in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9C25D0F615008CB0FC /* BridgeApp */; };
 		CB178B9F25D0F615008CB0FC /* BridgeAppUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9E25D0F615008CB0FC /* BridgeAppUI */; };
-		CB178BA425D0F694008CB0FC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB6245EE253F84CC006838B7 /* HealthKit.framework */; };
-		CB178BA525D0F694008CB0FC /* HealthKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB6245EE253F84CC006838B7 /* HealthKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12D254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
@@ -94,7 +92,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CB178BA525D0F694008CB0FC /* HealthKit.framework in Embed Frameworks */,
 				CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */,
 				CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */,
 			);
@@ -129,7 +126,6 @@
 		CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleConnectionStepViewController.swift; sourceTree = "<group>"; };
 		CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BleConnectionStepViewController.xib; sourceTree = "<group>"; };
 		CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenBandCyclistValidationTests.swift; sourceTree = "<group>"; };
-		CB6245EE253F84CC006838B7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		CB6245FC253FA412006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclist.strings; sourceTree = "<group>"; };
 		CB6245FF253FA425006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclistValidation.strings; sourceTree = "<group>"; };
 		CB624602253FEAF8006838B7 /* ValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewController.swift; sourceTree = "<group>"; };
@@ -185,7 +181,6 @@
 				CB178B9B25D0F5F9008CB0FC /* ResearchUI in Frameworks */,
 				CB178B9125D0F5F9008CB0FC /* Research in Frameworks */,
 				CB178B9D25D0F615008CB0FC /* BridgeApp in Frameworks */,
-				CB178BA425D0F694008CB0FC /* HealthKit.framework in Frameworks */,
 				CBC28AB625C7D963009950B1 /* PolarBleSdk.xcframework in Frameworks */,
 				CB178B9F25D0F615008CB0FC /* BridgeAppUI in Frameworks */,
 			);
@@ -388,7 +383,6 @@
 			children = (
 				CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */,
 				CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */,
-				CB6245EE253F84CC006838B7 /* HealthKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -34,6 +34,7 @@
 import Foundation
 import UIKit
 import BridgeApp
+import Research
 import ResearchUI
 import BridgeSDK
 import CoreBluetooth

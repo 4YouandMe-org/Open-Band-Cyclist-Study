@@ -33,9 +33,10 @@
 
 import UIKit
 import BridgeApp
+import BridgeAppUI
 import BridgeSDK
 import Research
-import BridgeAppUI
+import ResearchUI
 
 @UIApplicationMain
 class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
@@ -78,9 +79,6 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
         // Set up localization.
         let mainBundle = LocalizationBundle(bundle: Bundle.main, tableName: "OpenBandCyclistValidation")
         Localization.insert(bundle: mainBundle, at: 0)
-        
-        // Set up font rules.
-        RSDStudyConfiguration.shared.fontRules = PSRFontRules(version: 0)
         
         return super.application(application, willFinishLaunchingWithOptions: launchOptions)
     }
