@@ -119,7 +119,7 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
         }
     }
     
-    public override func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
+    public func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
         
         // We only need to request bluetooth permission on iOS 13 or later
         guard #available(iOS 13, *) else {
