@@ -109,6 +109,11 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
         // TODO: mdephillips 10/23/20 do we need to de-allocate anything?
     }
     
+    /// Don't include markers as they will cause a gap in the timestamps
+    override open var shouldIncludeMarkers: Bool {
+        false
+    }
+    
     /// Returns the string encoding format to use for this file. Default is `nil`. If this is `nil`
     /// then the file will be formatted using JSON encoding.
     override public func stringEncodingFormat() -> RSDStringSeparatedEncodingFormat? {
