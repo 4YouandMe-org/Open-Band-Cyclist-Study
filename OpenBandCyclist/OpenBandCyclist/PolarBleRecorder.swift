@@ -105,9 +105,9 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
     }
     
     /// Don't include markers as they will cause a gap in the timestamps
-    override open var shouldIncludeMarkers: Bool {
-        false
-    }
+//    override open var shouldIncludeMarkers: Bool {
+//        false
+//    }
     
     /// Returns the string encoding format to use for this file. Default is `nil`. If this is `nil`
     /// then the file will be formatted using JSON encoding.
@@ -124,7 +124,7 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         return nil
     }
     
-    public func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
+    public override func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
         
         // We only need to request bluetooth permission on iOS 13 or later
         guard #available(iOS 13, *) else {
@@ -169,7 +169,13 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         super.stopRecorder(completion)
     }
     
+    var counter = 0
     public func onPolarEcgData(data: PolarEcgData) {
+        
+        self.counter += 1
+        if (counter % 100 == 0) {
+            print("New 100th ECG \(data)")
+        }
         /// Polar Ecg data
         ///     - timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000
         ///     - samples: ecg sample in µVolts

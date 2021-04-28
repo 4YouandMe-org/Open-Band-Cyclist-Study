@@ -110,9 +110,9 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
     }
     
     /// Don't include markers as they will cause a gap in the timestamps
-    override open var shouldIncludeMarkers: Bool {
-        false
-    }
+//    override open var shouldIncludeMarkers: Bool {
+//        false
+//    }
     
     /// Returns the string encoding format to use for this file. Default is `nil`. If this is `nil`
     /// then the file will be formatted using JSON encoding.
@@ -124,7 +124,7 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
         }
     }
     
-    public func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
+    public override func requestPermissions(on viewController: UIViewController, _ completion: @escaping RSDAsyncActionCompletionHandler) {
         
         // We only need to request bluetooth permission on iOS 13 or later
         guard #available(iOS 13, *) else {

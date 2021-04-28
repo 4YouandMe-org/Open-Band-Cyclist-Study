@@ -62,7 +62,7 @@ public protocol OpenBandAccelDataDelegate: class {
 
 /// MARK: - Open Band services and charcteristics Identifiers
 public final class OpenBandConstants {
-    public static let OpenBandName          = "Open Health"
+    public static let OpenBandName          = "Movuino OHB"
     
     // UUID of service/chars of interest
     public static let timestampService      = CBUUID.init(string: "1165")
@@ -348,7 +348,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
             let maxSettings = settings.maxSettings()
             print("Attempting to start polar ecg streaming with max settings: \(maxSettings)")
             return self.api.startEcgStreaming(deviceId, settings: maxSettings)
-        }).observeOn(MainScheduler.instance).subscribe{ e in
+        }).observe(on: MainScheduler.instance).subscribe{ e in
             switch e {
             case .next(let data):
                 /// Polar acc data
@@ -373,7 +373,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
                     let maxSettings = settings.maxSettings()
                     print("Attempting to start polar accel streaming with max settings: \(maxSettings)")
                     return self.api.startAccStreaming(deviceId, settings: settings.maxSettings())
-                }).observeOn(MainScheduler.instance).subscribe{ e in
+        }).observe(on: MainScheduler.instance).subscribe{ e in
                     switch e {
                     case .next(let data):
                         self.polarAccelDataDelegate?.onPolarAccelData(data: data)

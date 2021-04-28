@@ -9,16 +9,6 @@
 /* Begin PBXBuildFile section */
 		CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */; };
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
-		CB178B7C25D0F455008CB0FC /* Research in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B7B25D0F455008CB0FC /* Research */; };
-		CB178B7E25D0F455008CB0FC /* ResearchMotion in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B7D25D0F455008CB0FC /* ResearchMotion */; };
-		CB178B8025D0F455008CB0FC /* ResearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B7F25D0F455008CB0FC /* ResearchUI */; };
-		CB178B8525D0F570008CB0FC /* BridgeAppUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B8425D0F570008CB0FC /* BridgeAppUI */; };
-		CB178B8725D0F570008CB0FC /* BridgeApp in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B8625D0F570008CB0FC /* BridgeApp */; };
-		CB178B9125D0F5F9008CB0FC /* Research in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9025D0F5F9008CB0FC /* Research */; };
-		CB178B9925D0F5F9008CB0FC /* ResearchMotion in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9825D0F5F9008CB0FC /* ResearchMotion */; };
-		CB178B9B25D0F5F9008CB0FC /* ResearchUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9A25D0F5F9008CB0FC /* ResearchUI */; };
-		CB178B9D25D0F615008CB0FC /* BridgeApp in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9C25D0F615008CB0FC /* BridgeApp */; };
-		CB178B9F25D0F615008CB0FC /* BridgeAppUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB178B9E25D0F615008CB0FC /* BridgeAppUI */; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12D254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
@@ -43,6 +33,38 @@
 		CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */; };
 		CB624601253FA9E0006838B7 /* OpenBandCyclistValidation.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FE253FA425006838B7 /* OpenBandCyclistValidation.strings */; };
 		CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BA2540AC5200E22BA5 /* BridgeInfo.plist */; };
+		CB825E3D263A1428005D0529 /* BridgeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE5263A13FA005D0529 /* BridgeApp.framework */; };
+		CB825E3E263A1428005D0529 /* BridgeApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE5263A13FA005D0529 /* BridgeApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E3F263A1428005D0529 /* BridgeAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE9263A13FA005D0529 /* BridgeAppUI.framework */; };
+		CB825E40263A1428005D0529 /* BridgeAppUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE9263A13FA005D0529 /* BridgeAppUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E41263A1428005D0529 /* BridgeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DBA263A13ED005D0529 /* BridgeSDK.framework */; };
+		CB825E42263A1428005D0529 /* BridgeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DBA263A13ED005D0529 /* BridgeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E43263A1428005D0529 /* MotorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DFD263A1409005D0529 /* MotorControl.framework */; };
+		CB825E44263A1428005D0529 /* MotorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DFD263A1409005D0529 /* MotorControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E45263A1428005D0529 /* Research.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E22263A1414005D0529 /* Research.framework */; };
+		CB825E46263A1428005D0529 /* Research.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E22263A1414005D0529 /* Research.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E47263A1428005D0529 /* ResearchMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E34263A1414005D0529 /* ResearchMotion.framework */; };
+		CB825E48263A1428005D0529 /* ResearchMotion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E34263A1414005D0529 /* ResearchMotion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E49263A1428005D0529 /* ResearchRecorders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E32263A1414005D0529 /* ResearchRecorders.framework */; };
+		CB825E4A263A1428005D0529 /* ResearchRecorders.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E32263A1414005D0529 /* ResearchRecorders.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E4B263A1428005D0529 /* ResearchUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E2E263A1414005D0529 /* ResearchUI.framework */; };
+		CB825E4C263A1428005D0529 /* ResearchUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E2E263A1414005D0529 /* ResearchUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E4F263A1439005D0529 /* BridgeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE5263A13FA005D0529 /* BridgeApp.framework */; };
+		CB825E50263A1439005D0529 /* BridgeApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE5263A13FA005D0529 /* BridgeApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E51263A1439005D0529 /* BridgeAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE9263A13FA005D0529 /* BridgeAppUI.framework */; };
+		CB825E52263A1439005D0529 /* BridgeAppUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DE9263A13FA005D0529 /* BridgeAppUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E53263A1439005D0529 /* BridgeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DBA263A13ED005D0529 /* BridgeSDK.framework */; };
+		CB825E54263A1439005D0529 /* BridgeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DBA263A13ED005D0529 /* BridgeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E55263A1439005D0529 /* MotorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DFD263A1409005D0529 /* MotorControl.framework */; };
+		CB825E56263A1439005D0529 /* MotorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825DFD263A1409005D0529 /* MotorControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E57263A1439005D0529 /* Research.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E22263A1414005D0529 /* Research.framework */; };
+		CB825E58263A1439005D0529 /* Research.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E22263A1414005D0529 /* Research.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E59263A1439005D0529 /* ResearchMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E34263A1414005D0529 /* ResearchMotion.framework */; };
+		CB825E5A263A1439005D0529 /* ResearchMotion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E34263A1414005D0529 /* ResearchMotion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E5B263A1439005D0529 /* ResearchRecorders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E32263A1414005D0529 /* ResearchRecorders.framework */; };
+		CB825E5C263A1439005D0529 /* ResearchRecorders.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E32263A1414005D0529 /* ResearchRecorders.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB825E5D263A1439005D0529 /* ResearchUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E2E263A1414005D0529 /* ResearchUI.framework */; };
+		CB825E5E263A1439005D0529 /* ResearchUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB825E2E263A1414005D0529 /* ResearchUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */; };
 		CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */; };
 		CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA0250823FC6B2500604F2D /* Main.storyboard */; };
@@ -76,6 +98,188 @@
 			remoteGlobalIDString = FFABCBBD22DD1EEB00D11109;
 			remoteInfo = OpenBandCylist;
 		};
+		CB825DB9263A13ED005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 80855F5019BE258C006601C7;
+			remoteInfo = BridgeSDK;
+		};
+		CB825DBB263A13ED005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 80855F5B19BE258C006601C7;
+			remoteInfo = BridgeSDKTests;
+		};
+		CB825DBD263A13ED005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 807AE2871B603309002588BB;
+			remoteInfo = BridgeSDKIntegration;
+		};
+		CB825DBF263A13ED005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 807AE29F1B60330C002588BB;
+			remoteInfo = BridgeSDKIntegrationTests;
+		};
+		CB825DC1263A13ED005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F81BE77820B4951F00EE57D3;
+			remoteInfo = "BridgeSDK-Test";
+		};
+		CB825DE4263A13FA005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F83B44A52032467D002825AE;
+			remoteInfo = "BridgeApp (iOS)";
+		};
+		CB825DE6263A13FA005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F83B44AE2032467D002825AE;
+			remoteInfo = BridgeAppTests;
+		};
+		CB825DE8263A13FA005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF9D7965230C71B1005CFB37;
+			remoteInfo = "BridgeAppUI (iOS)";
+		};
+		CB825DEA263A13FA005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF9D797A230C737C005CFB37;
+			remoteInfo = "DataTracking (iOS)";
+		};
+		CB825DEC263A13FA005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF9D7982230C737C005CFB37;
+			remoteInfo = DataTrackingTests;
+		};
+		CB825DEE263A13FA005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F83B450220324A33002825AE;
+			remoteInfo = BridgeAppExample;
+		};
+		CB825DFC263A1409005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DF7263A1409005D0529 /* MotorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F813D6E121BB40D900795664;
+			remoteInfo = MotorControl;
+		};
+		CB825DFE263A1409005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825DF7263A1409005D0529 /* MotorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F813D6EA21BB40D900795664;
+			remoteInfo = MotorControlTests;
+		};
+		CB825E21263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF8B53141FCE678E006B6937;
+			remoteInfo = "Research (iOS)";
+		};
+		CB825E23263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF8B53301FCE67AA006B6937;
+			remoteInfo = "Research (watchOS)";
+		};
+		CB825E25263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF8B533D1FCE67C7006B6937;
+			remoteInfo = "Research (tvOS)";
+		};
+		CB825E27263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8BE123521370931000AAB1E;
+			remoteInfo = "Research (macOS)";
+		};
+		CB825E29263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF8B531C1FCE678E006B6937;
+			remoteInfo = ResearchTests_iOS;
+		};
+		CB825E2B263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F875575620807E2300235078;
+			remoteInfo = "Research-UnitTest";
+		};
+		CB825E2D263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F87061A0227390110056F70E;
+			remoteInfo = "ResearchUI (iOS)";
+		};
+		CB825E2F263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F87061A8227390110056F70E;
+			remoteInfo = ResearchUITests_iOS;
+		};
+		CB825E31263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F814DCE722750435004579EF;
+			remoteInfo = "ResearchRecorders (iOS)";
+		};
+		CB825E33263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F891DD13228CFCD3001B2A57;
+			remoteInfo = ResearchMotion;
+		};
+		CB825E35263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F891DD1B228CFCD3001B2A57;
+			remoteInfo = ResearchMotionTests;
+		};
+		CB825E37263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F82A4AA022960BF700BEBE3C;
+			remoteInfo = ResearchLocation;
+		};
+		CB825E39263A1414005D0529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F82A4AA822960BF700BEBE3C;
+			remoteInfo = ResearchLocationTests;
+		};
 		CB9F5E4522E0C27D003FBCEF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FFABCBB622DD1EEB00D11109 /* Project object */;
@@ -92,8 +296,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CB825E44263A1428005D0529 /* MotorControl.framework in Embed Frameworks */,
+				CB825E4A263A1428005D0529 /* ResearchRecorders.framework in Embed Frameworks */,
 				CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */,
+				CB825E46263A1428005D0529 /* Research.framework in Embed Frameworks */,
+				CB825E42263A1428005D0529 /* BridgeSDK.framework in Embed Frameworks */,
+				CB825E40263A1428005D0529 /* BridgeAppUI.framework in Embed Frameworks */,
+				CB825E3E263A1428005D0529 /* BridgeApp.framework in Embed Frameworks */,
 				CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */,
+				CB825E48263A1428005D0529 /* ResearchMotion.framework in Embed Frameworks */,
+				CB825E4C263A1428005D0529 /* ResearchUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,8 +316,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CB825E56263A1439005D0529 /* MotorControl.framework in Embed Frameworks */,
+				CB825E5C263A1439005D0529 /* ResearchRecorders.framework in Embed Frameworks */,
 				CBC28AB325C7D95E009950B1 /* RxSwift.xcframework in Embed Frameworks */,
+				CB825E58263A1439005D0529 /* Research.framework in Embed Frameworks */,
+				CB825E54263A1439005D0529 /* BridgeSDK.framework in Embed Frameworks */,
+				CB825E52263A1439005D0529 /* BridgeAppUI.framework in Embed Frameworks */,
+				CB825E50263A1439005D0529 /* BridgeApp.framework in Embed Frameworks */,
 				CBC28AB125C7D95D009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */,
+				CB825E5A263A1439005D0529 /* ResearchMotion.framework in Embed Frameworks */,
+				CB825E5E263A1439005D0529 /* ResearchUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +351,10 @@
 		CB624602253FEAF8006838B7 /* ValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewController.swift; sourceTree = "<group>"; };
 		CB68E8BA2540AC5200E22BA5 /* BridgeInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BridgeInfo.plist; sourceTree = "<group>"; };
 		CB68E8BC2540AC5E00E22BA5 /* BridgeInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BridgeInfo.plist; sourceTree = "<group>"; };
+		CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BridgeSDK.xcodeproj; path = "../Carthage/Checkouts/Bridge-iOS-SDK/BridgeSDK.xcodeproj"; sourceTree = "<group>"; };
+		CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BridgeApp.xcodeproj; path = "../Carthage/Checkouts/BridgeApp-Apple-SDK/BridgeApp/BridgeApp.xcodeproj"; sourceTree = "<group>"; };
+		CB825DF7263A1409005D0529 /* MotorControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MotorControl.xcodeproj; path = "../Carthage/Checkouts/MotorControl-iOS/MotorControl/MotorControl.xcodeproj"; sourceTree = "<group>"; };
+		CB825E04263A1414005D0529 /* Research.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Research.xcodeproj; path = ../Carthage/Checkouts/SageResearch/Research/Research.xcodeproj; sourceTree = "<group>"; };
 		CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyTaskFactory.swift; sourceTree = "<group>"; };
 		CB9F5E4022E0C27C003FBCEF /* OpenBandCyclistValidationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenBandCyclistValidationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9F5E4422E0C27D003FBCEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -176,13 +400,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB825E43263A1428005D0529 /* MotorControl.framework in Frameworks */,
+				CB825E49263A1428005D0529 /* ResearchRecorders.framework in Frameworks */,
 				CBC28AB825C7D964009950B1 /* RxSwift.xcframework in Frameworks */,
-				CB178B9925D0F5F9008CB0FC /* ResearchMotion in Frameworks */,
-				CB178B9B25D0F5F9008CB0FC /* ResearchUI in Frameworks */,
-				CB178B9125D0F5F9008CB0FC /* Research in Frameworks */,
-				CB178B9D25D0F615008CB0FC /* BridgeApp in Frameworks */,
+				CB825E45263A1428005D0529 /* Research.framework in Frameworks */,
+				CB825E41263A1428005D0529 /* BridgeSDK.framework in Frameworks */,
+				CB825E3F263A1428005D0529 /* BridgeAppUI.framework in Frameworks */,
+				CB825E3D263A1428005D0529 /* BridgeApp.framework in Frameworks */,
 				CBC28AB625C7D963009950B1 /* PolarBleSdk.xcframework in Frameworks */,
-				CB178B9F25D0F615008CB0FC /* BridgeAppUI in Frameworks */,
+				CB825E47263A1428005D0529 /* ResearchMotion.framework in Frameworks */,
+				CB825E4B263A1428005D0529 /* ResearchUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,13 +417,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB825E55263A1439005D0529 /* MotorControl.framework in Frameworks */,
+				CB825E5B263A1439005D0529 /* ResearchRecorders.framework in Frameworks */,
 				CBC28AB225C7D95E009950B1 /* RxSwift.xcframework in Frameworks */,
-				CB178B7E25D0F455008CB0FC /* ResearchMotion in Frameworks */,
-				CB178B8025D0F455008CB0FC /* ResearchUI in Frameworks */,
-				CB178B7C25D0F455008CB0FC /* Research in Frameworks */,
-				CB178B8725D0F570008CB0FC /* BridgeApp in Frameworks */,
+				CB825E57263A1439005D0529 /* Research.framework in Frameworks */,
+				CB825E53263A1439005D0529 /* BridgeSDK.framework in Frameworks */,
+				CB825E51263A1439005D0529 /* BridgeAppUI.framework in Frameworks */,
+				CB825E4F263A1439005D0529 /* BridgeApp.framework in Frameworks */,
 				CBC28AB025C7D95C009950B1 /* PolarBleSdk.xcframework in Frameworks */,
-				CB178B8525D0F570008CB0FC /* BridgeAppUI in Frameworks */,
+				CB825E59263A1439005D0529 /* ResearchMotion.framework in Frameworks */,
+				CB825E5D263A1439005D0529 /* ResearchUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +492,60 @@
 				CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CB825DAA263A13ED005D0529 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB825DBA263A13ED005D0529 /* BridgeSDK.framework */,
+				CB825DBC263A13ED005D0529 /* BridgeSDKTests.xctest */,
+				CB825DBE263A13ED005D0529 /* BridgeSDKIntegration.app */,
+				CB825DC0263A13ED005D0529 /* BridgeSDKIntegrationTests.xctest */,
+				CB825DC2263A13ED005D0529 /* BridgeSDK_Test.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB825DDC263A13F9005D0529 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB825DE5263A13FA005D0529 /* BridgeApp.framework */,
+				CB825DE7263A13FA005D0529 /* BridgeAppTests.xctest */,
+				CB825DE9263A13FA005D0529 /* BridgeAppUI.framework */,
+				CB825DEB263A13FA005D0529 /* DataTracking.framework */,
+				CB825DED263A13FA005D0529 /* DataTrackingTests.xctest */,
+				CB825DEF263A13FA005D0529 /* BridgeAppExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB825DF8263A1409005D0529 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB825DFD263A1409005D0529 /* MotorControl.framework */,
+				CB825DFF263A1409005D0529 /* MotorControlTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB825E05263A1414005D0529 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB825E22263A1414005D0529 /* Research.framework */,
+				CB825E24263A1414005D0529 /* Research.framework */,
+				CB825E26263A1414005D0529 /* Research.framework */,
+				CB825E28263A1414005D0529 /* Research.framework */,
+				CB825E2A263A1414005D0529 /* ResearchTests_iOS.xctest */,
+				CB825E2C263A1414005D0529 /* Research_UnitTest.framework */,
+				CB825E2E263A1414005D0529 /* ResearchUI.framework */,
+				CB825E30263A1414005D0529 /* ResearchUITests_iOS.xctest */,
+				CB825E32263A1414005D0529 /* ResearchRecorders.framework */,
+				CB825E34263A1414005D0529 /* ResearchMotion.framework */,
+				CB825E36263A1414005D0529 /* ResearchMotionTests.xctest */,
+				CB825E38263A1414005D0529 /* ResearchLocation.framework */,
+				CB825E3A263A1414005D0529 /* ResearchLocationTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		CB9F5E4122E0C27D003FBCEF /* OpenBandCyclistValidationTests */ = {
@@ -381,6 +665,10 @@
 		FFABCC0A22DD1FE800D11109 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB825E04263A1414005D0529 /* Research.xcodeproj */,
+				CB825DF7263A1409005D0529 /* MotorControl.xcodeproj */,
+				CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */,
+				CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */,
 				CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */,
 				CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */,
 			);
@@ -441,11 +729,6 @@
 			);
 			name = OpenBandCyclist;
 			packageProductDependencies = (
-				CB178B9025D0F5F9008CB0FC /* Research */,
-				CB178B9825D0F5F9008CB0FC /* ResearchMotion */,
-				CB178B9A25D0F5F9008CB0FC /* ResearchUI */,
-				CB178B9C25D0F615008CB0FC /* BridgeApp */,
-				CB178B9E25D0F615008CB0FC /* BridgeAppUI */,
 			);
 			productName = Psorcast;
 			productReference = FFABCBBE22DD1EEB00D11109 /* OpenBandCyclist.app */;
@@ -466,11 +749,6 @@
 			);
 			name = OpenBandCyclistValidation;
 			packageProductDependencies = (
-				CB178B7B25D0F455008CB0FC /* Research */,
-				CB178B7D25D0F455008CB0FC /* ResearchMotion */,
-				CB178B7F25D0F455008CB0FC /* ResearchUI */,
-				CB178B8425D0F570008CB0FC /* BridgeAppUI */,
-				CB178B8625D0F570008CB0FC /* BridgeApp */,
 			);
 			productName = PsorcastValidation;
 			productReference = FFABCBE522DD1F2800D11109 /* OpenBandCyclistValidation.app */;
@@ -522,11 +800,27 @@
 			);
 			mainGroup = FFABCBB522DD1EEB00D11109;
 			packageReferences = (
-				CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */,
-				CB178B8325D0F570008CB0FC /* XCRemoteSwiftPackageReference "BridgeApp-Apple-SDK" */,
 			);
 			productRefGroup = FFABCBBF22DD1EEB00D11109 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CB825DDC263A13F9005D0529 /* Products */;
+					ProjectRef = CB825DDB263A13F9005D0529 /* BridgeApp.xcodeproj */;
+				},
+				{
+					ProductGroup = CB825DAA263A13ED005D0529 /* Products */;
+					ProjectRef = CB825DA9263A13ED005D0529 /* BridgeSDK.xcodeproj */;
+				},
+				{
+					ProductGroup = CB825DF8263A1409005D0529 /* Products */;
+					ProjectRef = CB825DF7263A1409005D0529 /* MotorControl.xcodeproj */;
+				},
+				{
+					ProductGroup = CB825E05263A1414005D0529 /* Products */;
+					ProjectRef = CB825E04263A1414005D0529 /* Research.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				FFABCBBD22DD1EEB00D11109 /* OpenBandCyclist */,
@@ -536,6 +830,191 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CB825DBA263A13ED005D0529 /* BridgeSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BridgeSDK.framework;
+			remoteRef = CB825DB9263A13ED005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DBC263A13ED005D0529 /* BridgeSDKTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BridgeSDKTests.xctest;
+			remoteRef = CB825DBB263A13ED005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DBE263A13ED005D0529 /* BridgeSDKIntegration.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BridgeSDKIntegration.app;
+			remoteRef = CB825DBD263A13ED005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DC0263A13ED005D0529 /* BridgeSDKIntegrationTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BridgeSDKIntegrationTests.xctest;
+			remoteRef = CB825DBF263A13ED005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DC2263A13ED005D0529 /* BridgeSDK_Test.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BridgeSDK_Test.framework;
+			remoteRef = CB825DC1263A13ED005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DE5263A13FA005D0529 /* BridgeApp.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BridgeApp.framework;
+			remoteRef = CB825DE4263A13FA005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DE7263A13FA005D0529 /* BridgeAppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BridgeAppTests.xctest;
+			remoteRef = CB825DE6263A13FA005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DE9263A13FA005D0529 /* BridgeAppUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BridgeAppUI.framework;
+			remoteRef = CB825DE8263A13FA005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DEB263A13FA005D0529 /* DataTracking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DataTracking.framework;
+			remoteRef = CB825DEA263A13FA005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DED263A13FA005D0529 /* DataTrackingTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DataTrackingTests.xctest;
+			remoteRef = CB825DEC263A13FA005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DEF263A13FA005D0529 /* BridgeAppExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BridgeAppExample.app;
+			remoteRef = CB825DEE263A13FA005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DFD263A1409005D0529 /* MotorControl.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MotorControl.framework;
+			remoteRef = CB825DFC263A1409005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825DFF263A1409005D0529 /* MotorControlTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MotorControlTests.xctest;
+			remoteRef = CB825DFE263A1409005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E22263A1414005D0529 /* Research.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Research.framework;
+			remoteRef = CB825E21263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E24263A1414005D0529 /* Research.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Research.framework;
+			remoteRef = CB825E23263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E26263A1414005D0529 /* Research.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Research.framework;
+			remoteRef = CB825E25263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E28263A1414005D0529 /* Research.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Research.framework;
+			remoteRef = CB825E27263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E2A263A1414005D0529 /* ResearchTests_iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResearchTests_iOS.xctest;
+			remoteRef = CB825E29263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E2C263A1414005D0529 /* Research_UnitTest.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Research_UnitTest.framework;
+			remoteRef = CB825E2B263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E2E263A1414005D0529 /* ResearchUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ResearchUI.framework;
+			remoteRef = CB825E2D263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E30263A1414005D0529 /* ResearchUITests_iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResearchUITests_iOS.xctest;
+			remoteRef = CB825E2F263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E32263A1414005D0529 /* ResearchRecorders.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ResearchRecorders.framework;
+			remoteRef = CB825E31263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E34263A1414005D0529 /* ResearchMotion.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ResearchMotion.framework;
+			remoteRef = CB825E33263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E36263A1414005D0529 /* ResearchMotionTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResearchMotionTests.xctest;
+			remoteRef = CB825E35263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E38263A1414005D0529 /* ResearchLocation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ResearchLocation.framework;
+			remoteRef = CB825E37263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB825E3A263A1414005D0529 /* ResearchLocationTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResearchLocationTests.xctest;
+			remoteRef = CB825E39263A1414005D0529 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CB2FD137254B9237005B476F /* Resources */ = {
@@ -922,6 +1401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OpenBandCyclist/OpenBandCyclist.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -945,6 +1425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OpenBandCyclist/OpenBandCyclist.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -969,7 +1450,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = OpenBandCyclistValidation/OpenBandCyclistValidation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -996,7 +1477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = OpenBandCyclistValidation/OpenBandCyclistValidation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1066,78 +1547,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Sage-Bionetworks/SageResearch.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.18.1;
-			};
-		};
-		CB178B8325D0F570008CB0FC /* XCRemoteSwiftPackageReference "BridgeApp-Apple-SDK" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Sage-Bionetworks/BridgeApp-Apple-SDK.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		CB178B7B25D0F455008CB0FC /* Research */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */;
-			productName = Research;
-		};
-		CB178B7D25D0F455008CB0FC /* ResearchMotion */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */;
-			productName = ResearchMotion;
-		};
-		CB178B7F25D0F455008CB0FC /* ResearchUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */;
-			productName = ResearchUI;
-		};
-		CB178B8425D0F570008CB0FC /* BridgeAppUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B8325D0F570008CB0FC /* XCRemoteSwiftPackageReference "BridgeApp-Apple-SDK" */;
-			productName = BridgeAppUI;
-		};
-		CB178B8625D0F570008CB0FC /* BridgeApp */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B8325D0F570008CB0FC /* XCRemoteSwiftPackageReference "BridgeApp-Apple-SDK" */;
-			productName = BridgeApp;
-		};
-		CB178B9025D0F5F9008CB0FC /* Research */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */;
-			productName = Research;
-		};
-		CB178B9825D0F5F9008CB0FC /* ResearchMotion */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */;
-			productName = ResearchMotion;
-		};
-		CB178B9A25D0F5F9008CB0FC /* ResearchUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B7A25D0F455008CB0FC /* XCRemoteSwiftPackageReference "SageResearch" */;
-			productName = ResearchUI;
-		};
-		CB178B9C25D0F615008CB0FC /* BridgeApp */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B8325D0F570008CB0FC /* XCRemoteSwiftPackageReference "BridgeApp-Apple-SDK" */;
-			productName = BridgeApp;
-		};
-		CB178B9E25D0F615008CB0FC /* BridgeAppUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB178B8325D0F570008CB0FC /* XCRemoteSwiftPackageReference "BridgeApp-Apple-SDK" */;
-			productName = BridgeAppUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FFABCBB622DD1EEB00D11109 /* Project object */;
 }
