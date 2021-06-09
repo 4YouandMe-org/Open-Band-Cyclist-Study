@@ -91,6 +91,27 @@ open class ValidationViewController : UIViewController, RSDTaskViewControllerDel
         
         guard BridgeSDK.authManager.isAuthenticated() else { return }
     }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Disconnect if they are connected to protect state
+        BleConnectionManager.shared.disconnect(type: .openBand)
+        BleConnectionManager.shared.disconnect(type: .polar)
+    }
+    
+    @IBAction func sleepValidationButtonTapped(_ sender: Any) {
+        let resource = RSDResourceTransformerObject(resourceName: "SleepValidation.json", bundle: Bundle.main)
+        do {
+            let task = try RSDFactory.shared.decodeTask(with: resource)
+            let vc = RSDTaskViewController(task: task)
+            vc.modalPresentationStyle = .fullScreen
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        } catch let error {
+            print("Error creating validation task from JSON \(error)")
+        }
+    }
 
     @IBAction func validationButtonTapped(_ sender: Any) {
         let resource = RSDResourceTransformerObject(resourceName: "Validation.json", bundle: Bundle.main)

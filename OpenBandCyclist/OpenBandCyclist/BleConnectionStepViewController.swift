@@ -39,6 +39,34 @@ import BridgeApp
 
 class BleConnectionStepObject : RSDUIStepObject, RSDStepViewControllerVendor {
     
+    private enum CodingKeys: String, CodingKey, CaseIterable {
+        case recordingSchedule
+    }
+    
+    public var recordingSchedule: RecordingSchedule = .always
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.recordingSchedule = try container.decodeIfPresent(RecordingSchedule.self, forKey: .recordingSchedule) ?? .always
+        
+        try super.init(from: decoder)
+    }
+    
+    required public init(identifier: String, type: RSDStepType? = nil) {
+        super.init(identifier: identifier, type: type)
+    }
+    
+    /// Override to set the properties of the subclass.
+    override open func copyInto(_ copy: RSDUIStepObject) {
+        super.copyInto(copy)
+        guard let subclassCopy = copy as? BleConnectionStepObject else {
+            assertionFailure("Superclass implementation of the `copy(with:)` protocol should return an instance of this class.")
+            return
+        }
+        subclassCopy.recordingSchedule = self.recordingSchedule
+    }
+    
     /// Default type is `.digitalJarOpenInstruction`.
     open override class func defaultType() -> RSDStepType {
         return .bleConnection
@@ -59,6 +87,10 @@ open class BleConnectionStepViewController: RSDStepViewController, BleConnection
     @IBOutlet weak var polarTitleLabel: UILabel?
     @IBOutlet weak var openBandTitleLabel: UILabel?
     
+    var connectionStep: BleConnectionStepObject? {
+        return self.step as? BleConnectionStepObject
+    }
+    
     var connectionRecorder: BleConnectionRecorder? {
         return self.taskController?.currentAsyncControllers.first(where: {$0 is BleConnectionRecorder}) as? BleConnectionRecorder
     }
@@ -73,21 +105,34 @@ open class BleConnectionStepViewController: RSDStepViewController, BleConnection
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
         self.designSystem = AppDelegate.designSystem
         self.updateUiState()
+                
+        // Set the recording schedule
+        BleConnectionManager.shared.recordingSchedule = self.connectionStep?.recordingSchedule ?? .always
         
         self.connectionRecorder?.connectionDelegate = self
         // TODO: mdephillips 10/22/20 recorder start function should trigger
         // ble connections, however need to sync with shannon why that isnt working
         // for now just start the ble connections in this class                
         BleConnectionManager.shared.delegate = self.connectionRecorder
-        for type in self.includedTypes {
-            BleConnectionManager.shared.connect(type: type)
-        }
+        
+        
+        // Initial approach was to connect to all BLE device at once in parrallel
+        // Doing these in parrallel was having unexpected results where the polar
+        // was occasionally failing to connect
+        BleConnectionManager.shared.connect(type: .openBand)
     }
 
-    public func onBleDeviceConnectionChange(type: BleDeviceType, connected: Bool) {
+    public func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType) {
         self.updateUiState()
+        if (eventType == .connected && deviceType == .openBand) {
+            // Give BLE half a second to recover
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                BleConnectionManager.shared.connect(type: .polar)
+            })
+        }
     }
     
     public func onConnectionChange(recorder: PolarBleRecorder) {

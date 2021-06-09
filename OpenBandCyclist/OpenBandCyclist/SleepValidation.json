@@ -8,7 +8,6 @@
         "type": "bleConnections",
         "deviceTypes": ["openBand", "polar"],
         "usesCSVEncoding": true,
-        "requiresBackgroundAudio": true,
         "startStepIdentifier": "bleConnection",
         "stopStepIdentifier": "bleData"
       },
@@ -17,7 +16,6 @@
       "type": "polarBle",
       "dataType": "ecg",
       "usesCSVEncoding": true,
-      "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
     },
@@ -26,7 +24,6 @@
       "type": "polarBle",
       "dataType": "accelerometer",
       "usesCSVEncoding": true,
-      "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
     },
@@ -35,7 +32,6 @@
       "type": "polarBle",
       "dataType": "hr",
       "usesCSVEncoding": true,
-      "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
     },
@@ -44,7 +40,6 @@
       "type": "openBandBle",
       "dataType": "ppg",
       "usesCSVEncoding": true,
-      "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
     },
@@ -53,7 +48,6 @@
       "type": "openBandBle",
       "dataType": "accelerometer",
       "usesCSVEncoding": true,
-      "requiresBackgroundAudio": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
     }
@@ -63,14 +57,14 @@
           "identifier": "inrto",
           "type": "instruction",
           "title": "Validation",
-          "text": "This task will connect to both polar h10 and open band devices, and collect the data for 30 seconds before uploading it to bridge."
+          "text": "This task will connect to both polar h10 and open band devices, and collect the data for 5 minute intervals every hour, for 8 hours total  before uploading it to bridge."
       },
     {
       "identifier": "bleConnection",
       "type": "bleConnection",
       "title": "Polar H10:",
       "text": "Open Band:",
-      "recordingSchedule": "always",
+      "recordingSchedule": "first5MinOfHour",
       "actions": {
         "goForward": {
           "type": "default",
@@ -86,18 +80,20 @@
         "commands": ["playSoundOnStart", "transitionAutomatically", "speakWarningOnPause", "playSoundOnFinish", "vibrateOnFinish", "vibrateOnStart"],
         "spokenInstructions": {
             "start": "Place the phone in your pocket."
-        }
+        },
+        "shouldEndOnInterrupt": false
     },
     {
       "identifier": "bleData",
       "type": "active",
       "title": "Collecting data from each device...",
-      "duration": 30,
+      "duration": 28800,
       "commands": [
         "transitionAutomatically",
         "shouldDisableIdleTimer",
         "vibrate"
-      ]
+      ],
+      "shouldEndOnInterrupt": false
     },
     {
       "identifier": "completion",

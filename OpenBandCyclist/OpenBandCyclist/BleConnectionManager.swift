@@ -37,7 +37,11 @@ import CoreBluetooth
 import RxSwift
 
 public protocol BleConnectionManagerDelegate: class {
-    func onBleDeviceConnectionChange(type: BleDeviceType, connected: Bool)
+    func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType)
+}
+
+public protocol RecorderStateDelegate: class {
+    func isRecordering() -> Bool
 }
 
 public protocol PolarEcgDataDelegate: class {
@@ -98,7 +102,11 @@ public final class PolarConstants {
 }
 
 public enum BleDeviceType: String, Codable {
-    case polar, openBand
+    case polar, openBand, all
+}
+
+public enum RecordingSchedule: String, Codable {
+    case always, first5MinOfHour
 }
 
 public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver, CBPeripheralDelegate, CBCentralManagerDelegate {
@@ -111,6 +119,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     public weak var polarHrDataDelegate: PolarHrDataDelegate?
     public weak var openBandPpgDataDelegate: OpenBandPpgDataDelegate?
     public weak var openBandAccelDataDelegate: OpenBandAccelDataDelegate?
+    public weak var recorderStateDelegate: RecorderStateDelegate?
     
     // The CoreBluetooth manager
     public var centralManager: CBCentralManager?
@@ -122,6 +131,15 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     private var accChar: CBCharacteristic?
     // Connection state tracking
     private var shouldStartOpenBandScanning = false
+    
+    // Controls when, how long, and what frequency the devices record
+    public var recordingSchedule: RecordingSchedule = .always {
+        didSet {
+            // Update data streaming to pause if schedule is changed
+            self.isStreamingDataPaused = false
+        }
+    }
+    public var isStreamingDataPaused = false
     
     // Polar BLE device vars
     public var polarConnectedDeviceId: String?
@@ -154,7 +172,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         } else if type == .openBand {
             self._disconnectOpenBand()
         }
-        self.delegate?.onBleDeviceConnectionChange(type: type, connected: false)
+        self.delegate?.onBleDeviceConnectionChange(deviceType: type, eventType: .disconnected)
     }
     
     fileprivate func _isOpenBandConnected() -> Bool {
@@ -205,7 +223,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
             }
             self.shouldStartOpenBandScanning = false
             
-            // TODO: mdephillips 10/22/20 handle permission on iOS 13
+            // TODO: mdephillips 10/22/20 do we need to handle BLE permission on iOS 13?
         }
     
     // The handler if we do connect succesfully
@@ -213,7 +231,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         if peripheral.name == self.openBandPeripheral?.name {
             print("Connected to your Open Band")
             peripheral.discoverServices([])
-            self.delegate?.onBleDeviceConnectionChange(type: .openBand, connected: true)
+            self.delegate?.onBleDeviceConnectionChange(deviceType: .openBand, eventType: .connected)
         }
     }
     
@@ -222,13 +240,12 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
             print("Disconnected")
             
             self.openBandPeripheral = nil
-            self.delegate?.onBleDeviceConnectionChange(type: .openBand, connected: false)
+            self.delegate?.onBleDeviceConnectionChange(deviceType: .openBand, eventType: .disconnected)
             
-            // TODO: mdephillips 10/22/20 re-connect logic?
-            // Start scanning again
-//                print("Central scanning for \(OpenBandPeripheral.timestampService) and \(OpenBandPeripheral.imuService)");
-//                self.centralManager?.scanForPeripherals(withServices: [OpenBandPeripheral.timestampService, OpenBandPeripheral.imuService],
-//                                                  options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
+            // Try connecting again if the recorder is running
+            if (recorderStateDelegate?.isRecordering() == true) {
+                self._connectOpenBand()
+            }
         }
     }
     
@@ -315,11 +332,9 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     fileprivate func _disconnectPolar() {
         self.autoConnect?.dispose()
         self.autoConnect = nil
-        self.ecgDisposable?.dispose()
-        self.ecgDisposable = nil
-        self.accDisposable?.dispose()
-        self.accDisposable = nil
         
+        _stopPolarEcgAndAccStreaming()
+                        
         guard let deviceId = self.polarConnectedDeviceId else { return }
         do{
             try self.api.disconnectFromDevice(deviceId)
@@ -329,19 +344,27 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         self.polarConnectedDeviceId = nil
     }
     
+    fileprivate func _stopPolarEcgAndAccStreaming() {
+        self.ecgDisposable?.dispose()
+        self.ecgDisposable = nil
+        self.accDisposable?.dispose()
+        self.accDisposable = nil
+    }
+    
     // PolarBleApiObserver
     public func deviceConnecting(_ polarDeviceInfo: PolarDeviceInfo) {
         NSLog("DEVICE CONNECTING: \(polarDeviceInfo)")
     }
     
     public func deviceConnected(_ polarDeviceInfo: PolarDeviceInfo) {
+        NSLog("Polar device connected: \(polarDeviceInfo.name)")
         NSLog("DEVICE CONNECTED: \(polarDeviceInfo)")
         self.polarConnectedDeviceId = polarDeviceInfo.deviceId
-        self.delegate?.onBleDeviceConnectionChange(type: .polar, connected: true)
+        self.delegate?.onBleDeviceConnectionChange(deviceType: .polar, eventType: .connected)
         // Wait for ecg and accel features to be ready to start streaming them
     }
     
-    fileprivate func startStreamingPolarEcgData() {
+    fileprivate func _startStreamingPolarEcgData() {
         guard let deviceId = self.polarConnectedDeviceId else { return }
         self.ecgDisposable?.dispose()
         self.ecgDisposable = api.requestEcgSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarEcgData> in
@@ -366,7 +389,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         }
     }
     
-    fileprivate func startStreamingPolarAccelData() {
+    fileprivate func _startStreamingPolarAccelData() {
         guard let deviceId = self.polarConnectedDeviceId else { return }        
         self.accDisposable?.dispose()
         self.accDisposable = api.requestAccSettings(deviceId).asObservable().flatMap({ (settings) -> Observable<PolarAccData> in
@@ -390,7 +413,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     public func deviceDisconnected(_ polarDeviceInfo: PolarDeviceInfo) {
         NSLog("DISCONNECTED: \(polarDeviceInfo)")
         self.polarConnectedDeviceId = nil
-        self.delegate?.onBleDeviceConnectionChange(type: .polar, connected: false)
+        self.delegate?.onBleDeviceConnectionChange(deviceType: .polar, eventType: .disconnected)
     }
     
     // PolarBleApiDeviceInfoObserver
@@ -405,8 +428,80 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     // PolarBleApiDeviceHrObserver
     public func hrValueReceived(_ identifier: String, data: PolarBleApiDeviceHrObserver.PolarHrData) {
         print("New HR value \(data.hr)")
+        
         // Provide the latest ECG timestamp as a comparable timestamp across files
         self.polarHrDataDelegate?.onPolarHrData(data: data, timestamp: self.lastEcgTimestamp)
+        
+        // The periodic 1 second HR characteristic is the perfect place
+        // to control the recording schedule as it will wake up our app every second
+        // even when the app is running in the background with the screen off
+        checkRecordingSchedule()
+    }
+    
+    /// Check whether the recorders should be actively recording or in a paused state.
+    private func checkRecordingSchedule() {
+        // No need to alter streaming state if we should always be recording
+        guard recordingSchedule != .always else {
+            return
+        }
+        
+        let shouldStream = shouldBeStreaming()
+        
+        if (!shouldStream && !self.isStreamingDataPaused) {
+            pauseDataStreaming()
+        } else if (shouldStream && self.isStreamingDataPaused) {
+            resumeDataStreaming()
+        }
+    }
+    
+    private func shouldBeStreaming() -> Bool {
+        guard recordingSchedule != .always else {
+            return true
+        }
+        
+        if (recordingSchedule == .first5MinOfHour) {
+            let components = Calendar.current.dateComponents(
+                [.hour,.minute,.second], from: Date())
+            
+            guard let minuteOfHour = components.minute else {
+                return true
+            }
+            
+            return
+                (minuteOfHour == 0) ||
+                (minuteOfHour == 10) ||
+                (minuteOfHour == 20) ||
+                (minuteOfHour == 30) ||
+                (minuteOfHour == 40) ||
+                (minuteOfHour == 50)
+        }
+        
+        return true
+    }
+    
+    private func resumeDataStreaming() {
+        debugPrint("Resuming data streaming")
+        self.isStreamingDataPaused = false
+        if let obPpg = self.ppgChar,
+           let obAcc = self.accChar {
+            self.openBandPeripheral?.setNotifyValue(true, for: obPpg)
+            self.openBandPeripheral?.setNotifyValue(true, for: obAcc)
+        }
+        self._startStreamingPolarEcgData()
+        self._startStreamingPolarAccelData()
+        self.delegate?.onBleDeviceConnectionChange(deviceType: .all, eventType: .resumed)
+    }
+    
+    private func pauseDataStreaming() {
+        debugPrint("Pausing data streaming")
+        self.isStreamingDataPaused = true
+        if let obPpg = self.ppgChar,
+           let obAcc = self.accChar {
+            self.openBandPeripheral?.setNotifyValue(false, for: obPpg)
+            self.openBandPeripheral?.setNotifyValue(false, for: obAcc)
+        }
+        _stopPolarEcgAndAccStreaming()
+        self.delegate?.onBleDeviceConnectionChange(deviceType: .all, eventType: .paused)
     }
     
     public func ohrPPGFeatureReady(_ identifier: String) {
@@ -428,12 +523,12 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     // PolarBleApiDeviceEcgObserver
     public func ecgFeatureReady(_ identifier: String) {
         print("Polar ECG data ready to stream \(identifier)")
-        self.startStreamingPolarEcgData()
+        self._startStreamingPolarEcgData()
     }
     
     // PolarBleApiDeviceAccelerometerObserver
     public func accFeatureReady(_ identifier: String) {
         print("Polar ACCEL data ready to stream \(identifier)")
-        self.startStreamingPolarAccelData()
+        self._startStreamingPolarAccelData()
     }
 }

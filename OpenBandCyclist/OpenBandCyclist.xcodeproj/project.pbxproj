@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */; };
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
+		CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB107F1C265DB50200A52AF3 /* SleepValidation.json */; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12D254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
@@ -29,6 +30,8 @@
 		CB3075D52545458B004983A4 /* OpenBandCyclistValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */; };
 		CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */; };
 		CB3075D7254545D1004983A4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
+		CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */; };
+		CB52A5DA26602DB700FAFAB1 /* BleActiveStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */; };
 		CB553AFC25410D1600D29995 /* ValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB624602253FEAF8006838B7 /* ValidationViewController.swift */; };
 		CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */; };
 		CB624601253FA9E0006838B7 /* OpenBandCyclistValidation.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB6245FE253FA425006838B7 /* OpenBandCyclistValidation.strings */; };
@@ -335,6 +338,7 @@
 /* Begin PBXFileReference section */
 		CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExternalIDRegistrationViewController.xib; path = OpenBandCyclist/ExternalIDRegistrationViewController.xib; sourceTree = SOURCE_ROOT; };
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
+		CB107F1C265DB50200A52AF3 /* SleepValidation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SleepValidation.json; path = OpenBandCyclist/SleepValidation.json; sourceTree = SOURCE_ROOT; };
 		CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteMathUtilsTests.swift; sourceTree = "<group>"; };
 		CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConnectionRecorder.swift; sourceTree = "<group>"; };
 		CB2FD12E254B9159005B476F /* BleConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConnectionManager.swift; sourceTree = "<group>"; };
@@ -346,6 +350,7 @@
 		CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleConnectionStepViewController.swift; sourceTree = "<group>"; };
 		CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BleConnectionStepViewController.xib; sourceTree = "<group>"; };
 		CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenBandCyclistValidationTests.swift; sourceTree = "<group>"; };
+		CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleActiveStepViewController.swift; sourceTree = "<group>"; };
 		CB6245FC253FA412006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclist.strings; sourceTree = "<group>"; };
 		CB6245FF253FA425006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclistValidation.strings; sourceTree = "<group>"; };
 		CB624602253FEAF8006838B7 /* ValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewController.swift; sourceTree = "<group>"; };
@@ -469,6 +474,7 @@
 		CB3075CC25449BE8004983A4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				CB107F1C265DB50200A52AF3 /* SleepValidation.json */,
 				CB3075CD25449BF1004983A4 /* Validation.json */,
 			);
 			name = JSON;
@@ -490,6 +496,7 @@
 				CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */,
 				CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */,
 				CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */,
+				CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1059,6 +1066,7 @@
 				CB82D0422540AD6E0043F2A6 /* BridgeInfo.plist in Resources */,
 				CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */,
 				CB3075D425450374004983A4 /* BleConnectionStepViewController.xib in Resources */,
+				CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */,
 				FFABCBED22DD1F2800D11109 /* Main.storyboard in Resources */,
 				FF5010A822DD22A50035E83C /* open-band-cyclist.pem in Resources */,
 				FF5010A922DD22A50035E83C /* BridgeInfo-private.plist in Resources */,
@@ -1092,6 +1100,7 @@
 				CB3075B425438BD3004983A4 /* OpenBandBleRecorder.swift in Sources */,
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
 				CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */,
+				CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */,
 				CB3075D7254545D1004983A4 /* ExternalIDRegistrationViewController.swift in Sources */,
 				FFABCBC222DD1EEB00D11109 /* AppDelegate.swift in Sources */,
 				CB3075B225438BC5004983A4 /* PolarBleRecorder.swift in Sources */,
@@ -1106,6 +1115,7 @@
 			files = (
 				FFABCBE822DD1F2800D11109 /* AppDelegate.swift in Sources */,
 				CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */,
+				CB52A5DA26602DB700FAFAB1 /* BleActiveStepViewController.swift in Sources */,
 				CB553AFC25410D1600D29995 /* ValidationViewController.swift in Sources */,
 				CB2FD130254B9159005B476F /* BleConnectionManager.swift in Sources */,
 				CB3075B52543B57E004983A4 /* PolarBleRecorder.swift in Sources */,

@@ -169,13 +169,7 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         super.stopRecorder(completion)
     }
     
-    var counter = 0
     public func onPolarEcgData(data: PolarEcgData) {
-        
-        self.counter += 1
-        if (counter % 100 == 0) {
-            print("New 100th ECG \(data)")
-        }
         /// Polar Ecg data
         ///     - timestamp: Last sample timestamp in nanoseconds. Default epoch is 1.1.2000
         ///     - samples: ecg sample in µVolts

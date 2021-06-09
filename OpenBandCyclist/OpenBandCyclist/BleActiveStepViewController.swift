@@ -1,5 +1,5 @@
 //
-//  StudyTaskFactory.swift
+//  BleActiveStepViewController.swift
 //  OpenBandCyclist
 //
 //  Copyright © 2020 4YouandMe. All rights reserved.
@@ -31,47 +31,42 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import BridgeApp
 import Research
 import ResearchUI
 
-extension RSDStepType {
-    public static let bleConnection: RSDStepType = "bleConnection"
-}
-
-extension RSDAsyncActionType {
-    public static let polarBle: RSDAsyncActionType = "polarBle"
-    public static let openBandBle: RSDAsyncActionType = "openBandBle"
-    public static let bleConnections: RSDAsyncActionType = "bleConnections"
-}
-
-open class StudyTaskFactory: SBAFactory {
+open class BleActiveUIStepObject : RSDActiveUIStepObject, RSDStepViewControllerVendor {
     
-    /// Override the base factory to vend Open Band Cyclist specific step objects.
-    override open func decodeStep(from decoder: Decoder, with type: RSDStepType) throws -> RSDStep? {
-        switch type {
-        case .bleConnection:
-            return try BleConnectionStepObject(from: decoder)
-        case .active:
-            return try BleActiveUIStepObject(from: decoder)
-        default:
-            return try super.decodeStep(from: decoder, with: type)
-        }
+    public func instantiateViewController(with parent: RSDPathComponent?) -> (UIViewController & RSDStepController)? {
+        return BleActiveStepViewController(step: self, parent: parent)
+    }
+}
+
+open class BleActiveStepViewController: RSDActiveStepViewController, RecorderStateDelegate {
+        
+    public func isRecordering() -> Bool {
+        return true
     }
     
-    override open func decodeAsyncActionConfiguration(from decoder:Decoder, with typeName: String) throws -> RSDAsyncActionConfiguration? {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
         
-        // Look to see if there is a standard permission to map to this config.
-        let type = RSDAsyncActionType(rawValue: typeName)
-        switch type {
-        case .polarBle:
-            return try PolarBleRecorderConfiguration(from: decoder)
-        case .openBandBle:
-            return try OpenBandBleRecorderConfiguration(from: decoder)
-        case .bleConnections:
-            return try BleConnectionRecorderConfiguration(from: decoder)
-        default:
-            return try super.decodeAsyncActionConfiguration(from: decoder, with: typeName)
-        }
+        // Debug trick to end the task early, can be useful to end sleep task
+        self.countdownLabel?.isEnabled = true
+        self.countdownLabel?.isUserInteractionEnabled = true
+        self.countdownLabel?.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longHoldCountdownLabel)))
+    }
+    
+    override open func start() {
+        super.start()
+        
+        // This is necessary to disable the audio session cancelling our task
+        // when it moves into the background
+        stopInterruptionObserver()
+        
+        BleConnectionManager.shared.recorderStateDelegate = self
+    }
+    
+    @objc func longHoldCountdownLabel() {
+        self.goForward()
     }
 }

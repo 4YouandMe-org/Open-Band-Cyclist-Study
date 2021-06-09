@@ -90,7 +90,7 @@ public struct BleConnectionRecorderConfiguration : RSDRecorderConfiguration, RSD
 }
 
 public protocol BleConnectionRecorderDelegate: class {
-    func onBleDeviceConnectionChange(type: BleDeviceType, connected: Bool)
+    func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType)
 }
 
 public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDelegate {
@@ -162,20 +162,19 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
         super.stopRecorder(completion)
     }
     
-    public func onBleDeviceConnectionChange(type: BleDeviceType, connected: Bool) {
-        self.connectionDelegate?.onBleDeviceConnectionChange(type: type, connected: connected)
+    public func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType) {
         
         // Log connection event time sample
-        let event: BleConnectionEventType = connected ? .connected : .disconnected
-        let sample = BleConnectionSample(uptime: RSDClock.uptime(), timestamp: nil, stepPath: self.currentStepPath, device: type, event: event)
+        let sample = BleConnectionSample(uptime: RSDClock.uptime(), timestamp: nil, stepPath: self.currentStepPath, device: deviceType, event: eventType)
         self.writeSample(sample)
+        
+        self.connectionDelegate?.onBleDeviceConnectionChange(deviceType: deviceType, eventType: eventType)
     }
 }
 
 
 public enum BleConnectionEventType: String, Codable {
-    // TODO: mdephillips 10/22/20 consider rssi or battery events
-    case connected, disconnected
+    case connected, disconnected, paused, resumed
 }
 
 public struct BleConnectionSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
