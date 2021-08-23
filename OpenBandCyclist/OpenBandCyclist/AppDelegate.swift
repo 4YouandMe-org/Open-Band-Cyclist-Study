@@ -53,6 +53,8 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
                                               colorRules: PSRColorRules(palette: colorPalette, version: 1),
                                               fontRules: PSRFontRules(version: 1))
     
+    weak var smsSignInDelegate: SignInDelegate? = nil
+    
     override func instantiateColorPalette() -> RSDColorPalette? {
         return AppDelegate.colorPalette
     }
@@ -63,9 +65,9 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
     
     func showAppropriateViewController(animated: Bool) {
         if BridgeSDK.authManager.isAuthenticated() {
-            showMainViewController(animated: animated)
+            showMainViewController()
         } else {
-            showSignInViewController(animated: animated)
+            showLaunchViewController()
         }
     }
     
@@ -88,29 +90,22 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
         self.showAppropriateViewController(animated: true)
     }
     
-    func showMainViewController(animated: Bool) {
-        guard self.rootViewController?.state != .main else { return }
-        guard let storyboard = openStoryboard("Main"),
-            let vc = storyboard.instantiateInitialViewController()
-            else {
-                fatalError("Failed to instantiate initial view controller in the main storyboard.")
-        }
+    func showLaunchViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LaunchVc")
         self.transition(to: vc, state: .main, animated: true)
     }
     
-    func showSignInViewController(animated: Bool) {
-        guard self.rootViewController?.state != .onboarding else { return }
-        
-        let externalIDStep = ExternalIDRegistrationStep(identifier: "enterExternalID", type: "externalID")
-        externalIDStep.shouldHideActions = [.navigation(.goBackward), .navigation(.skip
-            )]
-        
-        var navigator = RSDConditionalStepNavigatorObject(with: [externalIDStep])
-        navigator.progressMarkers = []
-        let task = RSDTaskObject(identifier: "signin", stepNavigator: navigator)
-        let vc = RSDTaskViewController(task: task)
+    func showSignUpViewController() {
+        let vc = SignInTaskViewController()
         vc.delegate = self
         self.transition(to: vc, state: .onboarding, animated: true)
+    }
+    
+    func showMainViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
+        self.transition(to: vc, state: .main, animated: true)
     }
     
     func openStoryboard(_ name: String) -> UIStoryboard? {
@@ -137,5 +132,12 @@ open class PSRFontRules: RSDFontRules {
     
     override open func font(ofSize fontSize: CGFloat, weight: RSDFont.Weight = .regular) -> RSDFont {
         return super.font(ofSize: fontSize, weight: weight)
+    }
+}
+
+open class LaunchViewController: UIViewController {
+    @IBAction
+    public func goForwardClicked() {
+        (AppDelegate.shared as? AppDelegate)?.showSignUpViewController()
     }
 }

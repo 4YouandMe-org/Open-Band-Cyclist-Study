@@ -25,7 +25,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Open Band Cyclist needs to be able to read data from bluetooth devices while the app is in background.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Open Band Cyclist would like to access your phone&apos;s motion sensors to help gather data during activities.</string>
+	<string>Open Band Cyclist would like to access your phone's motion sensors to help gather data during activities.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
