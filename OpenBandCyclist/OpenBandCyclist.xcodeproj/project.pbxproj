@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB028F6926D47F4100D39F34 /* TaskCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB028F4826D47F4100D39F34 /* TaskCollectionViewController.swift */; };
+		CB028F6D26D47FE800D39F34 /* TaskListScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB028F6C26D47FE800D39F34 /* TaskListScheduleManager.swift */; };
+		CB028F7C26D4CAB800D39F34 /* Walking.json in Resources */ = {isa = PBXBuildFile; fileRef = CB028F7426D4CAB800D39F34 /* Walking.json */; };
+		CB028F7D26D4CAB800D39F34 /* Sitting.json in Resources */ = {isa = PBXBuildFile; fileRef = CB028F7626D4CAB800D39F34 /* Sitting.json */; };
+		CB028F7E26D4CAB800D39F34 /* Sleeping.json in Resources */ = {isa = PBXBuildFile; fileRef = CB028F7826D4CAB800D39F34 /* Sleeping.json */; };
+		CB028F7F26D4CAB800D39F34 /* Cycling.json in Resources */ = {isa = PBXBuildFile; fileRef = CB028F7A26D4CAB800D39F34 /* Cycling.json */; };
 		CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */; };
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
 		CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB107F1C265DB50200A52AF3 /* SleepValidation.json */; };
@@ -342,6 +348,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CB028F4826D47F4100D39F34 /* TaskCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCollectionViewController.swift; sourceTree = "<group>"; };
+		CB028F6C26D47FE800D39F34 /* TaskListScheduleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListScheduleManager.swift; sourceTree = "<group>"; };
+		CB028F7526D4CAB800D39F34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/Walking.json; sourceTree = "<group>"; };
+		CB028F7726D4CAB800D39F34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/Sitting.json; sourceTree = "<group>"; };
+		CB028F7926D4CAB800D39F34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/Sleeping.json; sourceTree = "<group>"; };
+		CB028F7B26D4CAB800D39F34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/Cycling.json; sourceTree = "<group>"; };
 		CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExternalIDRegistrationViewController.xib; path = OpenBandCyclist/ExternalIDRegistrationViewController.xib; sourceTree = SOURCE_ROOT; };
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
 		CB107F1C265DB50200A52AF3 /* SleepValidation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SleepValidation.json; path = OpenBandCyclist/SleepValidation.json; sourceTree = SOURCE_ROOT; };
@@ -483,6 +495,10 @@
 			isa = PBXGroup;
 			children = (
 				CB28989026D3752000610FE8 /* PhoneSignIn.json */,
+				CB028F7A26D4CAB800D39F34 /* Cycling.json */,
+				CB028F7626D4CAB800D39F34 /* Sitting.json */,
+				CB028F7826D4CAB800D39F34 /* Sleeping.json */,
+				CB028F7426D4CAB800D39F34 /* Walking.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -518,6 +534,7 @@
 		CB553AE22540F99200D29995 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB028F4826D47F4100D39F34 /* TaskCollectionViewController.swift */,
 				CB28988126D36A1200610FE8 /* PhoneRegistrationViewController.swift */,
 				CB28988026D36A1200610FE8 /* RegistrationWaitingViewController.swift */,
 				CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */,
@@ -595,6 +612,7 @@
 		CBBE0F6024039A4F0072452C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB028F6C26D47FE800D39F34 /* TaskListScheduleManager.swift */,
 				CB2FD12E254B9159005B476F /* BleConnectionManager.swift */,
 				CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */,
 				CB3075B025437873004983A4 /* Recorders */,
@@ -1074,16 +1092,20 @@
 				CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */,
 				FFABCBCC22DD1EEC00D11109 /* LaunchScreen.storyboard in Resources */,
 				CB28989726D3757300610FE8 /* Registration.storyboard in Resources */,
+				CB028F7D26D4CAB800D39F34 /* Sitting.json in Resources */,
 				CB28989226D3752000610FE8 /* PhoneSignIn.json in Resources */,
 				CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */,
 				CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */,
+				CB028F7F26D4CAB800D39F34 /* Cycling.json in Resources */,
 				CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */,
 				CB51673E26D3788700915FB2 /* PhoneLearnMore.html in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
 				CB51673826D3784400915FB2 /* CSS_files in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
+				CB028F7E26D4CAB800D39F34 /* Sleeping.json in Resources */,
 				CB3075D325450374004983A4 /* BleConnectionStepViewController.xib in Resources */,
 				CBDD30E62416C7D1003B0488 /* OpenBandCyclistAssets.xcassets in Resources */,
+				CB028F7C26D4CAB800D39F34 /* Walking.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1131,12 +1153,14 @@
 				CB2FD133254B9179005B476F /* ByteMathUtils.swift in Sources */,
 				CB3075B425438BD3004983A4 /* OpenBandBleRecorder.swift in Sources */,
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
+				CB028F6D26D47FE800D39F34 /* TaskListScheduleManager.swift in Sources */,
 				CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */,
 				CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */,
 				CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */,
 				CB28988626D36A1200610FE8 /* PhoneRegistrationViewController.swift in Sources */,
 				FFABCBC222DD1EEB00D11109 /* AppDelegate.swift in Sources */,
 				CB3075B225438BC5004983A4 /* PolarBleRecorder.swift in Sources */,
+				CB028F6926D47F4100D39F34 /* TaskCollectionViewController.swift in Sources */,
 				CB2FD12F254B9159005B476F /* BleConnectionManager.swift in Sources */,
 				CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */,
 				CB28988426D36A1200610FE8 /* RegistrationWaitingViewController.swift in Sources */,
@@ -1177,6 +1201,38 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		CB028F7426D4CAB800D39F34 /* Walking.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB028F7526D4CAB800D39F34 /* Base */,
+			);
+			name = Walking.json;
+			sourceTree = "<group>";
+		};
+		CB028F7626D4CAB800D39F34 /* Sitting.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB028F7726D4CAB800D39F34 /* Base */,
+			);
+			name = Sitting.json;
+			sourceTree = "<group>";
+		};
+		CB028F7826D4CAB800D39F34 /* Sleeping.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB028F7926D4CAB800D39F34 /* Base */,
+			);
+			name = Sleeping.json;
+			sourceTree = "<group>";
+		};
+		CB028F7A26D4CAB800D39F34 /* Cycling.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB028F7B26D4CAB800D39F34 /* Base */,
+			);
+			name = Cycling.json;
+			sourceTree = "<group>";
+		};
 		CB28989026D3752000610FE8 /* PhoneSignIn.json */ = {
 			isa = PBXVariantGroup;
 			children = (
