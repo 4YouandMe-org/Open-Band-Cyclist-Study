@@ -6,6 +6,7 @@
 	<array>
 		<string>$(AppIdentifierPrefix)com.4youandme.openbandcyclistvalidation</string>
 		<string>$(AppIdentifierPrefix)org.sagebase.Bridge</string>
+		<string>$(AppIdentifierPrefix)com.4youandme.openbandcyclist</string>
 	</array>
 </dict>
 </plist>

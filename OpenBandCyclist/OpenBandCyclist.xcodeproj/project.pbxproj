@@ -11,6 +11,11 @@
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
 		CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB107F1C265DB50200A52AF3 /* SleepValidation.json */; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
+		CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */; };
+		CB28988426D36A1200610FE8 /* RegistrationWaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28988026D36A1200610FE8 /* RegistrationWaitingViewController.swift */; };
+		CB28988626D36A1200610FE8 /* PhoneRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28988126D36A1200610FE8 /* PhoneRegistrationViewController.swift */; };
+		CB28989226D3752000610FE8 /* PhoneSignIn.json in Resources */ = {isa = PBXBuildFile; fileRef = CB28989026D3752000610FE8 /* PhoneSignIn.json */; };
+		CB28989726D3757300610FE8 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB28989526D3757300610FE8 /* Registration.storyboard */; };
 		CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12D254B9150005B476F /* BleConnectionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */; };
 		CB2FD12F254B9159005B476F /* BleConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2FD12E254B9159005B476F /* BleConnectionManager.swift */; };
@@ -29,7 +34,8 @@
 		CB3075D425450374004983A4 /* BleConnectionStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */; };
 		CB3075D52545458B004983A4 /* OpenBandCyclistValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */; };
 		CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */; };
-		CB3075D7254545D1004983A4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
+		CB51673826D3784400915FB2 /* CSS_files in Resources */ = {isa = PBXBuildFile; fileRef = CB51673726D3784400915FB2 /* CSS_files */; };
+		CB51673E26D3788700915FB2 /* PhoneLearnMore.html in Resources */ = {isa = PBXBuildFile; fileRef = CB51673B26D3786400915FB2 /* PhoneLearnMore.html */; };
 		CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */; };
 		CB52A5DA26602DB700FAFAB1 /* BleActiveStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */; };
 		CB553AFC25410D1600D29995 /* ValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB624602253FEAF8006838B7 /* ValidationViewController.swift */; };
@@ -340,6 +346,11 @@
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
 		CB107F1C265DB50200A52AF3 /* SleepValidation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SleepValidation.json; path = OpenBandCyclist/SleepValidation.json; sourceTree = SOURCE_ROOT; };
 		CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteMathUtilsTests.swift; sourceTree = "<group>"; };
+		CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTaskViewController.swift; sourceTree = "<group>"; };
+		CB28988026D36A1200610FE8 /* RegistrationWaitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationWaitingViewController.swift; sourceTree = "<group>"; };
+		CB28988126D36A1200610FE8 /* PhoneRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneRegistrationViewController.swift; sourceTree = "<group>"; };
+		CB28989126D3752000610FE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/PhoneSignIn.json; sourceTree = "<group>"; };
+		CB28989626D3757300610FE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Registration.storyboard; sourceTree = "<group>"; };
 		CB2FD12B254B9150005B476F /* BleConnectionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConnectionRecorder.swift; sourceTree = "<group>"; };
 		CB2FD12E254B9159005B476F /* BleConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConnectionManager.swift; sourceTree = "<group>"; };
 		CB2FD132254B9178005B476F /* ByteMathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteMathUtils.swift; sourceTree = "<group>"; };
@@ -350,6 +361,8 @@
 		CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleConnectionStepViewController.swift; sourceTree = "<group>"; };
 		CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BleConnectionStepViewController.xib; sourceTree = "<group>"; };
 		CB36E610253F825D00B7F5FB /* OpenBandCyclistValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenBandCyclistValidationTests.swift; sourceTree = "<group>"; };
+		CB51673726D3784400915FB2 /* CSS_files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CSS_files; sourceTree = "<group>"; };
+		CB51673B26D3786400915FB2 /* PhoneLearnMore.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PhoneLearnMore.html; sourceTree = "<group>"; };
 		CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleActiveStepViewController.swift; sourceTree = "<group>"; };
 		CB6245FC253FA412006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclist.strings; sourceTree = "<group>"; };
 		CB6245FF253FA425006838B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OpenBandCyclistValidation.strings; sourceTree = "<group>"; };
@@ -441,6 +454,8 @@
 		CB077FB8253E645800CF56C4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */,
+				CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */,
 				CB624602253FEAF8006838B7 /* ValidationViewController.swift */,
 			);
 			name = ViewControllers;
@@ -467,6 +482,7 @@
 		CB3075C925449BA5004983A4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				CB28989026D3752000610FE8 /* PhoneSignIn.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -483,17 +499,28 @@
 		CB36E612253F82F700B7F5FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB51671626D3783600915FB2 /* HTML */,
+				CB51673B26D3786400915FB2 /* PhoneLearnMore.html */,
 				CB3075C925449BA5004983A4 /* JSON */,
 				CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		CB51671626D3783600915FB2 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				CB51673726D3784400915FB2 /* CSS_files */,
+			);
+			name = HTML;
+			sourceTree = "<group>";
+		};
 		CB553AE22540F99200D29995 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */,
-				CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */,
+				CB28988126D36A1200610FE8 /* PhoneRegistrationViewController.swift */,
+				CB28988026D36A1200610FE8 /* RegistrationWaitingViewController.swift */,
+				CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */,
 				CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */,
 				CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */,
 				CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */,
@@ -637,6 +664,7 @@
 				CBA0250823FC6B2500604F2D /* Main.storyboard */,
 				FFABCBC122DD1EEB00D11109 /* AppDelegate.swift */,
 				FFABCBCA22DD1EEC00D11109 /* LaunchScreen.storyboard */,
+				CB28989526D3757300610FE8 /* Registration.storyboard */,
 				CBDD30E12416C7D1003B0488 /* OpenBandCyclistAssets.xcassets */,
 				CBBE0F6024039A4F0072452C /* Model */,
 				CB2FD131254B916B005B476F /* Utils */,
@@ -1045,10 +1073,14 @@
 			files = (
 				CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */,
 				FFABCBCC22DD1EEC00D11109 /* LaunchScreen.storyboard in Resources */,
+				CB28989726D3757300610FE8 /* Registration.storyboard in Resources */,
+				CB28989226D3752000610FE8 /* PhoneSignIn.json in Resources */,
 				CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */,
 				CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */,
 				CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */,
+				CB51673E26D3788700915FB2 /* PhoneLearnMore.html in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
+				CB51673826D3784400915FB2 /* CSS_files in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
 				CB3075D325450374004983A4 /* BleConnectionStepViewController.xib in Resources */,
 				CBDD30E62416C7D1003B0488 /* OpenBandCyclistAssets.xcassets in Resources */,
@@ -1101,11 +1133,13 @@
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
 				CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */,
 				CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */,
-				CB3075D7254545D1004983A4 /* ExternalIDRegistrationViewController.swift in Sources */,
+				CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */,
+				CB28988626D36A1200610FE8 /* PhoneRegistrationViewController.swift in Sources */,
 				FFABCBC222DD1EEB00D11109 /* AppDelegate.swift in Sources */,
 				CB3075B225438BC5004983A4 /* PolarBleRecorder.swift in Sources */,
 				CB2FD12F254B9159005B476F /* BleConnectionManager.swift in Sources */,
 				CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */,
+				CB28988426D36A1200610FE8 /* RegistrationWaitingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,6 +1177,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		CB28989026D3752000610FE8 /* PhoneSignIn.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB28989126D3752000610FE8 /* Base */,
+			);
+			name = PhoneSignIn.json;
+			sourceTree = "<group>";
+		};
+		CB28989526D3757300610FE8 /* Registration.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB28989626D3757300610FE8 /* Base */,
+			);
+			name = Registration.storyboard;
+			sourceTree = "<group>";
+		};
 		CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1471,8 +1521,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				OTHER_SWIFT_FLAGS = "-D VALIDATION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclistvalidation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
 				PRODUCT_NAME = OpenBandCyclistValidation;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1498,8 +1549,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				OTHER_SWIFT_FLAGS = "-D VALIDATION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclistvalidation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
 				PRODUCT_NAME = OpenBandCyclistValidation;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

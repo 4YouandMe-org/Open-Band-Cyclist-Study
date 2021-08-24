@@ -1,0 +1,67 @@
+{
+    "identifier":"PhoneSignIn",
+    "shouldHideActions":["skip"],
+    "progressMarkers":[],
+    "steps":[
+             {
+                "identifier":"enterPhoneNumber",
+                "type":"form",
+                "title":"Let's get started",
+                "text":"Please enter your phone number to create and verify your account with a text message.",
+                "inputFields": [{
+                                "type":"string",
+                                "textFieldOptions":{
+                                    "keyboardType":"phonePad",
+                                    "invalidMessage":"Please enter your phone number."
+                                },
+                                "uiHint":"textfield",
+                                "placeholder":"Phone number"
+                                }
+                ],
+                "image":{
+                    "type": "fetchable",
+                    "imageName": "phonebook",
+                    "placementType":"topBackground"
+                },
+                "viewTheme":{
+                    "viewIdentifier":"PhoneRegistration",
+                    "storyboardIdentifier":"Registration"
+                },
+                "actions":{
+                    "learnMore":{
+                        "type": "webView",
+                        "buttonTitle": "Learn more",
+                        "url" : "PhoneLearnMore.html",
+                        "usesBackButton": true
+                    }
+                },
+                "nextStepIdentifier": "waiting"
+             },
+             {
+                 "identifier":"waiting",
+                 "type":"instruction",
+                 "title":"Your sign-up code is on its way!",
+                 "image":{
+                     "type": "fetchable",
+                     "imageName":"expectSMS",
+                     "placementType":"topBackground"
+                 },
+                 "viewTheme":{
+                     "viewIdentifier":"RegistrationVerification",
+                     "storyboardIdentifier":"Registration"
+                 },
+                 "nextStepIdentifier": "nextSection"
+             },
+             {
+                 "identifier":"completion",
+                 "type":"completion",
+                 "title":"Great job!",
+                 "text":"You just completed registration.",
+                 "image":{
+                     "type": "fetchable",
+                     "imageName":"Completion",
+                     "placementType":"topBackground"
+                 }
+             }
+        ]
+}
