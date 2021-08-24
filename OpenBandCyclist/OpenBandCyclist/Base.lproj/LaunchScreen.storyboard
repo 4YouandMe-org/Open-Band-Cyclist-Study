@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="j66-3Y-uAO">
-                                <rect key="frame" x="132" y="256" width="150" height="150"/>
+                                <rect key="frame" x="132" y="212" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="j66-3Y-uAO" secondAttribute="height" multiplier="1:1" id="oCe-ef-H1M"/>
                                     <constraint firstAttribute="width" constant="150" id="xXT-BD-uPo"/>
@@ -32,7 +32,7 @@
                         <constraints>
                             <constraint firstItem="KdS-b9-jgH" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="11a-wy-sAp"/>
                             <constraint firstAttribute="bottom" secondItem="KdS-b9-jgH" secondAttribute="bottom" id="4Vg-2a-O6b"/>
-                            <constraint firstItem="j66-3Y-uAO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="212" id="9CX-ZK-hy6"/>
+                            <constraint firstItem="j66-3Y-uAO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="168" id="9CX-ZK-hy6"/>
                             <constraint firstItem="j66-3Y-uAO" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="E4a-tM-DEB"/>
                             <constraint firstItem="KdS-b9-jgH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kMF-PX-C8b"/>
                             <constraint firstItem="KdS-b9-jgH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sn2-Vi-1l0"/>
