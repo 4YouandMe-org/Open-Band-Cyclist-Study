@@ -30,7 +30,9 @@
  // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  //
 
-"EXTERNAL_ID_TITLE" = "Enter your 3-digit code";
-"EXTERNAL_ID_TEXT" = "3-digit code";
-"EXTERNAL_ID_HELP_TITLE" = "How do I find my code?";
-"EXTERNAL_ID_HELP_TEXT" = "Your code is printed on the wristband of the provided Open Band device.";
+"ACTIVITY_CYCLING" = "Cycling";
+"ACTIVITY_SLEEPING" = "Sleeping";
+"ACTIVITY_SITTING" = "Sitting";
+"ACTIVITY_WALKING" = "Walking";
+"ACTIVITY_COMPLETED" = "Completed";
+"ACTIVITY_%@_%@_COMPLETED" = "%@/%@ completed";

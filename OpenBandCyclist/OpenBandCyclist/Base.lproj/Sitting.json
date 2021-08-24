@@ -1,0 +1,115 @@
+{
+  "identifier": "Validation",
+  "taskIdentifier": "Validation",
+  "schemaIdentifier": "Validation",
+  "asyncActions": [
+      {
+        "identifier": "bleConnections",
+        "type": "bleConnections",
+        "deviceTypes": ["openBand", "polar"],
+        "usesCSVEncoding": true,
+        "startStepIdentifier": "bleConnection",
+        "stopStepIdentifier": "bleData"
+      },
+    {
+      "identifier": "polarEcg",
+      "type": "polarBle",
+      "dataType": "ecg",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "polarAccel",
+      "type": "polarBle",
+      "dataType": "accelerometer",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "polarHr",
+      "type": "polarBle",
+      "dataType": "hr",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "openBandPpg",
+      "type": "openBandBle",
+      "dataType": "ppg",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "openBandAccel",
+      "type": "openBandBle",
+      "dataType": "accelerometer",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    }
+  ],
+  "steps": [
+      {
+          "identifier": "inrto",
+          "type": "instruction",
+          "title": "Sitting",
+          "text": "For 3 minutes, rest your hand on a table surface.  Leave your hand still as much as you can."
+      },
+    {
+      "identifier": "bleConnection",
+      "type": "bleConnection",
+      "title": "Polar H10:",
+      "text": "Open Band:",
+      "recordingSchedule": "always",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Begin"
+        }
+      }
+    },
+    {
+        "identifier": "countdown",
+        "type": "countdown",
+        "text": "Begin in...",
+        "duration": 5,
+        "commands": ["playSoundOnStart", "transitionAutomatically", "speakWarningOnPause", "playSoundOnFinish", "vibrateOnFinish", "vibrateOnStart"],
+        "spokenInstructions": {
+            "start": "Place the phone in your pocket."
+        },
+        "shouldEndOnInterrupt": false
+    },
+    {
+      "identifier": "bleData",
+      "type": "active",
+      "title": "Collecting data from each device...",
+      "duration": 180,
+      "commands": [
+        "transitionAutomatically",
+        "shouldDisableIdleTimer",
+        "vibrate"
+      ],
+      "shouldEndOnInterrupt": false
+    },
+    {
+      "identifier": "completion",
+      "type": "instruction",
+      "title": "Data collected",
+      "text": "You have completed the sitting capture activity. Thank you.",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Done"
+        }
+      },
+      "shouldHideActions": [
+        "goBackward",
+        "cancel"
+      ]
+    }
+  ]
+}
