@@ -55,6 +55,8 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
     
     weak var smsSignInDelegate: SignInDelegate? = nil
     
+    let consentTaskId = "Consent"
+    
     override func instantiateColorPalette() -> RSDColorPalette? {
         return AppDelegate.colorPalette
     }
@@ -64,10 +66,16 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
     }
     
     func showAppropriateViewController(animated: Bool) {
-        if BridgeSDK.authManager.isAuthenticated() {
-            showMainViewController()
+        
+        let isAuthenticated = BridgeSDK.authManager.isAuthenticated()
+        let isConsented = SBAParticipantManager.shared.isConsented
+        
+        if isAuthenticated && isConsented {
+            self.showMainViewController()
+        } else if isAuthenticated {
+            self.showConsentScreens()
         } else {
-            showLaunchViewController()
+            self.showLaunchViewController()
         }
     }
     
@@ -106,6 +114,19 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
         self.transition(to: vc, state: .main, animated: true)
+    }
+    
+    func showConsentScreens() {
+        do {
+            let resourceTransformer = RSDResourceTransformerObject(resourceName: self.consentTaskId)
+            let task = try RSDFactory.shared.decodeTask(with: resourceTransformer)
+            let taskViewModel = RSDTaskViewModel(task: task)
+            let vc = RSDTaskViewController(taskViewModel: taskViewModel)
+            vc.delegate = self
+            self.transition(to: vc, state: .consent, animated: true)
+        } catch let err {
+            fatalError("Failed to decode the consent screens task. \(err)")
+        }
     }
     
     func openStoryboard(_ name: String) -> UIStoryboard? {

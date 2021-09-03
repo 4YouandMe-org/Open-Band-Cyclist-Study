@@ -91,6 +91,27 @@
 		CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CBC28AB825C7D964009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; };
 		CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBDC5C5726E2782400814972 /* ConsentReviewStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */; };
+		CBDC5C5826E2782400814972 /* ConsentQuizStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */; };
+		CBDC5C5926E2782400814972 /* ConsentReviewStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5626E2782400814972 /* ConsentReviewStepViewController.swift */; };
+		CBDC5C5E26E2783A00814972 /* OnboardingInstructionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5C26E2783A00814972 /* OnboardingInstructionStepViewController.swift */; };
+		CBDC5C5F26E2783A00814972 /* OnboardingFormStepObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5D26E2783A00814972 /* OnboardingFormStepObject.swift */; };
+		CBDC5C6726E27C3600814972 /* Consent.json in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C6526E27C3600814972 /* Consent.json */; };
+		CBDC5C8A26E27E2D00814972 /* ConsentForm.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C6C26E27E2C00814972 /* ConsentForm.html */; };
+		CBDC5C8B26E27E2D00814972 /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C6E26E27E2C00814972 /* PrivacyPolicy.html */; };
+		CBDC5C8C26E27E2D00814972 /* PotentialBenefits_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7026E27E2C00814972 /* PotentialBenefits_Consent.html */; };
+		CBDC5C8D26E27E2D00814972 /* Privacy_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7226E27E2C00814972 /* Privacy_Consent.html */; };
+		CBDC5C8E26E27E2D00814972 /* FollowUp_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7426E27E2C00814972 /* FollowUp_Consent.html */; };
+		CBDC5C8F26E27E2D00814972 /* ResearchActivities_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7626E27E2C00814972 /* ResearchActivities_Consent.html */; };
+		CBDC5C9026E27E2D00814972 /* Quit_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7826E27E2C00814972 /* Quit_Consent.html */; };
+		CBDC5C9126E27E2D00814972 /* PhoneLearnMore.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7A26E27E2C00814972 /* PhoneLearnMore.html */; };
+		CBDC5C9226E27E2D00814972 /* EnvironmentalLearnMore.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7C26E27E2C00814972 /* EnvironmentalLearnMore.html */; };
+		CBDC5C9326E27E2D00814972 /* QualifiedResearchers_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C7E26E27E2C00814972 /* QualifiedResearchers_Consent.html */; };
+		CBDC5C9426E27E2D00814972 /* PotentialRisks_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C8026E27E2C00814972 /* PotentialRisks_Consent.html */; };
+		CBDC5C9526E27E2D00814972 /* ConsentLearnMorePlaceholder.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C8226E27E2D00814972 /* ConsentLearnMorePlaceholder.html */; };
+		CBDC5C9626E27E2D00814972 /* FutureIndependentResearch_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C8426E27E2D00814972 /* FutureIndependentResearch_Consent.html */; };
+		CBDC5C9726E27E2D00814972 /* TimeCommitment_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C8626E27E2D00814972 /* TimeCommitment_Consent.html */; };
+		CBDC5C9826E27E2D00814972 /* DataUse_Consent.html in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C8826E27E2D00814972 /* DataUse_Consent.html */; };
 		CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */ = {isa = PBXBuildFile; fileRef = CBDCDC6B23F383DC00E5CEB8 /* open-band-cyclist.pem */; };
 		CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBDCDC7023F383DC00E5CEB8 /* BridgeInfo-private.plist */; };
 		CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFABCBEE22DD1F2800D11109 /* Assets.xcassets */; };
@@ -394,6 +415,27 @@
 		CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PolarBleSdk.xcframework; sourceTree = "<group>"; };
 		CBC6519523F392C700C3FF0C /* OpenBandCyclist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclist.entitlements; sourceTree = "<group>"; };
 		CBD67D8622DFC45200998516 /* OpenBandCyclistValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclistValidation.entitlements; sourceTree = "<group>"; };
+		CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsentReviewStepViewController.xib; sourceTree = "<group>"; };
+		CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentQuizStepViewController.swift; sourceTree = "<group>"; };
+		CBDC5C5626E2782400814972 /* ConsentReviewStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentReviewStepViewController.swift; sourceTree = "<group>"; };
+		CBDC5C5C26E2783A00814972 /* OnboardingInstructionStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingInstructionStepViewController.swift; sourceTree = "<group>"; };
+		CBDC5C5D26E2783A00814972 /* OnboardingFormStepObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingFormStepObject.swift; sourceTree = "<group>"; };
+		CBDC5C6626E27C3600814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/Consent.json; sourceTree = "<group>"; };
+		CBDC5C6D26E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/ConsentForm.html; sourceTree = "<group>"; };
+		CBDC5C6F26E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/PrivacyPolicy.html; sourceTree = "<group>"; };
+		CBDC5C7126E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/PotentialBenefits_Consent.html; sourceTree = "<group>"; };
+		CBDC5C7326E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/Privacy_Consent.html; sourceTree = "<group>"; };
+		CBDC5C7526E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/FollowUp_Consent.html; sourceTree = "<group>"; };
+		CBDC5C7726E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/ResearchActivities_Consent.html; sourceTree = "<group>"; };
+		CBDC5C7926E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/Quit_Consent.html; sourceTree = "<group>"; };
+		CBDC5C7B26E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/PhoneLearnMore.html; sourceTree = "<group>"; };
+		CBDC5C7D26E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/EnvironmentalLearnMore.html; sourceTree = "<group>"; };
+		CBDC5C7F26E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/QualifiedResearchers_Consent.html; sourceTree = "<group>"; };
+		CBDC5C8126E27E2C00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/PotentialRisks_Consent.html; sourceTree = "<group>"; };
+		CBDC5C8326E27E2D00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/ConsentLearnMorePlaceholder.html; sourceTree = "<group>"; };
+		CBDC5C8526E27E2D00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/FutureIndependentResearch_Consent.html; sourceTree = "<group>"; };
+		CBDC5C8726E27E2D00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/TimeCommitment_Consent.html; sourceTree = "<group>"; };
+		CBDC5C8926E27E2D00814972 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../../../Psorcast/Psorcast/Psorcast/Base.lproj/DataUse_Consent.html; sourceTree = "<group>"; };
 		CBDCDC6B23F383DC00E5CEB8 /* open-band-cyclist.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "open-band-cyclist.pem"; path = "../../../iOSPrivateProjectInfo/OpenBand/open-band-cyclist.pem"; sourceTree = "<group>"; };
 		CBDCDC7023F383DC00E5CEB8 /* BridgeInfo-private.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "BridgeInfo-private.plist"; path = "../../../iOSPrivateProjectInfo/OpenBand/BridgeInfo-private.plist"; sourceTree = "<group>"; };
 		CBDD30E12416C7D1003B0488 /* OpenBandCyclistAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OpenBandCyclistAssets.xcassets; sourceTree = "<group>"; };
@@ -495,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				CB28989026D3752000610FE8 /* PhoneSignIn.json */,
+				CBDC5C6526E27C3600814972 /* Consent.json */,
 				CB028F7A26D4CAB800D39F34 /* Cycling.json */,
 				CB028F7626D4CAB800D39F34 /* Sitting.json */,
 				CB028F7826D4CAB800D39F34 /* Sleeping.json */,
@@ -516,7 +559,6 @@
 			isa = PBXGroup;
 			children = (
 				CB51671626D3783600915FB2 /* HTML */,
-				CB51673B26D3786400915FB2 /* PhoneLearnMore.html */,
 				CB3075C925449BA5004983A4 /* JSON */,
 				CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */,
 			);
@@ -526,6 +568,22 @@
 		CB51671626D3783600915FB2 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				CBDC5C7A26E27E2C00814972 /* PhoneLearnMore.html */,
+				CBDC5C6C26E27E2C00814972 /* ConsentForm.html */,
+				CBDC5C8226E27E2D00814972 /* ConsentLearnMorePlaceholder.html */,
+				CBDC5C8826E27E2D00814972 /* DataUse_Consent.html */,
+				CBDC5C7C26E27E2C00814972 /* EnvironmentalLearnMore.html */,
+				CBDC5C7426E27E2C00814972 /* FollowUp_Consent.html */,
+				CBDC5C8426E27E2D00814972 /* FutureIndependentResearch_Consent.html */,
+				CB51673B26D3786400915FB2 /* PhoneLearnMore.html */,
+				CBDC5C7026E27E2C00814972 /* PotentialBenefits_Consent.html */,
+				CBDC5C8026E27E2C00814972 /* PotentialRisks_Consent.html */,
+				CBDC5C7226E27E2C00814972 /* Privacy_Consent.html */,
+				CBDC5C6E26E27E2C00814972 /* PrivacyPolicy.html */,
+				CBDC5C7E26E27E2C00814972 /* QualifiedResearchers_Consent.html */,
+				CBDC5C7826E27E2C00814972 /* Quit_Consent.html */,
+				CBDC5C7626E27E2C00814972 /* ResearchActivities_Consent.html */,
+				CBDC5C8626E27E2D00814972 /* TimeCommitment_Consent.html */,
 				CB51673726D3784400915FB2 /* CSS_files */,
 			);
 			name = HTML;
@@ -541,6 +599,11 @@
 				CB3075D02545027C004983A4 /* BleConnectionStepViewController.swift */,
 				CB3075D225450374004983A4 /* BleConnectionStepViewController.xib */,
 				CB52A5B626602DA100FAFAB1 /* BleActiveStepViewController.swift */,
+				CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */,
+				CBDC5C5626E2782400814972 /* ConsentReviewStepViewController.swift */,
+				CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */,
+				CBDC5C5D26E2783A00814972 /* OnboardingFormStepObject.swift */,
+				CBDC5C5C26E2783A00814972 /* OnboardingInstructionStepViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1090,19 +1153,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */,
+				CBDC5C9326E27E2D00814972 /* QualifiedResearchers_Consent.html in Resources */,
+				CBDC5C8A26E27E2D00814972 /* ConsentForm.html in Resources */,
+				CBDC5C9426E27E2D00814972 /* PotentialRisks_Consent.html in Resources */,
 				FFABCBCC22DD1EEC00D11109 /* LaunchScreen.storyboard in Resources */,
 				CB28989726D3757300610FE8 /* Registration.storyboard in Resources */,
 				CB028F7D26D4CAB800D39F34 /* Sitting.json in Resources */,
+				CBDC5C9126E27E2D00814972 /* PhoneLearnMore.html in Resources */,
 				CB28989226D3752000610FE8 /* PhoneSignIn.json in Resources */,
+				CBDC5C9026E27E2D00814972 /* Quit_Consent.html in Resources */,
 				CBA0250E23FC6B2500604F2D /* Main.storyboard in Resources */,
+				CBDC5C9826E27E2D00814972 /* DataUse_Consent.html in Resources */,
 				CB68E8BB2540AC5200E22BA5 /* BridgeInfo.plist in Resources */,
+				CBDC5C5726E2782400814972 /* ConsentReviewStepViewController.xib in Resources */,
 				CB028F7F26D4CAB800D39F34 /* Cycling.json in Resources */,
+				CBDC5C8D26E27E2D00814972 /* Privacy_Consent.html in Resources */,
+				CBDC5C9226E27E2D00814972 /* EnvironmentalLearnMore.html in Resources */,
+				CBDC5C8C26E27E2D00814972 /* PotentialBenefits_Consent.html in Resources */,
+				CBDC5C9526E27E2D00814972 /* ConsentLearnMorePlaceholder.html in Resources */,
 				CBDCDCBE23F384D400E5CEB8 /* Assets.xcassets in Resources */,
 				CB51673E26D3788700915FB2 /* PhoneLearnMore.html in Resources */,
+				CBDC5C6726E27C3600814972 /* Consent.json in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
 				CB51673826D3784400915FB2 /* CSS_files in Resources */,
+				CBDC5C8E26E27E2D00814972 /* FollowUp_Consent.html in Resources */,
+				CBDC5C9626E27E2D00814972 /* FutureIndependentResearch_Consent.html in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
+				CBDC5C8B26E27E2D00814972 /* PrivacyPolicy.html in Resources */,
+				CBDC5C9726E27E2D00814972 /* TimeCommitment_Consent.html in Resources */,
 				CB028F7E26D4CAB800D39F34 /* Sleeping.json in Resources */,
+				CBDC5C8F26E27E2D00814972 /* ResearchActivities_Consent.html in Resources */,
 				CB3075D325450374004983A4 /* BleConnectionStepViewController.xib in Resources */,
 				CBDD30E62416C7D1003B0488 /* OpenBandCyclistAssets.xcassets in Resources */,
 				CB028F7C26D4CAB800D39F34 /* Walking.json in Resources */,
@@ -1154,14 +1234,18 @@
 				CB3075B425438BD3004983A4 /* OpenBandBleRecorder.swift in Sources */,
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
 				CB028F6D26D47FE800D39F34 /* TaskListScheduleManager.swift in Sources */,
+				CBDC5C5826E2782400814972 /* ConsentQuizStepViewController.swift in Sources */,
 				CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */,
 				CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */,
+				CBDC5C5926E2782400814972 /* ConsentReviewStepViewController.swift in Sources */,
+				CBDC5C5E26E2783A00814972 /* OnboardingInstructionStepViewController.swift in Sources */,
 				CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */,
 				CB28988626D36A1200610FE8 /* PhoneRegistrationViewController.swift in Sources */,
 				FFABCBC222DD1EEB00D11109 /* AppDelegate.swift in Sources */,
 				CB3075B225438BC5004983A4 /* PolarBleRecorder.swift in Sources */,
 				CB028F6926D47F4100D39F34 /* TaskCollectionViewController.swift in Sources */,
 				CB2FD12F254B9159005B476F /* BleConnectionManager.swift in Sources */,
+				CBDC5C5F26E2783A00814972 /* OnboardingFormStepObject.swift in Sources */,
 				CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */,
 				CB28988426D36A1200610FE8 /* RegistrationWaitingViewController.swift in Sources */,
 			);
@@ -1271,6 +1355,134 @@
 				CBA0250923FC6B2500604F2D /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CBDC5C6526E27C3600814972 /* Consent.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C6626E27C3600814972 /* Base */,
+			);
+			name = Consent.json;
+			sourceTree = "<group>";
+		};
+		CBDC5C6C26E27E2C00814972 /* ConsentForm.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C6D26E27E2C00814972 /* Base */,
+			);
+			name = ConsentForm.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C6E26E27E2C00814972 /* PrivacyPolicy.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C6F26E27E2C00814972 /* Base */,
+			);
+			name = PrivacyPolicy.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7026E27E2C00814972 /* PotentialBenefits_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7126E27E2C00814972 /* Base */,
+			);
+			name = PotentialBenefits_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7226E27E2C00814972 /* Privacy_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7326E27E2C00814972 /* Base */,
+			);
+			name = Privacy_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7426E27E2C00814972 /* FollowUp_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7526E27E2C00814972 /* Base */,
+			);
+			name = FollowUp_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7626E27E2C00814972 /* ResearchActivities_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7726E27E2C00814972 /* Base */,
+			);
+			name = ResearchActivities_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7826E27E2C00814972 /* Quit_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7926E27E2C00814972 /* Base */,
+			);
+			name = Quit_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7A26E27E2C00814972 /* PhoneLearnMore.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7B26E27E2C00814972 /* Base */,
+			);
+			name = PhoneLearnMore.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7C26E27E2C00814972 /* EnvironmentalLearnMore.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7D26E27E2C00814972 /* Base */,
+			);
+			name = EnvironmentalLearnMore.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C7E26E27E2C00814972 /* QualifiedResearchers_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C7F26E27E2C00814972 /* Base */,
+			);
+			name = QualifiedResearchers_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C8026E27E2C00814972 /* PotentialRisks_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C8126E27E2C00814972 /* Base */,
+			);
+			name = PotentialRisks_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C8226E27E2D00814972 /* ConsentLearnMorePlaceholder.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C8326E27E2D00814972 /* Base */,
+			);
+			name = ConsentLearnMorePlaceholder.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C8426E27E2D00814972 /* FutureIndependentResearch_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C8526E27E2D00814972 /* Base */,
+			);
+			name = FutureIndependentResearch_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C8626E27E2D00814972 /* TimeCommitment_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C8726E27E2D00814972 /* Base */,
+			);
+			name = TimeCommitment_Consent.html;
+			sourceTree = "<group>";
+		};
+		CBDC5C8826E27E2D00814972 /* DataUse_Consent.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBDC5C8926E27E2D00814972 /* Base */,
+			);
+			name = DataUse_Consent.html;
 			sourceTree = "<group>";
 		};
 		FFABCBCA22DD1EEC00D11109 /* LaunchScreen.storyboard */ = {
