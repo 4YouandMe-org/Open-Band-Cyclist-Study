@@ -23,7 +23,7 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -switch /Applications/Xcode_12.4.app && /usr/bin/xcodebuild -version
       - name: Run unit tests
-        run: xcodebuild test -project "${GITHUB_WORKSPACE}/OpenBandCyclist/OpenBandCyclist.xcodeproj" -scheme "OpenBandCyclistValidationTests" -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.4' -derivedDataPath DerivedData
+        run: xcodebuild test -project "${GITHUB_WORKSPACE}/OpenBandCyclist/OpenBandCyclist.xcodeproj" -scheme "OpenBandCyclistValidationTests" -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.4'
       - name: Upload test logs
         uses: actions/upload-artifact@v2
         if: ${{ always() }} # IMPORTANT: Upload reports regardless of status
