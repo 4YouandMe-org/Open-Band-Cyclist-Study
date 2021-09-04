@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConsentReviewStepViewController" customModule="Psorcast" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConsentReviewStepViewController" customModule="OpenBandCyclist" customModuleProvider="target">
             <connections>
                 <outlet property="agreeButton" destination="9d5-3f-GpT" id="MC5-Ft-1GG"/>
                 <outlet property="detailsLabel" destination="fR5-vp-ZId" id="9fa-3l-4x7"/>
@@ -73,14 +73,14 @@
                                 <outlet property="titleLabel" destination="n77-ca-UzS" id="jFl-7E-hC6"/>
                             </connections>
                         </view>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This is where the consent form will go" translatesAutoresizingMaskIntoConstraints="NO" id="cJA-fy-lPu">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" text="This is where the consent form will go" translatesAutoresizingMaskIntoConstraints="NO" id="cJA-fy-lPu">
                             <rect key="frame" x="36" y="295" width="342" height="508"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <color key="textColor" systemColor="labelColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqM-PK-2qc" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqM-PK-2qc" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
                             <rect key="frame" x="0.0" y="803" width="414" height="137"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
