@@ -145,6 +145,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="KuJ-E8-c3n" kind="relationship" relationship="viewControllers" id="Bwm-jG-Tbv"/>
+                        <segue destination="3FM-2L-O4o" kind="relationship" relationship="viewControllers" id="twZ-8L-h6B"/>
+                        <segue destination="3at-gZ-4YR" kind="relationship" relationship="viewControllers" id="J3Z-Ib-CrI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wvb-1a-1E6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -154,7 +156,7 @@
         <!--Home-->
         <scene sceneID="SaZ-YM-Id2">
             <objects>
-                <viewController storyboardIdentifier="TryItFirstTaskTableViewController" id="KuJ-E8-c3n" customClass="TaskCollectionViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KuJ-E8-c3n" customClass="TaskCollectionViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Tl-uR-z4t">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -297,6 +299,243 @@
             </objects>
             <point key="canvasLocation" x="1244.9275362318842" y="-962.27678571428567"/>
         </scene>
+        <!--About-->
+        <scene sceneID="b3W-JF-zaJ">
+            <objects>
+                <viewController id="3at-gZ-4YR" userLabel="About" customClass="AboutViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fes-aE-2cK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnQ-Br-jv5" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoForeground" translatesAutoresizingMaskIntoConstraints="NO" id="Oko-dt-b0V">
+                                        <rect key="frame" x="169" y="36" width="76" height="76"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Oko-dt-b0V" secondAttribute="height" multiplier="1:1" id="2HD-vB-2oj"/>
+                                            <constraint firstAttribute="height" constant="76" id="9fm-pN-cox"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2901960784" green="0.36862745099999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.2901960784" green="0.36862745099999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="ClU-Hb-vK8"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oko-dt-b0V" secondAttribute="bottom" constant="8" id="Wiz-ME-bHu"/>
+                                    <constraint firstItem="Oko-dt-b0V" firstAttribute="centerX" secondItem="hnQ-Br-jv5" secondAttribute="centerX" id="dtI-M2-zjm"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nim-nD-GNP">
+                                <rect key="frame" x="0.0" y="120" width="414" height="693"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">
+About The Study:
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="systemBold" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+ </string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="systemBold" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="What is this app?">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="systemBold" size="18"/>
+                                            <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+This app is used to connect your Open Band study device and your PolarH10 and collect data from these devices while you are completing your study activities.
+
+
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="What am I being asked to do?">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="systemBold" size="18"/>
+                                            <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+
+You are being asked to complete three activities -- cycling, sleeping, and TBD -- while wearing your Open Band and PolarH10 at least once a week. 
+
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="What is the purpose of the study?">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="systemBold" size="18"/>
+                                            <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <mutableString key="content">
+
+This study uses an app to test a new open source wristband (the Open Band) that measures your heart rate and heart-rate variability during your study activities. We want to verify that the Band works as well as the PolarH10, which means we can start to use it for research. 
+
+For more information, please refer to your Informed Consent Document.
+</mutableString>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gGi-8a-hr6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hnQ-Br-jv5" firstAttribute="leading" secondItem="gGi-8a-hr6" secondAttribute="leading" id="Kh5-Ms-SGl"/>
+                            <constraint firstItem="nim-nD-GNP" firstAttribute="leading" secondItem="gGi-8a-hr6" secondAttribute="leading" id="Pin-wo-djq"/>
+                            <constraint firstItem="hnQ-Br-jv5" firstAttribute="trailing" secondItem="gGi-8a-hr6" secondAttribute="trailing" id="QGw-KH-Rja"/>
+                            <constraint firstItem="hnQ-Br-jv5" firstAttribute="top" secondItem="Fes-aE-2cK" secondAttribute="top" id="SUM-ag-0Sb"/>
+                            <constraint firstItem="nim-nD-GNP" firstAttribute="bottom" secondItem="gGi-8a-hr6" secondAttribute="bottom" id="XpC-hk-8Wo"/>
+                            <constraint firstItem="nim-nD-GNP" firstAttribute="top" secondItem="hnQ-Br-jv5" secondAttribute="bottom" id="cAW-Ip-d4P"/>
+                            <constraint firstItem="gGi-8a-hr6" firstAttribute="trailing" secondItem="nim-nD-GNP" secondAttribute="trailing" id="xSi-bd-Xjv"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="About" image="AboutTab" id="gjX-Uz-CLj">
+                        <color key="badgeColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="headerView" destination="hnQ-Br-jv5" id="tD2-qf-thl"/>
+                        <outlet property="textView" destination="nim-nD-GNP" id="9vl-Ds-jmH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DK3-qq-6Uu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1245" y="526"/>
+        </scene>
+        <!--Data Log-->
+        <scene sceneID="k4E-Op-Egn">
+            <objects>
+                <viewController id="3FM-2L-O4o" userLabel="Data Log" customClass="DataLogViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G2U-pG-eYj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtD-m8-5PW" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoForeground" translatesAutoresizingMaskIntoConstraints="NO" id="TOZ-li-YgP">
+                                        <rect key="frame" x="169" y="36" width="76" height="76"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="76" id="a7z-p0-ZsK"/>
+                                            <constraint firstAttribute="width" secondItem="TOZ-li-YgP" secondAttribute="height" multiplier="1:1" id="vV1-Ie-EqV"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2901960784" green="0.36862745099999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.2901960784" green="0.36862745099999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="TOZ-li-YgP" firstAttribute="centerX" secondItem="NtD-m8-5PW" secondAttribute="centerX" id="gIO-ot-AbJ"/>
+                                    <constraint firstAttribute="height" constant="120" id="lwX-f4-xlO"/>
+                                    <constraint firstAttribute="bottom" secondItem="TOZ-li-YgP" secondAttribute="bottom" constant="8" id="oU9-oG-zkz"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="emR-5t-6O2">
+                                <rect key="frame" x="0.0" y="120" width="414" height="693"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AgY-Dd-nki">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Activity Log:">
+                                            <attributes>
+                                                <font key="NSFont" metaFont="systemBold" size="24"/>
+                                                <font key="NSOriginalFont" metaFont="systemBold" size="24"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <connections>
+                                    <outlet property="dataSource" destination="3FM-2L-O4o" id="Ro9-LV-n7d"/>
+                                    <outlet property="delegate" destination="3FM-2L-O4o" id="m3w-ND-S9n"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="nlD-w5-NTT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="emR-5t-6O2" secondAttribute="bottom" id="8kL-RG-Yhd"/>
+                            <constraint firstItem="emR-5t-6O2" firstAttribute="leading" secondItem="nlD-w5-NTT" secondAttribute="leading" id="BjE-Pp-Pb2"/>
+                            <constraint firstItem="emR-5t-6O2" firstAttribute="trailing" secondItem="nlD-w5-NTT" secondAttribute="trailing" id="LNE-4z-2MX"/>
+                            <constraint firstItem="NtD-m8-5PW" firstAttribute="leading" secondItem="nlD-w5-NTT" secondAttribute="leading" id="NZh-yG-gt7"/>
+                            <constraint firstItem="NtD-m8-5PW" firstAttribute="trailing" secondItem="nlD-w5-NTT" secondAttribute="trailing" id="VCu-eM-o8y"/>
+                            <constraint firstItem="emR-5t-6O2" firstAttribute="top" secondItem="NtD-m8-5PW" secondAttribute="bottom" id="h59-2c-L3Y"/>
+                            <constraint firstItem="NtD-m8-5PW" firstAttribute="top" secondItem="G2U-pG-eYj" secondAttribute="top" id="ySG-fj-Dar"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Log" image="LogTab" id="EMy-UH-sAO">
+                        <color key="badgeColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="headerView" destination="NtD-m8-5PW" id="eag-DD-ZrV"/>
+                        <outlet property="tableView" destination="emR-5t-6O2" id="JpR-kd-Atf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uBe-K7-b8C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1245" y="-184"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="z55-Xc-2xU">
@@ -304,9 +543,11 @@
         </designable>
     </designables>
     <resources>
+        <image name="AboutTab" width="31" height="31"/>
         <image name="ActivitySleeping" width="47.5" height="42"/>
         <image name="BackgroundDefault" width="375" height="667"/>
         <image name="HomeTab" width="30" height="30"/>
+        <image name="LogTab" width="29" height="27"/>
         <image name="Logo" width="177" height="177"/>
         <image name="LogoForeground" width="46" height="46"/>
         <systemColor name="systemBackgroundColor">

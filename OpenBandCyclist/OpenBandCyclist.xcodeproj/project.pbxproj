@@ -15,6 +15,8 @@
 		CB028F7F26D4CAB800D39F34 /* Cycling.json in Resources */ = {isa = PBXBuildFile; fileRef = CB028F7A26D4CAB800D39F34 /* Cycling.json */; };
 		CB077FBB253E647100CF56C4 /* ExternalIDRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */; };
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
+		CB0BC88C2706A28500B7F34C /* DataLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC86B2706A28500B7F34C /* DataLogViewController.swift */; };
+		CB0BC8902706A2FE00B7F34C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */; };
 		CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB107F1C265DB50200A52AF3 /* SleepValidation.json */; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */; };
@@ -377,6 +379,8 @@
 		CB028F7B26D4CAB800D39F34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Base; path = Base.lproj/Cycling.json; sourceTree = "<group>"; };
 		CB077FB9253E646D00CF56C4 /* ExternalIDRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExternalIDRegistrationViewController.xib; path = OpenBandCyclist/ExternalIDRegistrationViewController.xib; sourceTree = SOURCE_ROOT; };
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
+		CB0BC86B2706A28500B7F34C /* DataLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLogViewController.swift; sourceTree = "<group>"; };
+		CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		CB107F1C265DB50200A52AF3 /* SleepValidation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SleepValidation.json; path = OpenBandCyclist/SleepValidation.json; sourceTree = SOURCE_ROOT; };
 		CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteMathUtilsTests.swift; sourceTree = "<group>"; };
 		CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTaskViewController.swift; sourceTree = "<group>"; };
@@ -593,6 +597,8 @@
 			isa = PBXGroup;
 			children = (
 				CB028F4826D47F4100D39F34 /* TaskCollectionViewController.swift */,
+				CB0BC86B2706A28500B7F34C /* DataLogViewController.swift */,
+				CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */,
 				CB28988126D36A1200610FE8 /* PhoneRegistrationViewController.swift */,
 				CB28988026D36A1200610FE8 /* RegistrationWaitingViewController.swift */,
 				CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */,
@@ -1247,6 +1253,8 @@
 				CB2FD12F254B9159005B476F /* BleConnectionManager.swift in Sources */,
 				CBDC5C5F26E2783A00814972 /* OnboardingFormStepObject.swift in Sources */,
 				CB2FD12C254B9150005B476F /* BleConnectionRecorder.swift in Sources */,
+				CB0BC88C2706A28500B7F34C /* DataLogViewController.swift in Sources */,
+				CB0BC8902706A2FE00B7F34C /* AboutViewController.swift in Sources */,
 				CB28988426D36A1200610FE8 /* RegistrationWaitingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
