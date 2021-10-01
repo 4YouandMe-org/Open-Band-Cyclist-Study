@@ -56,6 +56,18 @@
       {
           "identifier": "inrto",
           "type": "instruction",
+          "title": "Wearing your devices?",
+          "text": "Please make sure you are wearing your Open Band and Polar H10",
+          "actions": {
+            "goForward": {
+              "type": "default",
+              "buttonTitle": "My Devices Are On"
+            }
+          }
+      },
+      {
+          "identifier": "bikeInrto",
+          "type": "instruction",
           "title": "Cycling",
           "text": "Please place your hands on your bike. Keep the wrist wearing the band still for this step."
       },
@@ -73,6 +85,23 @@
       }
     },
     {
+        "identifier": "bikeGetReady",
+        "type": "instruction",
+        "title": "Ready to begin?",
+        "text": "Please continue cycling for at least 30 minutes",
+        "image":{
+            "type": "fetchable",
+            "imageName":"BikeHeader",
+            "placementType":"topBackground"
+        },
+        "actions": {
+          "goForward": {
+            "type": "default",
+            "buttonTitle": "Begin"
+          }
+        }
+    },
+    {
         "identifier": "countdown",
         "type": "countdown",
         "text": "Begin in...",
@@ -86,7 +115,7 @@
     {
       "identifier": "bleData",
       "type": "active",
-      "title": "Collecting data from each device...",
+      "title": "Please continue cycling for at least 30 minutes",
       "duration": 1800,
       "commands": [
         "transitionAutomatically",
