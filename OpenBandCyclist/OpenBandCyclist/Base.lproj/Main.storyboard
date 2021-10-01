@@ -87,14 +87,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z55-Xc-2xU" customClass="RSDRoundedButton" customModule="ResearchUI">
-                                        <rect key="frame" x="46" y="824" width="323" height="30"/>
+                                        <rect key="frame" x="46" y="802" width="323" height="52"/>
                                         <state key="normal" title="Register"/>
                                         <connections>
                                             <action selector="goForwardClicked" destination="zjn-oR-S2A" eventType="touchUpInside" id="g9e-9N-TRz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap register to get started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rzy-58-Edo" userLabel="Detail Label">
-                                        <rect key="frame" x="24" y="749" width="366" height="29"/>
+                                        <rect key="frame" x="24" y="727" width="366" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -507,6 +507,77 @@ Cg
                                     </attributedString>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataLogTableViewCell" rowHeight="93" id="9hE-Ft-uPs" customClass="DataLogTableViewCell" customModule="OpenBandCyclist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="110" width="414" height="93"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9hE-Ft-uPs" id="Omz-LC-xTq">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efZ-1V-0kh" customClass="RSDCountdownDial" customModule="ResearchUI">
+                                                    <rect key="frame" x="24" y="16" width="61" height="61"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="efZ-1V-0kh" secondAttribute="height" multiplier="1:1" id="0lk-Ek-V2u"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="innerColor">
+                                                            <color key="value" red="0.2901960784" green="0.36862745099999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="ringWidth">
+                                                            <real key="value" value="6"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="dialWidth">
+                                                            <real key="value" value="6"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ActivitySleeping" translatesAutoresizingMaskIntoConstraints="NO" id="qMo-YM-bUX" userLabel="Activity Icon">
+                                                    <rect key="frame" x="33" y="25" width="43" height="43"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbG-LU-N83" userLabel="DayLabel">
+                                                    <rect key="frame" x="121" y="16" width="149" height="61"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxt-G3-Kkc" userLabel="TimeLabel">
+                                                    <rect key="frame" x="278" y="16" width="116" height="61"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="116" id="1xo-7Z-SX0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="efZ-1V-0kh" firstAttribute="top" secondItem="Omz-LC-xTq" secondAttribute="top" constant="16" id="1P9-ch-Ame"/>
+                                                <constraint firstItem="qMo-YM-bUX" firstAttribute="centerY" secondItem="efZ-1V-0kh" secondAttribute="centerY" id="5N2-0y-WdM"/>
+                                                <constraint firstItem="qMo-YM-bUX" firstAttribute="width" secondItem="efZ-1V-0kh" secondAttribute="width" multiplier="0.7" id="6Uj-Mi-1on"/>
+                                                <constraint firstItem="qMo-YM-bUX" firstAttribute="centerX" secondItem="efZ-1V-0kh" secondAttribute="centerX" id="K6u-Y9-ZAq"/>
+                                                <constraint firstItem="gbG-LU-N83" firstAttribute="top" secondItem="Omz-LC-xTq" secondAttribute="top" constant="16" id="Rfk-pG-Saz"/>
+                                                <constraint firstItem="gbG-LU-N83" firstAttribute="leading" secondItem="efZ-1V-0kh" secondAttribute="trailing" constant="36" id="S6D-UT-bvm"/>
+                                                <constraint firstItem="efZ-1V-0kh" firstAttribute="width" secondItem="efZ-1V-0kh" secondAttribute="height" multiplier="1:1" id="V0S-WT-8MV"/>
+                                                <constraint firstItem="qMo-YM-bUX" firstAttribute="height" secondItem="efZ-1V-0kh" secondAttribute="height" multiplier="0.7" id="WW1-hy-Zy1"/>
+                                                <constraint firstItem="efZ-1V-0kh" firstAttribute="leading" secondItem="Omz-LC-xTq" secondAttribute="leading" constant="24" id="XGH-pp-ves"/>
+                                                <constraint firstAttribute="bottom" secondItem="gbG-LU-N83" secondAttribute="bottom" constant="16" id="b6A-el-hap"/>
+                                                <constraint firstItem="Sxt-G3-Kkc" firstAttribute="top" secondItem="Omz-LC-xTq" secondAttribute="top" constant="16" id="cDv-bR-wWq"/>
+                                                <constraint firstItem="Sxt-G3-Kkc" firstAttribute="leading" secondItem="gbG-LU-N83" secondAttribute="trailing" constant="8" symbolic="YES" id="h22-OX-WLV"/>
+                                                <constraint firstAttribute="trailing" secondItem="Sxt-G3-Kkc" secondAttribute="trailing" constant="20" symbolic="YES" id="qxA-O5-z2F"/>
+                                                <constraint firstAttribute="bottom" secondItem="Sxt-G3-Kkc" secondAttribute="bottom" constant="16" id="seY-8D-DQs"/>
+                                                <constraint firstAttribute="bottom" secondItem="efZ-1V-0kh" secondAttribute="bottom" constant="16" id="vyf-N8-UsN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dayLabel" destination="gbG-LU-N83" id="9No-aX-EeV"/>
+                                            <outlet property="iconView" destination="qMo-YM-bUX" id="DB4-TB-uvV"/>
+                                            <outlet property="progressDial" destination="efZ-1V-0kh" id="NYH-RK-CyD"/>
+                                            <outlet property="timeLabel" destination="Sxt-G3-Kkc" id="UhU-zO-FiG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="3FM-2L-O4o" id="Ro9-LV-n7d"/>
                                     <outlet property="delegate" destination="3FM-2L-O4o" id="m3w-ND-S9n"/>
@@ -535,7 +606,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uBe-K7-b8C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245" y="-184"/>
+            <point key="canvasLocation" x="1244.9275362318842" y="-184.15178571428569"/>
         </scene>
         <!--Help-->
         <scene sceneID="wqd-P8-ohF">

@@ -37,8 +37,6 @@ import BridgeSDK
 import MotorControl
 
 class TaskCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, TaskCollectionViewCellDelegate, RSDTaskViewControllerDelegate {
-
-    let scheduleManager = TaskListScheduleManager()
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var signUpButton: UIButton?
@@ -66,7 +64,7 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
         // Refresh collection view sizes
         self.setupCollectionViewSizes()
         
-        self.gridLayout.itemCount = self.scheduleManager.tableRowCount
+        self.gridLayout.itemCount = TaskListScheduleManager.shared.tableRowCount
         self.collectionView.reloadData()
     }
     
@@ -131,7 +129,7 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
         // The grid layout stores items as (section, row),
         // so make sure we use the grid layout to get the correct item index.
         let itemIndex = self.gridLayout.itemIndex(for: indexPath)
-        let taskId = self.scheduleManager.taskId(for: itemIndex)
+        let taskId = TaskListScheduleManager.shared.taskId(for: itemIndex)
         let translatedIndexPath = IndexPath(item: itemIndex, section: 0)
 
         if let taskCell = cell as? TaskCollectionViewCell {
@@ -139,10 +137,10 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
             
             taskCell.delegate = self
             
-            let title = self.scheduleManager.title(for: itemIndex)
-            let text = self.scheduleManager.text(for: itemIndex)
-            let image = self.scheduleManager.image(for: itemIndex)
-            let progress = self.scheduleManager.completedProgress(for: itemIndex)
+            let title = TaskListScheduleManager.shared.title(for: itemIndex)
+            let text = TaskListScheduleManager.shared.text(for: itemIndex)
+            let image = TaskListScheduleManager.shared.image(for: itemIndex)
+            let progress = TaskListScheduleManager.shared.completedProgress(for: itemIndex)
 
             taskCell.setItemIndex(itemIndex: translatedIndexPath.item, taskId: taskId, title: title, text: text, image: image, completionProgress: progress)
         }
@@ -157,7 +155,7 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
     }
     
     func runTask(at itemIndex: Int) {
-        let taskInfo = self.scheduleManager.taskInfo(for: itemIndex)
+        let taskInfo = TaskListScheduleManager.shared.taskInfo(for: itemIndex)
         let taskViewModel = RSDTaskViewModel(taskInfo: taskInfo)
         let taskVc = RSDTaskViewController(taskViewModel: taskViewModel)
         taskVc.modalPresentationStyle = .fullScreen
@@ -173,20 +171,7 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
         
     func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {
         // Do not save or upload the data for the screening app
-        // scheduleManager.taskController(taskController, readyToSave: taskViewModel)
-        
-        // Let's delete all the files that were saved during the tests as well
-        taskViewModel.taskResult.stepHistory.forEach { (result) in
-            if let fileResult = result as? RSDFileResultObject,
-                let url = fileResult.url {
-                do {
-                    try FileManager.default.removeItem(at: url)
-                    print("Successfully deleted file: \(url.absoluteURL)")
-                } catch let error as NSError {
-                    print("Error deleting file: \(error.domain)")
-                }
-            }
-        }
+        TaskListScheduleManager.shared.uploadTask(taskViewModel: taskViewModel)        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -19,6 +19,7 @@
 		CB0BC8902706A2FE00B7F34C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */; };
 		CB0BC8CC2706A5BC00B7F34C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC8AB2706A5BC00B7F34C /* HelpViewController.swift */; };
 		CB0BC90B2706AF5400B7F34C /* Licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = CB0BC9092706AF5400B7F34C /* Licenses.html */; };
+		CB0BC9452706B1D800B7F34C /* CompletedTestsDefaultsReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC9242706B1D800B7F34C /* CompletedTestsDefaultsReport.swift */; };
 		CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB107F1C265DB50200A52AF3 /* SleepValidation.json */; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */; };
@@ -385,6 +386,7 @@
 		CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		CB0BC8AB2706A5BC00B7F34C /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		CB0BC90A2706AF5400B7F34C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Licenses.html; sourceTree = "<group>"; };
+		CB0BC9242706B1D800B7F34C /* CompletedTestsDefaultsReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedTestsDefaultsReport.swift; sourceTree = "<group>"; };
 		CB107F1C265DB50200A52AF3 /* SleepValidation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SleepValidation.json; path = OpenBandCyclist/SleepValidation.json; sourceTree = SOURCE_ROOT; };
 		CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteMathUtilsTests.swift; sourceTree = "<group>"; };
 		CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTaskViewController.swift; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				CB028F6C26D47FE800D39F34 /* TaskListScheduleManager.swift */,
 				CB2FD12E254B9159005B476F /* BleConnectionManager.swift */,
 				CB8F7D512422D73900F77D62 /* StudyTaskFactory.swift */,
+				CB0BC9242706B1D800B7F34C /* CompletedTestsDefaultsReport.swift */,
 				CB3075B025437873004983A4 /* Recorders */,
 			);
 			name = Model;
@@ -1244,6 +1247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB2FD133254B9179005B476F /* ByteMathUtils.swift in Sources */,
+				CB0BC9452706B1D800B7F34C /* CompletedTestsDefaultsReport.swift in Sources */,
 				CB3075B425438BD3004983A4 /* OpenBandBleRecorder.swift in Sources */,
 				CB8F7D562422D73A00F77D62 /* StudyTaskFactory.swift in Sources */,
 				CB028F6D26D47FE800D39F34 /* TaskListScheduleManager.swift in Sources */,

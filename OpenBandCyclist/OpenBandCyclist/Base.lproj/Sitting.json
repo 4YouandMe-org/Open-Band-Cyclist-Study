@@ -87,7 +87,7 @@
       "identifier": "bleData",
       "type": "active",
       "title": "Collecting data from each device...",
-      "duration": 180,
+      "duration": 60,
       "commands": [
         "transitionAutomatically",
         "shouldDisableIdleTimer",
