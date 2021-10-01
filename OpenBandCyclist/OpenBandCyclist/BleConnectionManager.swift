@@ -290,14 +290,20 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
 
                     // Set the characteristic
                     self.ppgChar = characteristic
-                    self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
+                    
+                    if (!self.isStreamingDataPaused) {
+                        self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
+                    }
                     
                 } else if characteristic.uuid == OpenBandConstants.accCharacteristic {
                     print("Accelerometer characteristic found")
 
                     // Set the characteristic
                     self.accChar = characteristic
-                    self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
+                    
+                    if (!self.isStreamingDataPaused) {
+                        self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
+                    }
                 }
             }
         }
@@ -523,12 +529,16 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     // PolarBleApiDeviceEcgObserver
     public func ecgFeatureReady(_ identifier: String) {
         print("Polar ECG data ready to stream \(identifier)")
-        self._startStreamingPolarEcgData()
+        if (!self.isStreamingDataPaused) {
+            self._startStreamingPolarEcgData()
+        }
     }
     
     // PolarBleApiDeviceAccelerometerObserver
     public func accFeatureReady(_ identifier: String) {
         print("Polar ACCEL data ready to stream \(identifier)")
-        self._startStreamingPolarAccelData()
+        if (!self.isStreamingDataPaused) {
+            self._startStreamingPolarAccelData()
+        }
     }
 }
