@@ -174,7 +174,10 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
         
         BridgeSDK.authManager.signIn(withPhoneNumber:phoneNumber, regionCode:regionCode, token:token, completion: { (task, result, error) in
             DispatchQueue.main.async {
-                let needsToConsent = (error! as NSError).code == SBBErrorCode.serverPreconditionNotMet.rawValue
+                var needsToConsent = false
+                if (error != nil) {
+                    needsToConsent = (error! as NSError).code == SBBErrorCode.serverPreconditionNotMet.rawValue
+                }
                 if error == nil || needsToConsent {
                     self.afterSignIn(succeeded: true, needsToConsent: needsToConsent)
                 } else {

@@ -17,6 +17,8 @@
 		CB077FBC253E647100CF56C4 /* ExternalIDRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */; };
 		CB0BC88C2706A28500B7F34C /* DataLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC86B2706A28500B7F34C /* DataLogViewController.swift */; };
 		CB0BC8902706A2FE00B7F34C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */; };
+		CB0BC8CC2706A5BC00B7F34C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BC8AB2706A5BC00B7F34C /* HelpViewController.swift */; };
+		CB0BC90B2706AF5400B7F34C /* Licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = CB0BC9092706AF5400B7F34C /* Licenses.html */; };
 		CB107F1D265DB50200A52AF3 /* SleepValidation.json in Resources */ = {isa = PBXBuildFile; fileRef = CB107F1C265DB50200A52AF3 /* SleepValidation.json */; };
 		CB22551A254B97E40098B64F /* ByteMathUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */; };
 		CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */; };
@@ -381,6 +383,8 @@
 		CB077FBA253E647100CF56C4 /* ExternalIDRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExternalIDRegistrationViewController.swift; path = OpenBandCyclist/ExternalIDRegistrationViewController.swift; sourceTree = SOURCE_ROOT; };
 		CB0BC86B2706A28500B7F34C /* DataLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLogViewController.swift; sourceTree = "<group>"; };
 		CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		CB0BC8AB2706A5BC00B7F34C /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		CB0BC90A2706AF5400B7F34C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Licenses.html; sourceTree = "<group>"; };
 		CB107F1C265DB50200A52AF3 /* SleepValidation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SleepValidation.json; path = OpenBandCyclist/SleepValidation.json; sourceTree = SOURCE_ROOT; };
 		CB225519254B97E40098B64F /* ByteMathUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteMathUtilsTests.swift; sourceTree = "<group>"; };
 		CB28985F26D36A1200610FE8 /* SignInTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTaskViewController.swift; sourceTree = "<group>"; };
@@ -572,6 +576,7 @@
 		CB51671626D3783600915FB2 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				CB0BC9092706AF5400B7F34C /* Licenses.html */,
 				CB71EB2126EFA82B006BF3BD /* ConsentForm.html */,
 				CB71EB0F26EFA82A006BF3BD /* ConsentLearnMorePlaceholder.html */,
 				CB71EB1926EFA82B006BF3BD /* DataUse_Consent.html */,
@@ -598,6 +603,7 @@
 			children = (
 				CB028F4826D47F4100D39F34 /* TaskCollectionViewController.swift */,
 				CB0BC86B2706A28500B7F34C /* DataLogViewController.swift */,
+				CB0BC8AB2706A5BC00B7F34C /* HelpViewController.swift */,
 				CB0BC88F2706A2FE00B7F34C /* AboutViewController.swift */,
 				CB28988126D36A1200610FE8 /* PhoneRegistrationViewController.swift */,
 				CB28988026D36A1200610FE8 /* RegistrationWaitingViewController.swift */,
@@ -1158,6 +1164,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0BC90B2706AF5400B7F34C /* Licenses.html in Resources */,
 				CB71EB3326EFA82B006BF3BD /* PotentialRisks_Consent.html in Resources */,
 				CB71EB2B26EFA82B006BF3BD /* QualifiedResearchers_Consent.html in Resources */,
 				CB6245FD253FA412006838B7 /* OpenBandCyclist.strings in Resources */,
@@ -1243,6 +1250,7 @@
 				CBDC5C5826E2782400814972 /* ConsentQuizStepViewController.swift in Sources */,
 				CB3075D6254545C2004983A4 /* BleConnectionStepViewController.swift in Sources */,
 				CB52A5B726602DA100FAFAB1 /* BleActiveStepViewController.swift in Sources */,
+				CB0BC8CC2706A5BC00B7F34C /* HelpViewController.swift in Sources */,
 				CBDC5C5926E2782400814972 /* ConsentReviewStepViewController.swift in Sources */,
 				CBDC5C5E26E2783A00814972 /* OnboardingInstructionStepViewController.swift in Sources */,
 				CB28988226D36A1200610FE8 /* SignInTaskViewController.swift in Sources */,
@@ -1323,6 +1331,14 @@
 				CB028F7B26D4CAB800D39F34 /* Base */,
 			);
 			name = Cycling.json;
+			sourceTree = "<group>";
+		};
+		CB0BC9092706AF5400B7F34C /* Licenses.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB0BC90A2706AF5400B7F34C /* Base */,
+			);
+			name = Licenses.html;
 			sourceTree = "<group>";
 		};
 		CB28989026D3752000610FE8 /* PhoneSignIn.json */ = {
