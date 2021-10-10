@@ -53,6 +53,18 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
         
         // Register the 30 second walking task with the motor control framework
         SBABridgeConfiguration.shared.addMapping(with: MCTTaskInfo(.walk30Seconds).task)
+        
+        // Reload the completed tests from bridge
+        let taskCount = TaskListScheduleManager.shared.completedTestList.count
+        TaskListScheduleManager.shared.completedTests.loadFromBridge { [weak self] (error) in
+            if (error == nil) {
+                DispatchQueue.main.async {
+                    if (taskCount != TaskListScheduleManager.shared.completedTestList.count) {
+                        self?.collectionView.reloadData()
+                    }
+                }
+            }
+        }
     }
     
     open override func viewDidLayoutSubviews() {
@@ -224,15 +236,19 @@ open class TaskTableHeaderView: UIView {
         case .cyclingTask:
             self.progressDial?.innerColor = UIColor(hexString: "#7D8EAB") ?? UIColor.white
             self.progressDial?.progressColor = UIColor(hexString: "#4A5E81") ?? UIColor.white
+            break
         case .sleepingTask:
             self.progressDial?.innerColor = UIColor(hexString: "#DAF5F6") ?? UIColor.white
             self.progressDial?.progressColor = UIColor(hexString: "#AFDDDF") ?? UIColor.white
+            break
         case .sittingTask:
             self.progressDial?.innerColor = UIColor(hexString: "#F7CC7E") ?? UIColor.white
             self.progressDial?.progressColor = UIColor(hexString: "#F5B33C") ?? UIColor.white
+            break
         default: // .walkingTask
             self.progressDial?.innerColor = UIColor(hexString: "#F7CC7E") ?? UIColor.white
             self.progressDial?.progressColor = UIColor(hexString: "#F5B33C") ?? UIColor.white
+            break
         }
     }
 

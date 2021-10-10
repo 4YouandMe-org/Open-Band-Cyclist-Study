@@ -116,8 +116,7 @@ public class TaskListScheduleManager {
     }
     
     open func completedCount(for taskIdentifier: String) -> Int {
-        // TODO: mdephillips get completed count from singleton report
-        return Int.random(in: 0...6)
+        return self.completedTestList.filter({ $0.identifier == taskIdentifier }).count
     }
     
     ///
