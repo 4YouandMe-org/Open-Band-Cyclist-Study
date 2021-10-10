@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VJ3-hJ-g4d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VJ3-hJ-g4d">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -87,14 +87,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z55-Xc-2xU" customClass="RSDRoundedButton" customModule="ResearchUI">
-                                        <rect key="frame" x="46" y="802" width="323" height="52"/>
+                                        <rect key="frame" x="46" y="824" width="323" height="30"/>
                                         <state key="normal" title="Register"/>
                                         <connections>
                                             <action selector="goForwardClicked" destination="zjn-oR-S2A" eventType="touchUpInside" id="g9e-9N-TRz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap register to get started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rzy-58-Edo" userLabel="Detail Label">
-                                        <rect key="frame" x="24" y="727" width="366" height="29"/>
+                                        <rect key="frame" x="24" y="749" width="366" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -142,6 +142,12 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.42745098040000001" green="0.70980392160000005" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.29019607843137252" green="0.36862745098039218" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.14509803921568626" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
+                        <tabBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" red="0.14509803921568626" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="KuJ-E8-c3n" kind="relationship" relationship="viewControllers" id="Bwm-jG-Tbv"/>
@@ -182,7 +188,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Rb2-eS-sGH">
-                                <rect key="frame" x="0.0" y="120" width="414" height="727"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="693"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rfv-2J-5LP">
                                     <size key="itemSize" width="212" height="177"/>
@@ -282,7 +288,7 @@
                             <constraint firstItem="Rb2-eS-sGH" firstAttribute="leading" secondItem="oiq-dY-odW" secondAttribute="leading" id="95F-Gr-5PM"/>
                             <constraint firstItem="mOn-dz-Iv5" firstAttribute="trailing" secondItem="oiq-dY-odW" secondAttribute="trailing" id="FHd-NN-GJc"/>
                             <constraint firstItem="Rb2-eS-sGH" firstAttribute="top" secondItem="mOn-dz-Iv5" secondAttribute="bottom" id="LX0-Cr-MAk"/>
-                            <constraint firstItem="Rb2-eS-sGH" firstAttribute="bottom" secondItem="oiq-dY-odW" secondAttribute="bottom" constant="34" id="Swv-pK-Mm4"/>
+                            <constraint firstItem="Rb2-eS-sGH" firstAttribute="bottom" secondItem="oiq-dY-odW" secondAttribute="bottom" id="Swv-pK-Mm4"/>
                             <constraint firstItem="Rb2-eS-sGH" firstAttribute="trailing" secondItem="oiq-dY-odW" secondAttribute="trailing" id="kzW-ed-tKC"/>
                             <constraint firstItem="mOn-dz-Iv5" firstAttribute="top" secondItem="6Tl-uR-z4t" secondAttribute="top" id="tw4-rn-EIm"/>
                             <constraint firstItem="mOn-dz-Iv5" firstAttribute="leading" secondItem="oiq-dY-odW" secondAttribute="leading" id="uqn-2H-f4d"/>
@@ -509,7 +515,7 @@ Cg
                                 </label>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataLogTableViewCell" rowHeight="93" id="9hE-Ft-uPs" customClass="DataLogTableViewCell" customModule="OpenBandCyclist" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="414" height="93"/>
+                                        <rect key="frame" x="0.0" y="126.5" width="414" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9hE-Ft-uPs" id="Omz-LC-xTq">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
