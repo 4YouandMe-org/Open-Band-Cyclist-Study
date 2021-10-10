@@ -60,12 +60,6 @@ open class DataLogViewController: UIViewController, UITableViewDelegate, UITable
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.updateDesignSystem()
-        
-        TaskListScheduleManager.shared.completedTests.loadFromBridge { [weak self] (error) in
-            if (error != nil) {
-                self?.refreshTableViewFromCache()
-            }
-        }
     }
     
     override open func viewWillAppear(_ animated: Bool) {

@@ -34,23 +34,36 @@
 import BridgeApp
 
 open class CompletedTestsDefaultsReport: UserDefaultsSingletonReport {
+    
+    lazy var dateFormatter: DateFormatter = {
+      return NSDate.iso8601formatter()!
+    }()
 
     var _current: CompletedTestList?
     var current: CompletedTestList? {
         if _current != nil { return _current }
         guard let jsonStr = self.defaults.data(forKey: "\(identifier)JsonValue") else { return nil }
         do {
-            _current = try TaskListScheduleManager.shared.jsonDecoder.decode(CompletedTestList.self, from: jsonStr)
-            return _current
+            let previous = try TaskListScheduleManager.shared.jsonDecoder.decode(CompletedTestList.self, from: jsonStr)
+            setCurrent(previous)
+            return previous
         } catch {
             debugPrint("Error decoding reminders json \(error)")
         }
         return nil
     }
     func setCurrent(_ item: CompletedTestList) {
-        _current = item
+        let sortedList = item.completed.sorted { test1, test2 in
+            guard let date1 = self.dateFormatter.date(from: test1.completedOn),
+                  let date2 = self.dateFormatter.date(from: test2.completedOn) else {
+                      return false
+                  }
+            return date1.timeIntervalSince1970 > date2.timeIntervalSince1970
+        }
+        let sortedItem = CompletedTestList(completed: sortedList)
+        _current = sortedItem
         do {
-            let jsonData = try TaskListScheduleManager.shared.jsonEncoder.encode(item)
+            let jsonData = try TaskListScheduleManager.shared.jsonEncoder.encode(sortedItem)
             self.defaults.set(jsonData, forKey: "\(identifier)JsonValue")
         } catch {
             print("Error converting reminders to JSON \(error)")
