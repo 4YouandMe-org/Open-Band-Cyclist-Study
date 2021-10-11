@@ -2,56 +2,6 @@
   "identifier": "Validation",
   "taskIdentifier": "Validation",
   "schemaIdentifier": "Validation",
-  "asyncActions": [
-      {
-        "identifier": "bleConnections",
-        "type": "bleConnections",
-        "deviceTypes": ["openBand", "polar"],
-        "usesCSVEncoding": true,
-        "startStepIdentifier": "bleConnection",
-        "stopStepIdentifier": "bleData"
-      },
-    {
-      "identifier": "polarEcg",
-      "type": "polarBle",
-      "dataType": "ecg",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "polarAccel",
-      "type": "polarBle",
-      "dataType": "accelerometer",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "polarHr",
-      "type": "polarBle",
-      "dataType": "hr",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "openBandPpg",
-      "type": "openBandBle",
-      "dataType": "ppg",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "openBandAccel",
-      "type": "openBandBle",
-      "dataType": "accelerometer",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    }
-  ],
   "steps": [
       {
           "identifier": "inrto",
@@ -59,19 +9,6 @@
           "title": "Walking",
           "text": "For 5 minutes, walk in an open space where you have room to walk back and forth comfortably."
       },
-    {
-      "identifier": "bleConnection",
-      "type": "bleConnection",
-      "title": "Polar H10:",
-      "text": "Open Band:",
-      "recordingSchedule": "always",
-      "actions": {
-        "goForward": {
-          "type": "default",
-          "buttonTitle": "Begin"
-        }
-      }
-    },
     {
         "identifier": "countdown",
         "type": "countdown",
@@ -87,7 +24,7 @@
       "identifier": "bleData",
       "type": "active",
       "title": "Collecting data from each device...",
-      "duration": 300,
+      "duration": 30,
       "commands": [
         "transitionAutomatically",
         "shouldDisableIdleTimer",

@@ -2,56 +2,6 @@
   "identifier": "Validation",
   "taskIdentifier": "Validation",
   "schemaIdentifier": "Validation",
-  "asyncActions": [
-      {
-        "identifier": "bleConnections",
-        "type": "bleConnections",
-        "deviceTypes": ["openBand", "polar"],
-        "usesCSVEncoding": true,
-        "startStepIdentifier": "bleConnection",
-        "stopStepIdentifier": "bleData"
-      },
-    {
-      "identifier": "polarEcg",
-      "type": "polarBle",
-      "dataType": "ecg",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "polarAccel",
-      "type": "polarBle",
-      "dataType": "accelerometer",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "polarHr",
-      "type": "polarBle",
-      "dataType": "hr",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "openBandPpg",
-      "type": "openBandBle",
-      "dataType": "ppg",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "openBandAccel",
-      "type": "openBandBle",
-      "dataType": "accelerometer",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    }
-  ],
   "steps": [
       {
           "identifier": "inrto",
@@ -71,19 +21,6 @@
           "title": "Cycling",
           "text": "Please place your hands on your bike. Keep the wrist wearing the band still for this step."
       },
-    {
-      "identifier": "bleConnection",
-      "type": "bleConnection",
-      "title": "Polar H10:",
-      "text": "Open Band:",
-      "recordingSchedule": "always",
-      "actions": {
-        "goForward": {
-          "type": "default",
-          "buttonTitle": "Begin"
-        }
-      }
-    },
     {
         "identifier": "bikeGetReady",
         "type": "instruction",
@@ -116,7 +53,7 @@
       "identifier": "bleData",
       "type": "active",
       "title": "Please continue cycling for at least 30 minutes",
-      "duration": 1800,
+      "duration": 30,
       "commands": [
         "transitionAutomatically",
         "shouldDisableIdleTimer",

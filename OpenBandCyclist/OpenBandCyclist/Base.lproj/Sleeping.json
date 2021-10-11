@@ -2,56 +2,6 @@
   "identifier": "Validation",
   "taskIdentifier": "Validation",
   "schemaIdentifier": "Validation",
-  "asyncActions": [
-      {
-        "identifier": "bleConnections",
-        "type": "bleConnections",
-        "deviceTypes": ["openBand", "polar"],
-        "usesCSVEncoding": true,
-        "startStepIdentifier": "bleConnection",
-        "stopStepIdentifier": "bleData"
-      },
-    {
-      "identifier": "polarEcg",
-      "type": "polarBle",
-      "dataType": "ecg",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "polarAccel",
-      "type": "polarBle",
-      "dataType": "accelerometer",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "polarHr",
-      "type": "polarBle",
-      "dataType": "hr",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "openBandPpg",
-      "type": "openBandBle",
-      "dataType": "ppg",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    },
-    {
-      "identifier": "openBandAccel",
-      "type": "openBandBle",
-      "dataType": "accelerometer",
-      "usesCSVEncoding": true,
-      "startStepIdentifier": "countdown",
-      "stopStepIdentifier": "bleData"
-    }
-  ],
   "steps": [
       {
           "identifier": "inrto",
@@ -59,19 +9,6 @@
           "title": "Sleeping",
           "text": "This task will connect to both polar h10 and open band devices, and collect the data for 5 minute intervals every half hour, for 5 hours or more."
       },
-    {
-      "identifier": "bleConnection",
-      "type": "bleConnection",
-      "title": "Polar H10:",
-      "text": "Open Band:",
-      "recordingSchedule": "first5MinOfHour",
-      "actions": {
-        "goForward": {
-          "type": "default",
-          "buttonTitle": "Begin"
-        }
-      }
-    },
     {
         "identifier": "countdown",
         "type": "countdown",
@@ -87,7 +24,7 @@
       "identifier": "bleData",
       "type": "active",
       "title": "Collecting data from each device...",
-      "duration": 28800,
+      "duration": 30,
       "commands": [
         "transitionAutomatically",
         "shouldDisableIdleTimer",
