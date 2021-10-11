@@ -183,7 +183,9 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
         
     func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {
         // Do not save or upload the data for the screening app
-        TaskListScheduleManager.shared.uploadTask(taskViewModel: taskViewModel)        
+        TaskListScheduleManager.shared.uploadTask(taskViewModel: taskViewModel)
+        // Update the UI
+        self.collectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -232,24 +234,8 @@ open class TaskTableHeaderView: UIView {
         // The colors of the cell are dynamic based on the task
         // let designSystem = self.designSystem ?? RSDDesignSystem()
         self.progressDial?.ringColor = UIColor(hexString: "#EDEDED") ?? UIColor.white
-        switch taskId {
-        case .cyclingTask:
-            self.progressDial?.innerColor = UIColor(hexString: "#7D8EAB") ?? UIColor.white
-            self.progressDial?.progressColor = UIColor(hexString: "#4A5E81") ?? UIColor.white
-            break
-        case .sleepingTask:
-            self.progressDial?.innerColor = UIColor(hexString: "#DAF5F6") ?? UIColor.white
-            self.progressDial?.progressColor = UIColor(hexString: "#AFDDDF") ?? UIColor.white
-            break
-        case .sittingTask:
-            self.progressDial?.innerColor = UIColor(hexString: "#F7CC7E") ?? UIColor.white
-            self.progressDial?.progressColor = UIColor(hexString: "#F5B33C") ?? UIColor.white
-            break
-        default: // .walkingTask
-            self.progressDial?.innerColor = UIColor(hexString: "#F7CC7E") ?? UIColor.white
-            self.progressDial?.progressColor = UIColor(hexString: "#F5B33C") ?? UIColor.white
-            break
-        }
+        self.progressDial?.innerColor = UIColor(hexString: "#DAF5F6") ?? UIColor.white
+        self.progressDial?.progressColor = UIColor(hexString: "#AFDDDF") ?? UIColor.white
     }
 
     private func updateColorsAndFonts() {
@@ -288,6 +274,6 @@ open class TaskTableHeaderView: UIView {
     }
 }
 
-protocol TaskCollectionViewCellDelegate: class {
+protocol TaskCollectionViewCellDelegate: AnyObject {
     func didTapItem(for itemIndex: Int)
 }
