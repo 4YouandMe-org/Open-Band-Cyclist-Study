@@ -109,6 +109,9 @@ open class BleConnectionStepViewController: RSDStepViewController, BleConnection
         self.designSystem = AppDelegate.designSystem
         self.updateUiState()
                 
+        // Reset relative timestamps
+        BleConnectionManager.shared.startTimeInterval = Date().timeIntervalSince1970
+        
         // Set the recording schedule
         BleConnectionManager.shared.recordingSchedule = self.connectionStep?.recordingSchedule ?? .always
         

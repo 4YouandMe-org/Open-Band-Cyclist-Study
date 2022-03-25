@@ -70,7 +70,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to the Open Band Cyclist Study" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="axI-I3-8oA" userLabel="Title Label">
-                                        <rect key="frame" x="46" y="64" width="323" height="129"/>
+                                        <rect key="frame" x="24" y="64" width="366" height="86"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -82,19 +82,19 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's get set up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Tag-ET-qdy" userLabel="Text Label">
-                                        <rect key="frame" x="46" y="386" width="323" height="29"/>
+                                        <rect key="frame" x="46" y="374" width="323" height="29"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z55-Xc-2xU" customClass="RSDRoundedButton" customModule="ResearchUI">
-                                        <rect key="frame" x="46" y="824" width="323" height="30"/>
+                                        <rect key="frame" x="46" y="802" width="323" height="52"/>
                                         <state key="normal" title="Register"/>
                                         <connections>
                                             <action selector="goForwardClicked" destination="zjn-oR-S2A" eventType="touchUpInside" id="g9e-9N-TRz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap register to get started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rzy-58-Edo" userLabel="Detail Label">
-                                        <rect key="frame" x="24" y="749" width="366" height="29"/>
+                                        <rect key="frame" x="24" y="727" width="366" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -103,8 +103,8 @@
                                 <constraints>
                                     <constraint firstItem="axI-I3-8oA" firstAttribute="top" secondItem="lPh-9X-coW" secondAttribute="top" constant="64" id="0sK-V7-ZhU"/>
                                     <constraint firstAttribute="trailing" secondItem="Tag-ET-qdy" secondAttribute="trailing" constant="45" id="1jJ-p1-36e"/>
-                                    <constraint firstAttribute="trailing" secondItem="axI-I3-8oA" secondAttribute="trailing" constant="45" id="5AQ-BE-aj8"/>
-                                    <constraint firstItem="axI-I3-8oA" firstAttribute="leading" secondItem="lPh-9X-coW" secondAttribute="leading" constant="46" id="8H1-g2-UBi"/>
+                                    <constraint firstAttribute="trailing" secondItem="axI-I3-8oA" secondAttribute="trailing" constant="24" id="5AQ-BE-aj8"/>
+                                    <constraint firstItem="axI-I3-8oA" firstAttribute="leading" secondItem="lPh-9X-coW" secondAttribute="leading" constant="24" id="8H1-g2-UBi"/>
                                     <constraint firstItem="z55-Xc-2xU" firstAttribute="leading" secondItem="lPh-9X-coW" secondAttribute="leading" constant="46" id="Ml0-67-TnT"/>
                                     <constraint firstItem="4fb-ZI-5j0" firstAttribute="centerX" secondItem="lPh-9X-coW" secondAttribute="centerX" id="SVa-aE-jcc"/>
                                     <constraint firstAttribute="trailing" secondItem="z55-Xc-2xU" secondAttribute="trailing" constant="45" id="Tud-gl-M8l"/>
@@ -114,7 +114,7 @@
                                     <constraint firstItem="4fb-ZI-5j0" firstAttribute="top" secondItem="lPh-9X-coW" secondAttribute="top" constant="212" id="jec-wa-hk9"/>
                                     <constraint firstAttribute="trailing" secondItem="rzy-58-Edo" secondAttribute="trailing" constant="24" id="mL3-k9-YaO"/>
                                     <constraint firstAttribute="bottom" secondItem="z55-Xc-2xU" secondAttribute="bottom" constant="42" id="xJL-XF-byt"/>
-                                    <constraint firstItem="Tag-ET-qdy" firstAttribute="top" secondItem="4fb-ZI-5j0" secondAttribute="bottom" constant="24" id="xdu-t0-1BF"/>
+                                    <constraint firstItem="Tag-ET-qdy" firstAttribute="top" secondItem="4fb-ZI-5j0" secondAttribute="bottom" constant="12" id="xdu-t0-1BF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -543,15 +543,15 @@ Cg
                                                     <rect key="frame" x="33" y="25" width="43" height="43"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbG-LU-N83" userLabel="DayLabel">
-                                                    <rect key="frame" x="121" y="16" width="149" height="61"/>
+                                                    <rect key="frame" x="121" y="16" width="185" height="61"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxt-G3-Kkc" userLabel="TimeLabel">
-                                                    <rect key="frame" x="278" y="16" width="116" height="61"/>
+                                                    <rect key="frame" x="314" y="16" width="80" height="61"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="116" id="1xo-7Z-SX0"/>
+                                                        <constraint firstAttribute="width" constant="80" id="1xo-7Z-SX0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>

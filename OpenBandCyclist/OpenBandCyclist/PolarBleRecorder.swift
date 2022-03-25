@@ -175,12 +175,14 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         ///     - samples: ecg sample in µVolts
         let lastTimeStampSec = TimeInterval(Double(data.timeStamp) / 1000000000.0)
         
+        let relativeTimestamp = BleConnectionManager.shared.currentRelativeTimeInterval
+        
         //let recorderSamples =
         let samples = data.samples.enumerated().map { (i, value) -> PolarEcgSample in
             // Calculate time interval since start time
             let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * PolarConstants.timeBetweenSamples)
             
-            return PolarEcgSample(timestamp: timestampSec, stepPath: self.currentStepPath, ecg: value)
+            return PolarEcgSample(timestamp: timestampSec, relativeTimestamp: relativeTimestamp, stepPath: self.currentStepPath, ecg: value)
         }
         
         // Write the samples to the logging queue
@@ -193,11 +195,13 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
         ///     - samples: Acceleration samples list x,y,z in millig signed value
         let lastTimeStampSec = TimeInterval(Double(data.timeStamp) / 1000000000.0)
         
+        let relativeTimestamp = BleConnectionManager.shared.currentRelativeTimeInterval
+        
         //let recorderSamples =
         let samples = data.samples.enumerated().map { (i, value) -> PolarAccelSample in
             // Calculate time interval since start time
             let timestampSec = lastTimeStampSec - (TimeInterval(data.samples.count - i - 1) * PolarConstants.timeBetweenSamples)
-            return PolarAccelSample(timestamp: timestampSec, stepPath: self.currentStepPath, x: value.x, y: value.y, z: value.z)
+            return PolarAccelSample(timestamp: timestampSec, relativeTimestamp: relativeTimestamp, stepPath: self.currentStepPath, x: value.x, y: value.y, z: value.z)
         }
         
         // Write the samples to the logging queue
@@ -205,13 +209,16 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
     }
     
     public func onPolarHrData(data: PolarBleApiDeviceHrObserver.PolarHrData, timestamp: TimeInterval) {
+        
+        let relativeTimestamp = BleConnectionManager.shared.currentRelativeTimeInterval
+        
         /// Polar hr data
         ///     - hr in BPM
         ///     - rrs RR interval in 1/1024. R is a the top highest peak in the QRS complex of the ECG wave and RR is the interval between successive Rs.
         ///     - rrs RR interval in ms.
         ///     - contact status between the device and the users skin
         ///     - contactSupported if contact is supported
-        let sample = PolarHrSample(timestamp: timestamp, stepPath: self.currentStepPath, hr: data.hr/*, rriMs: data.rrsMs*/)
+        let sample = PolarHrSample(timestamp: timestamp, relativeTimestamp: relativeTimestamp, stepPath: self.currentStepPath, hr: data.hr/*, rriMs: data.rrsMs*/)
         
         self.writeSample(sample)
     }
@@ -219,9 +226,11 @@ public class PolarBleRecorder : RSDSampleRecorder, PolarEcgDataDelegate, PolarAc
 
 public struct PolarEcgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     
-    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
-    /// See Arduino API millis() function
+    /// A  millisecond value representing the time that has passed since the Polar device has been running.
     public let timestamp: TimeInterval?
+    
+    /// A  millisecond value representing the time in seconds since the user landed on the BLE connection screen
+    public let relativeTimestamp: TimeInterval?
     
     /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
@@ -233,8 +242,9 @@ public struct PolarEcgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     public let timestampDate: Date? = nil
     public let uptime: TimeInterval = Date().timeIntervalSince1970
     
-    public init(timestamp: TimeInterval, stepPath: String, ecg: Int32) {
+    public init(timestamp: TimeInterval, relativeTimestamp: TimeInterval, stepPath: String, ecg: Int32) {
         self.timestamp = timestamp
+        self.relativeTimestamp = relativeTimestamp
         self.stepPath = stepPath
         self.ecg = ecg
     }
@@ -243,6 +253,7 @@ public struct PolarEcgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.relativeTimestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.relativeTimestamp)
         self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
         self.ecg = try values.decode(Int32.self, forKey: CodingKeys.ecg)
         
@@ -253,23 +264,26 @@ public struct PolarEcgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(ecg, forKey: CodingKeys.ecg)
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(relativeTimestamp, forKey: CodingKeys.relativeTimestamp)
         try container.encode(stepPath, forKey: CodingKeys.stepPath)
     }
     
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.timestamp, CodingKeys.ecg, CodingKeys.stepPath]
+        return [CodingKeys.timestamp, CodingKeys.relativeTimestamp, CodingKeys.ecg, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case timestamp, ecg, stepPath
+        case timestamp, relativeTimestamp, ecg, stepPath
     }
 }
 
 public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     
-    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
-    /// See Arduino API millis() function
+    /// A  millisecond value representing the time that has passed since the Polar device has been running.
     public let timestamp: TimeInterval?
+    
+    /// A  millisecond value representing the time in seconds since the user landed on the BLE connection screen
+    public let relativeTimestamp: TimeInterval?
     
     /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
@@ -284,8 +298,9 @@ public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     // TODO: mdephillips 11/4/2020 how do we format an array of integers in csv??
     //public let rriMs: [Int]
     
-    public init(timestamp: TimeInterval, stepPath: String, hr: UInt8/*, rriMs: [Int]*/) {
+    public init(timestamp: TimeInterval, relativeTimestamp: TimeInterval, stepPath: String, hr: UInt8/*, rriMs: [Int]*/) {
         self.timestamp = timestamp
+        self.relativeTimestamp = relativeTimestamp
         self.stepPath = stepPath
         self.hr = hr
         // TODO: mdephillips 11/4/2020 how do we format an array of integers in csv??
@@ -296,6 +311,7 @@ public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.relativeTimestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.relativeTimestamp)
         self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
         self.hr = try values.decode(UInt8.self, forKey: CodingKeys.hr)
         
@@ -306,23 +322,26 @@ public struct PolarHrSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(hr, forKey: CodingKeys.hr)
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(relativeTimestamp, forKey: CodingKeys.relativeTimestamp)
         try container.encode(stepPath, forKey: CodingKeys.stepPath)
     }
     
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.timestamp, CodingKeys.hr, CodingKeys.stepPath /*, CodingKeys.rriMs*/]
+        return [CodingKeys.timestamp, CodingKeys.relativeTimestamp, CodingKeys.hr, CodingKeys.stepPath /*, CodingKeys.rriMs*/]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case timestamp, hr, stepPath//, rriMs
+        case timestamp, relativeTimestamp, hr, stepPath//, rriMs
     }
 }
 
 public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
         
-    /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
-    /// See Arduino API millis() function
+    /// A  millisecond value representing the time that has passed since the Polar device has been running.
     public let timestamp: TimeInterval?
+    
+    /// A  millisecond value representing the time in seconds since the user landed on the BLE connection screen
+    public let relativeTimestamp: TimeInterval?
     
     /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
@@ -338,8 +357,9 @@ public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable
     public let timestampDate: Date? = nil
     public let uptime: TimeInterval = Date().timeIntervalSince1970
     
-    public init(timestamp: TimeInterval, stepPath: String, x: Int32, y: Int32, z: Int32) {
+    public init(timestamp: TimeInterval, relativeTimestamp: TimeInterval, stepPath: String, x: Int32, y: Int32, z: Int32) {
         self.timestamp = timestamp
+        self.relativeTimestamp = relativeTimestamp
         self.stepPath = stepPath
         self.x = x
         self.y = y
@@ -350,6 +370,7 @@ public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.relativeTimestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.relativeTimestamp)
         self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
         self.x = try values.decode(Int32.self, forKey: CodingKeys.x)
         self.y = try values.decode(Int32.self, forKey: CodingKeys.y)
@@ -364,14 +385,15 @@ public struct PolarAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable
         try container.encode(y, forKey: CodingKeys.y)
         try container.encode(z, forKey: CodingKeys.z)
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(relativeTimestamp, forKey: CodingKeys.relativeTimestamp)
         try container.encode(stepPath, forKey: CodingKeys.stepPath)
     }
     
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.timestamp, CodingKeys.x, CodingKeys.y, CodingKeys.z, CodingKeys.stepPath]
+        return [CodingKeys.timestamp, CodingKeys.relativeTimestamp, CodingKeys.x, CodingKeys.y, CodingKeys.z, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case timestamp, x, y, z, stepPath
+        case timestamp, relativeTimestamp, x, y, z, stepPath
     }
 }

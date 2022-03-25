@@ -1,7 +1,7 @@
 {
-  "identifier": "Validation",
-  "taskIdentifier": "Validation",
-  "schemaIdentifier": "Validation",
+  "identifier": "Sitting",
+  "taskIdentifier": "Sitting",
+  "schemaIdentifier": "Sitting",
   "asyncActions": [
       {
         "identifier": "bleConnections",
@@ -36,9 +36,17 @@
       "stopStepIdentifier": "bleData"
     },
     {
-      "identifier": "openBandPpg",
+      "identifier": "openBandPpg1",
       "type": "openBandBle",
-      "dataType": "ppg",
+      "dataType": "ppg1",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "openBandPpg2",
+      "type": "openBandBle",
+      "dataType": "ppg2",
       "usesCSVEncoding": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
@@ -87,7 +95,7 @@
       "identifier": "bleData",
       "type": "active",
       "title": "Collecting data from each device...",
-      "duration": 60,
+      "duration": 180,
       "commands": [
         "transitionAutomatically",
         "shouldDisableIdleTimer",

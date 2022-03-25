@@ -1,7 +1,7 @@
 {
-  "identifier": "Validation",
-  "taskIdentifier": "Validation",
-  "schemaIdentifier": "Validation",
+  "identifier": "Sleeping",
+  "taskIdentifier": "Sleeping",
+  "schemaIdentifier": "Sleeping",
   "asyncActions": [
       {
         "identifier": "bleConnections",

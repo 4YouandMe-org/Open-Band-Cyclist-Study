@@ -39,7 +39,7 @@ import CoreBluetooth
 import RxSwift
 
 public enum OpenBandDataType: String, Codable {
-    case ppg, accelerometer
+    case ppg1, ppg2, accelerometer
 }
 
 /// The configuration for the heart rate recorder.
@@ -93,8 +93,17 @@ public struct OpenBandBleRecorderConfiguration : RSDRecorderConfiguration, RSDAs
     }
 }
 
-public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, OpenBandAccelDataDelegate {
-        
+public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpg1DataDelegate, OpenBandPpg2DataDelegate, OpenBandAccelDataDelegate {
+    
+    var sampleStartTime: TimeInterval? = nil
+    var sampleCount = 0
+    
+    var sampleStartTime2: TimeInterval? = nil
+    var sampleCount2 = 0
+    
+    var sampleStartTimeAcc: TimeInterval? = nil
+    var sampleCountAcc = 0
+            
     public var openBandBleConfiguration : OpenBandBleRecorderConfiguration? {
         return self.configuration as? OpenBandBleRecorderConfiguration
     }
@@ -114,7 +123,7 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
     /// then the file will be formatted using JSON encoding.
     override public func stringEncodingFormat() -> RSDStringSeparatedEncodingFormat? {
         if self.openBandBleConfiguration?.usesCSVEncoding == true {
-            if openBandBleConfiguration?.dataType == OpenBandDataType.ppg {
+            if openBandBleConfiguration?.dataType == OpenBandDataType.ppg1 || self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg2 {
                 return CSVEncodingFormat<OpenBandPpgSample>()
             } else if openBandBleConfiguration?.dataType == OpenBandDataType.accelerometer {
                 return CSVEncodingFormat<OpenBandAccelSample>()
@@ -145,8 +154,10 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
         }
         
         // Subscribe to OpenBand BLE data updates to write to the log file
-        if self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg {
-            bleManager.openBandPpgDataDelegate = self
+        if self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg1 {
+            bleManager.openBandPpg1DataDelegate = self
+        } else if self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg2 {
+            bleManager.openBandPpg2DataDelegate = self
         } else if self.openBandBleConfiguration?.dataType == OpenBandDataType.accelerometer {
             bleManager.openBandAccelDataDelegate = self
         }
@@ -156,28 +167,93 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
     
     public override func stopRecorder(_ completion: @escaping ((RSDAsyncActionStatus) -> Void)) {
         let bleManager = BleConnectionManager.shared
-        if self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg {
-            bleManager.openBandPpgDataDelegate = nil
+        if self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg1 {
+            bleManager.openBandPpg1DataDelegate = nil
+        } else if self.openBandBleConfiguration?.dataType == OpenBandDataType.ppg2 {
+            bleManager.openBandPpg2DataDelegate = nil
         } else if self.openBandBleConfiguration?.dataType == OpenBandDataType.accelerometer {
             bleManager.openBandAccelDataDelegate = nil
         }
         super.stopRecorder(completion)
     }
     
-    public func onOpenBandPpgData(data: Data?) {
-        guard let dataUnwrapped = data else { return }
+    var i = 0
+    public func onOpenBandPpg1Data(data: Data?) {
+        guard let dataUnwrapped = data,
+         (openBandBleConfiguration?.dataType == OpenBandDataType.ppg1) else {
+             return
+         }
         let values = [UInt8](dataUnwrapped)
-
-        guard values.count >= 16 else {
+        
+        let relativeTimestamp = BleConnectionManager.shared.currentRelativeTimeInterval
+        
+        guard values.count >= 12 else {
             // TODO: mdephillips 10/22/20 log invalid sample ?
             return
         }
         let timestamp = ByteMathUtils.toOpenBandTimestamp(byte0: values[0], byte1: values[1], byte2: values[2], byte3: values[3])
-        let red = ByteMathUtils.toOpenBandPpgValue(byte0: values[4], byte1: values[5], byte2: values[6], byte3: values[7])
-        let ir = ByteMathUtils.toOpenBandPpgValue(byte0: values[8], byte1: values[9], byte2: values[10], byte3: values[11])
-        let green = ByteMathUtils.toOpenBandPpgValue(byte0: values[12], byte1: values[13], byte2: values[14], byte3: values[15])
+        let g1 = ByteMathUtils.toOpenBandPpgValue(byte0: values[4], byte1: values[5], byte2: values[6], byte3: values[7])
+        let g2 = ByteMathUtils.toOpenBandPpgValue(byte0: values[8], byte1: values[9], byte2: values[10], byte3: values[11])
         
-        let sample = OpenBandPpgSample(timestamp: TimeInterval(timestamp), stepPath: self.currentStepPath, r: red, g: green, i: ir)
+        let sample = OpenBandPpgSample(timestamp: TimeInterval(timestamp), relativeTimestamp: relativeTimestamp, stepPath: self.currentStepPath, g1: g1, g2: g2)
+        
+        i += 1
+        if (i % 30 == 0) {
+            print("values: \(values)")
+        }
+        
+        self.sampleCount += 1
+        if let sampleTimeUnwrapped = self.sampleStartTime {
+            let now = Date().timeIntervalSince1970
+            let timeDiff = now - sampleTimeUnwrapped
+            if (timeDiff > 1) {
+                let samplesPerSecond = Double(self.sampleCount) / (timeDiff)
+                print("PPG-1 Samples per second: \(samplesPerSecond)")
+                self.sampleStartTime = Date().timeIntervalSince1970
+                self.sampleCount = 1
+            }
+        } else {
+            self.sampleStartTime = Date().timeIntervalSince1970
+            self.sampleCount = 1
+        }
+        
+        self.writeSample(sample)
+    }
+    
+    public func onOpenBandPpg2Data(data: Data?) {
+        guard let dataUnwrapped = data,
+         (openBandBleConfiguration?.dataType == OpenBandDataType.ppg2) else {
+             return
+         }
+        let values = [UInt8](dataUnwrapped)
+        
+        let relativeTimestamp = BleConnectionManager.shared.currentRelativeTimeInterval
+    
+        guard values.count >= 12 else {
+            // TODO: mdephillips 10/22/20 log invalid sample ?
+            return
+        }
+        
+        let timestamp = ByteMathUtils.toOpenBandTimestamp(byte0: values[0], byte1: values[1], byte2: values[2], byte3: values[3])
+        let g1 = ByteMathUtils.toOpenBandPpgValue(byte0: values[4], byte1: values[5], byte2: values[6], byte3: values[7])
+        let g2 = ByteMathUtils.toOpenBandPpgValue(byte0: values[8], byte1: values[9], byte2: values[10], byte3: values[11])
+        
+        let sample = OpenBandPpgSample(timestamp: TimeInterval(timestamp), relativeTimestamp: relativeTimestamp, stepPath: self.currentStepPath, g1: g1, g2: g2)
+        
+        self.sampleCount2 += 1
+        if let sampleTimeUnwrapped = self.sampleStartTime2 {
+            let now = Date().timeIntervalSince1970
+            let timeDiff = now - sampleTimeUnwrapped
+            if (timeDiff > 1) {
+                let samplesPerSecond = Double(self.sampleCount2) / (timeDiff)
+                print("PPG-2 Samples per second: \(samplesPerSecond)")
+                self.sampleStartTime2 = Date().timeIntervalSince1970
+                self.sampleCount2 = 1
+            }
+        } else {
+            self.sampleStartTime2 = Date().timeIntervalSince1970
+            self.sampleCount2 = 1
+        }
         
         self.writeSample(sample)
     }
@@ -185,18 +261,36 @@ public class OpenBandBleRecorder : RSDSampleRecorder, OpenBandPpgDataDelegate, O
     public func onOpenBandAccelData(data: Data?) {
         guard let dataUnwrapped = data else { return }
         let values = [UInt8](dataUnwrapped)
+        
+        let relativeTimestamp = BleConnectionManager.shared.currentRelativeTimeInterval
 
-        guard values.count >= 10 else {
+        guard values.count >= 11 else {
             // TODO: mdephillips 10/22/20 log invalid sample ?
             return
         }
         
         let timestamp = ByteMathUtils.toOpenBandTimestamp(byte0: values[0], byte1: values[1], byte2: values[2], byte3: values[3])
-        let x = ByteMathUtils.toOpenBandAccelFloat(byte0: values[4], byte1: values[5])
-        let y = ByteMathUtils.toOpenBandAccelFloat(byte0: values[6], byte1: values[7])
-        let z = ByteMathUtils.toOpenBandAccelFloat(byte0: values[8], byte1: values[9])
+        // byte 4 is a constant for scale, that is not needed and assumed by this calculation
+        let x = ByteMathUtils.toOpenBandAccelFloat(byte0: values[5], byte1: values[6])
+        let y = ByteMathUtils.toOpenBandAccelFloat(byte0: values[7], byte1: values[8])
+        let z = ByteMathUtils.toOpenBandAccelFloat(byte0: values[9], byte1: values[10])
         
-        let sample = OpenBandAccelSample(timestamp: TimeInterval(timestamp), stepPath: self.currentStepPath, x: x, y: y, z: z)
+        let sample = OpenBandAccelSample(timestamp: TimeInterval(timestamp), relativeTimestamp: relativeTimestamp, stepPath: self.currentStepPath, x: x, y: y, z: z)
+        
+        self.sampleCountAcc += 1
+        if let sampleTimeUnwrapped = self.sampleStartTimeAcc {
+            let now = Date().timeIntervalSince1970
+            let timeDiff = now - sampleTimeUnwrapped
+            if (timeDiff > 1) {
+                let samplesPerSecond = Double(self.sampleCountAcc) / (timeDiff)
+                print("Acc Samples per second: \(samplesPerSecond)")
+                self.sampleStartTimeAcc = Date().timeIntervalSince1970
+                self.sampleCountAcc = 1
+            }
+        } else {
+            self.sampleStartTimeAcc = Date().timeIntervalSince1970
+            self.sampleCountAcc = 1
+        }
         
         self.writeSample(sample)
     }
@@ -208,55 +302,56 @@ public struct OpenBandPpgSample : RSDSampleRecord, RSDDelimiterSeparatedEncodabl
     /// See Arduino API millis() function
     public let timestamp: TimeInterval?
     
+    /// A  millisecond value representing the time in seconds since the user landed on the BLE connection screen
+    public let relativeTimestamp: TimeInterval?
+    
     /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
     
-    /// The red value of the PPG sensor
-    public let r: UInt32
-    /// The green value of the PPG sensor
-    public let g: UInt32
-    /// The Infared value of the PPG sensor
-    public let i: UInt32
+    /// The green sample 1 value of the PPG sensor
+    public let g1: UInt32
+    /// The green sample 2 value of the PPG sensor
+    public let g2: UInt32
     
     // Unused, but required by RSDSampleRecord protocol
     public let timestampDate: Date? = nil
     public let uptime: TimeInterval = Date().timeIntervalSince1970
     
-    public init(timestamp: TimeInterval, stepPath: String, r: UInt32, g: UInt32, i: UInt32) {
+    public init(timestamp: TimeInterval, relativeTimestamp: TimeInterval, stepPath: String, g1: UInt32, g2: UInt32) {
         self.timestamp = timestamp
+        self.relativeTimestamp = relativeTimestamp
         self.stepPath = stepPath
-        self.r = r
-        self.g = g
-        self.i = i
+        self.g1 = g1
+        self.g2 = g2
     }
     
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.relativeTimestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.relativeTimestamp)
         self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
-        self.r = try values.decode(UInt32.self, forKey: CodingKeys.r)
-        self.g = try values.decode(UInt32.self, forKey: CodingKeys.g)
-        self.i = try values.decode(UInt32.self, forKey: CodingKeys.i)
+        self.g1 = try values.decode(UInt32.self, forKey: CodingKeys.g1)
+        self.g2 = try values.decode(UInt32.self, forKey: CodingKeys.g2)
         
         // This class does not support timestampDate or uptime, ignore these values
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(r, forKey: CodingKeys.r)
-        try container.encode(g, forKey: CodingKeys.g)
-        try container.encode(i, forKey: CodingKeys.i)
+        try container.encode(g1, forKey: CodingKeys.g1)
+        try container.encode(g2, forKey: CodingKeys.g2)
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(relativeTimestamp, forKey: CodingKeys.relativeTimestamp)
         try container.encode(stepPath, forKey: CodingKeys.stepPath)
     }
     
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.timestamp, CodingKeys.r, CodingKeys.g, CodingKeys.i, CodingKeys.stepPath]
+        return [CodingKeys.timestamp, CodingKeys.relativeTimestamp, CodingKeys.g1, CodingKeys.g2, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case timestamp, r, g, i, stepPath
+        case timestamp, relativeTimestamp, g1, g2, stepPath
     }
 }
 
@@ -265,6 +360,9 @@ public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncoda
     /// A  millisecond value representing the time that has passed since the OpenBand device has been running.
     /// See Arduino API millis() function
     public let timestamp: TimeInterval?
+    
+    /// A  millisecond value representing the time in seconds since the user landed on the BLE connection screen
+    public let relativeTimestamp: TimeInterval?
     
     /// This is a unique string representing which screen the user is on while the data is being recorded
     public let stepPath: String
@@ -280,8 +378,9 @@ public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncoda
     public let timestampDate: Date? = nil
     public let uptime: TimeInterval = Date().timeIntervalSince1970
     
-    public init(timestamp: TimeInterval, stepPath: String, x: Float, y: Float, z: Float) {
+    public init(timestamp: TimeInterval, relativeTimestamp: TimeInterval, stepPath: String, x: Float, y: Float, z: Float) {
         self.timestamp = timestamp
+        self.relativeTimestamp = relativeTimestamp
         self.stepPath = stepPath
         self.x = x
         self.y = y
@@ -292,6 +391,7 @@ public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncoda
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.timestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.timestamp)
+        self.relativeTimestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.relativeTimestamp)
         self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
         self.x = try values.decode(Float.self, forKey: CodingKeys.x)
         self.y = try values.decode(Float.self, forKey: CodingKeys.y)
@@ -306,14 +406,15 @@ public struct OpenBandAccelSample : RSDSampleRecord, RSDDelimiterSeparatedEncoda
         try container.encode(y, forKey: CodingKeys.y)
         try container.encode(z, forKey: CodingKeys.z)
         try container.encode(timestamp, forKey: CodingKeys.timestamp)
+        try container.encode(relativeTimestamp, forKey: CodingKeys.relativeTimestamp)
         try container.encode(stepPath, forKey: CodingKeys.stepPath)
     }
     
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.timestamp, CodingKeys.x, CodingKeys.y, CodingKeys.z, CodingKeys.stepPath]
+        return [CodingKeys.timestamp, CodingKeys.relativeTimestamp, CodingKeys.x, CodingKeys.y, CodingKeys.z, CodingKeys.stepPath]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case timestamp, x, y, z, stepPath
+        case timestamp, relativeTimestamp, x, y, z, stepPath
     }
 }

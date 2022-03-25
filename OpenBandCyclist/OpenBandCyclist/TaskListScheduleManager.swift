@@ -251,6 +251,14 @@ public class TaskListScheduleManager {
     public func uploadTask(taskViewModel: RSDTaskViewModel) {        
         var filesToUpload = [URL]()
         
+        // Let's get all the async result files that were saved during the test
+        taskViewModel.taskResult.asyncResults?.forEach { (result) in
+            if let fileResult = result as? RSDFileResultObject,
+                let url = fileResult.url {
+                filesToUpload.append(url)
+            }
+        }
+        
         // Let's get all the files that were saved during the test
         taskViewModel.taskResult.stepHistory.forEach { (result) in
             if let fileResult = result as? RSDFileResultObject,

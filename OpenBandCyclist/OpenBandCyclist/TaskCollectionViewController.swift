@@ -82,7 +82,10 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.disconnectBle()
+    }
+    
+    private func disconnectBle() {
         // Disconnect if they are connected to protect state
         BleConnectionManager.shared.disconnect(type: .openBand)
         BleConnectionManager.shared.disconnect(type: .polar)
@@ -179,6 +182,7 @@ class TaskCollectionViewController: UIViewController, UICollectionViewDataSource
 
         // dismiss the view controller
         (taskController as? UIViewController)?.dismiss(animated: true, completion: nil)
+        self.disconnectBle()
     }
         
     func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {

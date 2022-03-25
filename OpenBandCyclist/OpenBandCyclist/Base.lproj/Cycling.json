@@ -1,7 +1,7 @@
 {
-  "identifier": "Validation",
-  "taskIdentifier": "Validation",
-  "schemaIdentifier": "Validation",
+  "identifier": "Cycling",
+  "taskIdentifier": "Cycling",
+  "schemaIdentifier": "Cycling",
   "asyncActions": [
       {
         "identifier": "bleConnections",

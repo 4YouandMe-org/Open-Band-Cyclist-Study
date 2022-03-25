@@ -36,45 +36,53 @@ import PolarBleSdk
 import CoreBluetooth
 import RxSwift
 
-public protocol BleConnectionManagerDelegate: class {
+public protocol BleConnectionManagerDelegate: AnyObject {
     func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType)
 }
 
-public protocol RecorderStateDelegate: class {
+public protocol RecorderStateDelegate: AnyObject {
     func isRecordering() -> Bool
 }
 
-public protocol PolarEcgDataDelegate: class {
+public protocol PolarEcgDataDelegate: AnyObject {
     func onPolarEcgData(data: PolarEcgData)
 }
 
-public protocol PolarAccelDataDelegate: class {
+public protocol PolarAccelDataDelegate: AnyObject {
     func onPolarAccelData(data: PolarAccData)
 }
 
-public protocol PolarHrDataDelegate: class {
+public protocol PolarHrDataDelegate: AnyObject {
     func onPolarHrData(data: PolarBleApiDeviceHrObserver.PolarHrData, timestamp: TimeInterval)
 }
 
-public protocol OpenBandPpgDataDelegate: class {
-    func onOpenBandPpgData(data: Data?)
+public protocol OpenBandPpg1DataDelegate: AnyObject {
+    func onOpenBandPpg1Data(data: Data?)
 }
 
-public protocol OpenBandAccelDataDelegate: class {
+public protocol OpenBandPpg2DataDelegate: AnyObject {
+    func onOpenBandPpg2Data(data: Data?)
+}
+
+public protocol OpenBandAccelDataDelegate: AnyObject {
     func onOpenBandAccelData(data: Data?)
+}
+
+public protocol OpenBandErrorDelegate: AnyObject {
+    func onOpenBandError(data: Data?)
 }
 
 /// MARK: - Open Band services and charcteristics Identifiers
 public final class OpenBandConstants {
-    public static let OpenBandName          = "Movuino OHB"
+    public static let OpenBandName          = "Movui"
     
     // UUID of service/chars of interest
-    public static let timestampService      = CBUUID.init(string: "1165")
-    public static let imuService            = CBUUID.init(string: "1101")
-    public static let ppgCharacteristic     = CBUUID.init(string: "1166")
+    public static let errorCharacteristic     = CBUUID.init(string: "1201")
     public static let accCharacteristic     = CBUUID.init(string: "1102")
     public static let gyroCharacteristic    = CBUUID.init(string: "1103")
     public static let magCharacteristic     = CBUUID.init(string: "1104")
+    public static let ppgChar1acteristic    = CBUUID.init(string: "1309")
+    public static let ppgChar2acteristic    = CBUUID.init(string: "1311")
     
     /// The scaling factor to convert to floating point accel values
     /// See Arduino code MPU9250_asukiaaa.cpp for more details.
@@ -117,8 +125,10 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     public weak var polarEcgDataDelegate: PolarEcgDataDelegate?
     public weak var polarAccelDataDelegate: PolarAccelDataDelegate?
     public weak var polarHrDataDelegate: PolarHrDataDelegate?
-    public weak var openBandPpgDataDelegate: OpenBandPpgDataDelegate?
+    public weak var openBandPpg1DataDelegate: OpenBandPpg1DataDelegate?
+    public weak var openBandPpg2DataDelegate: OpenBandPpg2DataDelegate?
     public weak var openBandAccelDataDelegate: OpenBandAccelDataDelegate?
+    public weak var openBandErrroDelegate: OpenBandErrorDelegate?
     public weak var recorderStateDelegate: RecorderStateDelegate?
     
     // The CoreBluetooth manager
@@ -127,8 +137,10 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     // OpenBand BLE device vars
     public var openBandPeripheral: CBPeripheral?
     // OpenBand Characteristics
-    private var ppgChar: CBCharacteristic?
+    private var ppgChar1: CBCharacteristic?
+    private var ppgChar2: CBCharacteristic?
     private var accChar: CBCharacteristic?
+    private var errorChar: CBCharacteristic?
     // Connection state tracking
     private var shouldStartOpenBandScanning = false
     
@@ -148,6 +160,12 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     fileprivate var ecgDisposable: Disposable?
     fileprivate var accDisposable: Disposable?
     fileprivate var lastEcgTimestamp: TimeInterval = Date().timeIntervalSince1970
+    
+    /// Used as reference for timestamps on the data files
+    public var startTimeInterval = Date().timeIntervalSince1970
+    public var currentRelativeTimeInterval: TimeInterval {
+        return Date().timeIntervalSince1970 - startTimeInterval
+    }
     
     public func isConnected(type: BleDeviceType) -> Bool {
         if type == .polar {
@@ -271,11 +289,26 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     public func peripheral(_ peripheral: CBPeripheral,
                      didUpdateValueFor characteristic: CBCharacteristic,
                      error: Error?) {
-        if characteristic == ppgChar {
-            self.openBandPpgDataDelegate?.onOpenBandPpgData(data: characteristic.value)
+        
+        //print("Did update value for char: \(characteristic.uuid)")
+        
+        if characteristic == ppgChar1 {
+            self.openBandPpg1DataDelegate?.onOpenBandPpg1Data(data: characteristic.value)
+        }
+        if characteristic == ppgChar2 {
+            self.openBandPpg2DataDelegate?.onOpenBandPpg2Data(data: characteristic.value)
         }
         if characteristic == accChar {
             self.openBandAccelDataDelegate?.onOpenBandAccelData(data: characteristic.value)
+        }
+        if characteristic == errorChar {
+//            bufError[0] = errorIMU;
+//            bufError[1] = errorPPG86;
+//            bufError[2] = errorTemp;
+//            bufError[3] = errorTens;
+//            let values = [UInt8](characteristic.value!)
+            //print("Error recieved from Open Band \(values[0]), \(values[1]), \(values[2]), \(values[3])")
+            self.openBandErrroDelegate?.onOpenBandError(data: characteristic.value)
         }
     }
     
@@ -285,11 +318,21 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
             for characteristic in characteristics {
                 print("Did discover characteristic \(characteristic)")
                                                         
-                if characteristic.uuid == OpenBandConstants.ppgCharacteristic {
+                if characteristic.uuid == OpenBandConstants.ppgChar1acteristic {
                     print("PPG characteristic found")
 
                     // Set the characteristic
-                    self.ppgChar = characteristic
+                    self.ppgChar1 = characteristic
+                    
+                    if (!self.isStreamingDataPaused) {
+                        self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
+                    }
+                    
+                } else if characteristic.uuid == OpenBandConstants.ppgChar2acteristic {
+                    print("PPG characteristic found")
+
+                    // Set the characteristic
+                    self.ppgChar2 = characteristic
                     
                     if (!self.isStreamingDataPaused) {
                         self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
@@ -301,6 +344,14 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
                     // Set the characteristic
                     self.accChar = characteristic
                     
+                    if (!self.isStreamingDataPaused) {
+                        self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
+                    }
+                } else if characteristic.uuid == OpenBandConstants.errorCharacteristic {
+                    print("Error characteristic found")
+
+                    // Set the characteristic
+                    self.errorChar = characteristic
                     if (!self.isStreamingDataPaused) {
                         self.openBandPeripheral?.setNotifyValue(true, for: characteristic)
                     }
@@ -323,7 +374,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
         print("\(PolarBleApiDefaultImpl.versionInfo())")
         
         self.autoConnect?.dispose()
-        self.autoConnect = api.startAutoConnectToDevice(-55, service: nil, polarDeviceType: nil).subscribe{ e in
+        self.autoConnect = api.startAutoConnectToDevice(-55, service: nil, polarDeviceType: "H10").subscribe{ e in
             switch e {
             case .completed:
                 print("auto connect search complete")
@@ -488,10 +539,14 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     private func resumeDataStreaming() {
         debugPrint("Resuming data streaming")
         self.isStreamingDataPaused = false
-        if let obPpg = self.ppgChar,
-           let obAcc = self.accChar {
-            self.openBandPeripheral?.setNotifyValue(true, for: obPpg)
+        if let obPpg1 = self.ppgChar1,
+           let obPpg2 = self.ppgChar2,
+           let obAcc = self.accChar,
+           let obError = self.errorChar {
+            self.openBandPeripheral?.setNotifyValue(true, for: obPpg1)
+            self.openBandPeripheral?.setNotifyValue(true, for: obPpg2)
             self.openBandPeripheral?.setNotifyValue(true, for: obAcc)
+            self.openBandPeripheral?.setNotifyValue(true, for: obError)
         }
         self._startStreamingPolarEcgData()
         self._startStreamingPolarAccelData()
@@ -501,10 +556,14 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     private func pauseDataStreaming() {
         debugPrint("Pausing data streaming")
         self.isStreamingDataPaused = true
-        if let obPpg = self.ppgChar,
-           let obAcc = self.accChar {
-            self.openBandPeripheral?.setNotifyValue(false, for: obPpg)
+        if let obPpg1 = self.ppgChar1,
+           let obPpg2 = self.ppgChar2,
+           let obAcc = self.accChar,
+           let obError = self.errorChar {
+            self.openBandPeripheral?.setNotifyValue(false, for: obPpg1)
+            self.openBandPeripheral?.setNotifyValue(false, for: obPpg2)
             self.openBandPeripheral?.setNotifyValue(false, for: obAcc)
+            self.openBandPeripheral?.setNotifyValue(false, for: obError)
         }
         _stopPolarEcgAndAccStreaming()
         self.delegate?.onBleDeviceConnectionChange(deviceType: .all, eventType: .paused)

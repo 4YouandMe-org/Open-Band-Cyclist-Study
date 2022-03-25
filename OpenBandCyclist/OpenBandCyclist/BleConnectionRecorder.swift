@@ -164,8 +164,10 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
     
     public func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType) {
         
+        let timestamp = BleConnectionManager.shared.currentRelativeTimeInterval
+        
         // Log connection event time sample
-        let sample = BleConnectionSample(uptime: RSDClock.uptime(), timestamp: nil, stepPath: self.currentStepPath, device: deviceType, event: eventType)
+        let sample = BleConnectionSample(uptime: RSDClock.uptime(), timestamp: timestamp, stepPath: self.currentStepPath, device: deviceType, event: eventType)
         self.writeSample(sample)
         
         self.connectionDelegate?.onBleDeviceConnectionChange(deviceType: deviceType, eventType: eventType)
