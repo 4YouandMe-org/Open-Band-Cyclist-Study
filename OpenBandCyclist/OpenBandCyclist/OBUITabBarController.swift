@@ -1,8 +1,8 @@
 //
-//  BleActiveStepViewController.swift
+//  OBUITabBarController.swift
 //  OpenBandCyclist
 //
-//  Copyright © 2020 4YouandMe. All rights reserved.
+//  Copyright © 2021 Sage Bionetworks. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
@@ -31,49 +31,39 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Research
-import ResearchUI
+import UIKit
+import BridgeApp
+import BridgeSDK
+import MotorControl
 
-open class BleActiveUIStepObject : RSDActiveUIStepObject, RSDStepViewControllerVendor {
-    
-    public func instantiateViewController(with parent: RSDPathComponent?) -> (UIViewController & RSDStepController)? {
-        return BleActiveStepViewController(step: self, parent: parent)
-    }
-}
-
-open class BleActiveStepViewController: RSDActiveStepViewController, RecorderStateDelegate {
-        
-    var isActivelyRecording = true
-    
-    public func isRecordering() -> Bool {
-        return isActivelyRecording
-    }
+open class OBUITabBarController: UITabBarController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        // Debug trick to end the task early, can be useful to end sleep task
-        self.countdownLabel?.isEnabled = true
-        self.countdownLabel?.isUserInteractionEnabled = true
-        self.countdownLabel?.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longHoldCountdownLabel)))
+        if #available(iOS 13, *) {
+            let appearance = UITabBarAppearance()
+            appearance.backgroundColor = .red
+            tabBar.standardAppearance = appearance
+            setTabBarItemColors(appearance.stackedLayoutAppearance)
+            setTabBarItemColors(appearance.inlineLayoutAppearance)
+            setTabBarItemColors(appearance.compactInlineLayoutAppearance)
+        } else {
+            UITabBar.appearance().backgroundColor = AppDelegate.colorPalette.secondary.normal.color
+            tabBar.backgroundImage = UIImage()   //Clear background
+
+            //Set the item tint colors
+            tabBar.tintColor = .lightGray
+            tabBar.unselectedItemTintColor = .white
+        }
     }
-    
-    override open func start() {
-        super.start()
+
+    @available(iOS 13.0, *)
+    private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {
+        itemAppearance.normal.iconColor = .white
+        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
-        // This is necessary to disable the audio session cancelling our task
-        // when it moves into the background
-        stopInterruptionObserver()
-        
-        BleConnectionManager.shared.recorderStateDelegate = self
-    }
-    
-    override open func cancelTask(shouldSave: Bool) {
-        self.isActivelyRecording = false
-        super.cancelTask(shouldSave: shouldSave)
-    }
-    
-    @objc func longHoldCountdownLabel() {
-        self.goForward()
+        itemAppearance.selected.iconColor = .lightGray
+        itemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
     }
 }

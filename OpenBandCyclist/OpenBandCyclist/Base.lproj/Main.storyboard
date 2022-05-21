@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VJ3-hJ-g4d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VJ3-hJ-g4d">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -87,14 +87,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z55-Xc-2xU" customClass="RSDRoundedButton" customModule="ResearchUI">
-                                        <rect key="frame" x="46" y="802" width="323" height="52"/>
+                                        <rect key="frame" x="46" y="824" width="323" height="30"/>
                                         <state key="normal" title="Register"/>
                                         <connections>
                                             <action selector="goForwardClicked" destination="zjn-oR-S2A" eventType="touchUpInside" id="g9e-9N-TRz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap register to get started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rzy-58-Edo" userLabel="Detail Label">
-                                        <rect key="frame" x="24" y="727" width="366" height="29"/>
+                                        <rect key="frame" x="24" y="749" width="366" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -133,39 +133,31 @@
             <point key="canvasLocation" x="-1223" y="698"/>
         </scene>
         <!--Tab Bar Controller-->
-        <scene sceneID="Wce-ay-Qgi">
+        <scene sceneID="oUv-ec-G2n">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="sL3-1T-eba" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Wbt-Tq-ikb">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="Cvc-Vs-JPK" customClass="OBUITabBarController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mKh-dp-cLg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="0.42745098040000001" green="0.70980392160000005" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" red="0.29019607843137252" green="0.36862745098039218" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
-                        <tabBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" red="0.14509803921568626" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
-                        </tabBarAppearance>
-                        <tabBarAppearance key="scrollEdgeAppearance">
-                            <color key="backgroundColor" red="0.14509803921568626" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
-                        </tabBarAppearance>
+                        <color key="backgroundColor" red="0.29019607843137252" green="0.36862745098039218" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="KuJ-E8-c3n" kind="relationship" relationship="viewControllers" id="Bwm-jG-Tbv"/>
-                        <segue destination="3FM-2L-O4o" kind="relationship" relationship="viewControllers" id="twZ-8L-h6B"/>
-                        <segue destination="3at-gZ-4YR" kind="relationship" relationship="viewControllers" id="J3Z-Ib-CrI"/>
-                        <segue destination="lmm-yp-pQq" kind="relationship" relationship="viewControllers" id="Zh2-2d-TfG"/>
+                        <segue destination="KuJ-E8-c3n" kind="relationship" relationship="viewControllers" id="Lx1-cA-GuC"/>
+                        <segue destination="3FM-2L-O4o" kind="relationship" relationship="viewControllers" id="9t2-c4-UaC"/>
+                        <segue destination="3at-gZ-4YR" kind="relationship" relationship="viewControllers" id="AZM-Zh-61e"/>
+                        <segue destination="lmm-yp-pQq" kind="relationship" relationship="viewControllers" id="rR4-SJ-PJL"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wvb-1a-1E6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TLm-O5-Ctu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="109" y="230"/>
+            <point key="canvasLocation" x="-28" y="-10"/>
         </scene>
         <!--Home-->
         <scene sceneID="SaZ-YM-Id2">
             <objects>
                 <viewController id="KuJ-E8-c3n" customClass="TaskCollectionViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Tl-uR-z4t">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOn-dz-Iv5" userLabel="Header">
@@ -311,7 +303,7 @@
             <objects>
                 <viewController id="3at-gZ-4YR" userLabel="About" customClass="AboutViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fes-aE-2cK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnQ-Br-jv5" userLabel="Header">
@@ -474,7 +466,7 @@ Cg
             <objects>
                 <viewController id="3FM-2L-O4o" userLabel="Data Log" customClass="DataLogViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G2U-pG-eYj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtD-m8-5PW" userLabel="Header">
@@ -497,7 +489,7 @@ Cg
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="emR-5t-6O2">
-                                <rect key="frame" x="0.0" y="120" width="414" height="693"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="776"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AgY-Dd-nki">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
@@ -619,7 +611,7 @@ Cg
             <objects>
                 <viewController id="lmm-yp-pQq" userLabel="Help" customClass="HelpViewController" customModule="OpenBandCyclist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1XC-ja-XK9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="71D-IV-rl3" userLabel="Header">
@@ -642,7 +634,7 @@ Cg
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vSc-ZJ-Lkk">
-                                <rect key="frame" x="0.0" y="120" width="414" height="693"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="776"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="lmm-yp-pQq" id="8V4-ky-8Gb"/>
