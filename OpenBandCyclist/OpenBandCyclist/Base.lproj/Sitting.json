@@ -67,6 +67,12 @@
           "title": "Sitting",
           "text": "For 3 minutes, rest your hand on a table surface.  Leave your hand still as much as you can."
       },
+      {
+          "identifier": "wearing_the_band",
+          "type": "instruction",
+          "title": "Wearing your Open Band Device",
+          "text": "When wearing your device and completing tasks please wear your open band devices so that the device is on the inside of either your right or left wrist. Wearing the device upside down will ensure that the Open Band device is receiving the most accurate measurements."
+      },
     {
       "identifier": "bleConnection",
       "type": "bleConnection",

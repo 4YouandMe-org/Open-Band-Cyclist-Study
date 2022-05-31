@@ -75,6 +75,7 @@ public protocol OpenBandErrorDelegate: AnyObject {
 /// MARK: - Open Band services and charcteristics Identifiers
 public final class OpenBandConstants {
     public static let OpenBandName          = "Movui"
+    public static let OpenBandName2         = "OHB"
     
     // UUID of service/chars of interest
     public static let errorCharacteristic     = CBUUID.init(string: "1201")
@@ -223,7 +224,8 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
                                 
         print("Found peripheral \(peripheral)")
-        if peripheral.name?.starts(with: OpenBandConstants.OpenBandName) ?? false {
+        if (peripheral.name?.starts(with: OpenBandConstants.OpenBandName) ?? false) ||
+            (peripheral.name?.starts(with: OpenBandConstants.OpenBandName2) ?? false){
             // We've found it so stop scan
             self.centralManager?.stopScan()
             

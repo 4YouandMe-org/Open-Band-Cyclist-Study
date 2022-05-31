@@ -36,9 +36,17 @@
       "stopStepIdentifier": "bleData"
     },
     {
-      "identifier": "openBandPpg",
+      "identifier": "openBandPpg1",
       "type": "openBandBle",
-      "dataType": "ppg",
+      "dataType": "ppg1",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "openBandPpg2",
+      "type": "openBandBle",
+      "dataType": "ppg2",
       "usesCSVEncoding": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
@@ -58,6 +66,12 @@
           "type": "instruction",
           "title": "Sleeping",
           "text": "This task will connect to both polar h10 and open band devices, and collect the data for 5 minute intervals every half hour, for 5 hours or more."
+      },
+      {
+          "identifier": "wearing_the_band",
+          "type": "instruction",
+          "title": "Wearing your Open Band Device",
+          "text": "When wearing your device and completing tasks please wear your open band devices so that the device is on the inside of either your right or left wrist. Wearing the device upside down will ensure that the Open Band device is receiving the most accurate measurements."
       },
     {
       "identifier": "bleConnection",
