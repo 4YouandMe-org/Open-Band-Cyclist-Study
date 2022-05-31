@@ -36,9 +36,17 @@
       "stopStepIdentifier": "bleData"
     },
     {
-      "identifier": "openBandPpg",
+      "identifier": "openBandPpg1",
       "type": "openBandBle",
-      "dataType": "ppg",
+      "dataType": "ppg1",
+      "usesCSVEncoding": true,
+      "startStepIdentifier": "countdown",
+      "stopStepIdentifier": "bleData"
+    },
+    {
+      "identifier": "openBandPpg2",
+      "type": "openBandBle",
+      "dataType": "ppg2",
       "usesCSVEncoding": true,
       "startStepIdentifier": "countdown",
       "stopStepIdentifier": "bleData"
@@ -58,6 +66,12 @@
           "type": "instruction",
           "title": "Walking",
           "text": "For 5 minutes, walk in an open space where you have room to walk back and forth comfortably."
+      },
+      {
+          "identifier": "wearing_the_band",
+          "type": "instruction",
+          "title": "Wearing your Open Band Device",
+          "text": "When wearing your device and completing tasks please wear your open band devices so that the device is on the inside of either your right or left wrist. Wearing the device upside down will ensure that the Open Band device is receiving the most accurate measurements."
       },
     {
       "identifier": "bleConnection",
