@@ -35,6 +35,7 @@ import ResearchUI
 import Research
 import BridgeSDK
 import BridgeApp
+import PDFKit
 
 class ConsentReviewStepObject : RSDUIStepObject, RSDStepViewControllerVendor {
     
@@ -46,7 +47,7 @@ class ConsentReviewStepObject : RSDUIStepObject, RSDStepViewControllerVendor {
 open class ConsentReviewStepViewController: RSDStepViewController, UITextFieldDelegate {
     
     
-    @IBOutlet weak var textView: UITextView! // probably deleting this
+    @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var signatureContainer: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
@@ -78,12 +79,12 @@ open class ConsentReviewStepViewController: RSDStepViewController, UITextFieldDe
         signatureTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard)))
         
-        if let htmlFile = Bundle.main.path(forResource:"ConsentForm", ofType: "html") {
-            do {
-                let htmlString = try String(contentsOfFile: htmlFile)
-                self.textView.attributedText = htmlString.htmlToAttributedString
-            } catch {
-                print(error)
+        if let pdfUrl = Bundle.main.url(forResource:"OpenBandConsentDoc", withExtension: "pdf") {
+            if let document = PDFDocument(url: pdfUrl) {
+                self.pdfView.document = document
+                pdfView.autoScales = true
+                pdfView.maxScaleFactor = 4.0
+                pdfView.minScaleFactor = pdfView.scaleFactorForSizeToFit
             }
         }
     }

@@ -78,7 +78,7 @@
       "type": "bleConnection",
       "title": "Polar H10:",
       "text": "Open Band:",
-      "recordingSchedule": "first5MinOfHour",
+      "recordingSchedule": "oneMinuteEveryTen",
       "actions": {
         "goForward": {
           "type": "default",

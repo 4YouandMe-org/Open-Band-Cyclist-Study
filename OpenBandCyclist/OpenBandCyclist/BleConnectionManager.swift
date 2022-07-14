@@ -116,7 +116,7 @@ public enum BleDeviceType: String, Codable {
 }
 
 public enum RecordingSchedule: String, Codable {
-    case always, first5MinOfHour
+    case always, oneMinuteEveryTen
 }
 
 public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBleApiDeviceHrObserver, PolarBleApiDeviceInfoObserver, PolarBleApiDeviceFeaturesObserver, CBPeripheralDelegate, CBCentralManagerDelegate {
@@ -225,7 +225,9 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
                                 
         print("Found peripheral \(peripheral)")
         if (peripheral.name?.starts(with: OpenBandConstants.OpenBandName) ?? false) ||
-            (peripheral.name?.starts(with: OpenBandConstants.OpenBandName2) ?? false){
+            (peripheral.name?.starts(with: OpenBandConstants.OpenBandName2) ?? false) ||
+            (peripheral.name?.hasSuffix(OpenBandConstants.OpenBandName) ?? false) ||
+            (peripheral.name?.hasSuffix(OpenBandConstants.OpenBandName2) ?? false) {
             // We've found it so stop scan
             self.centralManager?.stopScan()
             
@@ -527,7 +529,7 @@ public final class BleConnectionManager: NSObject, PolarBleApiObserver, PolarBle
             return true
         }
 
-        if (recordingSchedule == .first5MinOfHour) {
+        if (recordingSchedule == .oneMinuteEveryTen) {
             let components = Calendar.current.dateComponents(
                 [.hour,.minute,.second], from: Date())
 

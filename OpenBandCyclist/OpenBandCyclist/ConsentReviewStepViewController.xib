@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConsentReviewStepViewController" customModule="Psorcast" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConsentReviewStepViewController" customModule="OpenBandCyclist" customModuleProvider="target">
             <connections>
                 <outlet property="agreeButton" destination="9d5-3f-GpT" id="MC5-Ft-1GG"/>
                 <outlet property="detailsLabel" destination="fR5-vp-ZId" id="9fa-3l-4x7"/>
                 <outlet property="disagreeButton" destination="xMU-kr-7ba" id="rFf-UV-BAi"/>
                 <outlet property="navigationFooter" destination="tqM-PK-2qc" id="3Xj-7s-SdV"/>
                 <outlet property="navigationHeader" destination="w3d-oH-2L5" id="a5n-bg-Qjz"/>
+                <outlet property="pdfView" destination="KTR-oF-BSg" id="e8i-jc-5X1"/>
                 <outlet property="signConsentContainer" destination="OSS-pe-N96" id="8R0-v5-fAU"/>
                 <outlet property="signatureContainer" destination="OSS-pe-N96" id="Hf3-KW-1Ru"/>
                 <outlet property="signatureTextField" destination="DRW-8O-EDe" id="7Yk-df-Vsy"/>
-                <outlet property="textView" destination="cJA-fy-lPu" id="g9K-4Q-OIR"/>
                 <outlet property="titleLabel" destination="tON-rV-b5o" id="BQQ-vH-308"/>
                 <outlet property="view" destination="3b3-3V-haV" id="ig5-Rp-QO2"/>
             </connections>
@@ -73,13 +73,10 @@
                                 <outlet property="titleLabel" destination="n77-ca-UzS" id="jFl-7E-hC6"/>
                             </connections>
                         </view>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This is where the consent form will go" translatesAutoresizingMaskIntoConstraints="NO" id="cJA-fy-lPu">
-                            <rect key="frame" x="36" y="295" width="342" height="508"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KTR-oF-BSg" customClass="PDFView">
+                            <rect key="frame" x="36" y="297.5" width="342" height="505.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <color key="textColor" systemColor="labelColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqM-PK-2qc" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
                             <rect key="frame" x="0.0" y="803" width="414" height="137"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,17 +151,17 @@
                     <constraints>
                         <constraint firstItem="w3d-oH-2L5" firstAttribute="top" secondItem="v0v-h1-nk4" secondAttribute="top" id="42J-mk-EBI"/>
                         <constraint firstItem="OSS-pe-N96" firstAttribute="centerX" secondItem="v0v-h1-nk4" secondAttribute="centerX" id="CXr-Fl-kiz"/>
+                        <constraint firstItem="KTR-oF-BSg" firstAttribute="top" secondItem="w3d-oH-2L5" secondAttribute="bottom" constant="32" id="JhE-No-P66"/>
                         <constraint firstItem="OSS-pe-N96" firstAttribute="leading" secondItem="v0v-h1-nk4" secondAttribute="leading" id="KuO-3f-MmW"/>
-                        <constraint firstAttribute="trailing" secondItem="cJA-fy-lPu" secondAttribute="trailing" constant="36" id="Ov0-uM-f8F"/>
                         <constraint firstItem="tqM-PK-2qc" firstAttribute="leading" secondItem="v0v-h1-nk4" secondAttribute="leading" id="P7J-GR-x35"/>
                         <constraint firstAttribute="bottom" secondItem="OSS-pe-N96" secondAttribute="bottom" id="PgG-Zj-tU8"/>
+                        <constraint firstAttribute="trailing" secondItem="KTR-oF-BSg" secondAttribute="trailing" constant="36" id="QqY-fJ-YqN"/>
+                        <constraint firstItem="tqM-PK-2qc" firstAttribute="top" secondItem="KTR-oF-BSg" secondAttribute="bottom" id="R1V-Jv-uKO"/>
                         <constraint firstAttribute="bottom" secondItem="tqM-PK-2qc" secondAttribute="bottom" id="SJv-ql-N8a"/>
-                        <constraint firstItem="cJA-fy-lPu" firstAttribute="leading" secondItem="v0v-h1-nk4" secondAttribute="leading" constant="36" id="TaU-ai-yOZ"/>
                         <constraint firstItem="w3d-oH-2L5" firstAttribute="leading" secondItem="v0v-h1-nk4" secondAttribute="leading" id="i18-qi-aHr"/>
                         <constraint firstAttribute="trailing" secondItem="tqM-PK-2qc" secondAttribute="trailing" id="iGJ-cx-rDJ"/>
-                        <constraint firstItem="cJA-fy-lPu" firstAttribute="top" secondItem="w3d-oH-2L5" secondAttribute="bottom" constant="29.5" id="ndj-qJ-vIi"/>
+                        <constraint firstItem="KTR-oF-BSg" firstAttribute="leading" secondItem="v0v-h1-nk4" secondAttribute="leading" constant="36" id="llD-Xj-YS1"/>
                         <constraint firstAttribute="trailing" secondItem="OSS-pe-N96" secondAttribute="trailing" id="vcc-Ua-kP1"/>
-                        <constraint firstItem="tqM-PK-2qc" firstAttribute="top" secondItem="cJA-fy-lPu" secondAttribute="bottom" priority="999" id="xVr-nZ-fpg"/>
                         <constraint firstAttribute="trailing" secondItem="w3d-oH-2L5" secondAttribute="trailing" id="zJp-cJ-Tcl"/>
                     </constraints>
                 </view>
@@ -190,9 +187,6 @@
     </designables>
     <resources>
         <image name="closeActivity" width="50" height="50"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -113,6 +113,7 @@
 		CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CBC28AB825C7D964009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; };
 		CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBC6572F2876609100F9A9A6 /* OpenBandConsentDoc.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CBC6570E2876609100F9A9A6 /* OpenBandConsentDoc.pdf */; };
 		CBDC5C5726E2782400814972 /* ConsentReviewStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */; };
 		CBDC5C5826E2782400814972 /* ConsentQuizStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */; };
 		CBDC5C5926E2782400814972 /* ConsentReviewStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5626E2782400814972 /* ConsentReviewStepViewController.swift */; };
@@ -442,6 +443,7 @@
 		CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = RxSwift.xcframework; sourceTree = "<group>"; };
 		CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PolarBleSdk.xcframework; sourceTree = "<group>"; };
 		CBC6519523F392C700C3FF0C /* OpenBandCyclist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclist.entitlements; sourceTree = "<group>"; };
+		CBC6570E2876609100F9A9A6 /* OpenBandConsentDoc.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = OpenBandConsentDoc.pdf; path = ../../../../../../Downloads/OpenBandConsentDoc.pdf; sourceTree = "<group>"; };
 		CBD67D8622DFC45200998516 /* OpenBandCyclistValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclistValidation.entitlements; sourceTree = "<group>"; };
 		CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsentReviewStepViewController.xib; sourceTree = "<group>"; };
 		CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentQuizStepViewController.swift; sourceTree = "<group>"; };
@@ -528,6 +530,14 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		CB1754FB28761389005E9BB4 /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				CBC6570E2876609100F9A9A6 /* OpenBandConsentDoc.pdf */,
+			);
+			name = PDF;
+			sourceTree = "<group>";
+		};
 		CB2FD131254B916B005B476F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +581,7 @@
 		CB36E612253F82F700B7F5FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB1754FB28761389005E9BB4 /* PDF */,
 				CB51671626D3783600915FB2 /* HTML */,
 				CB3075C925449BA5004983A4 /* JSON */,
 				CB6245FB253FA412006838B7 /* OpenBandCyclist.strings */,
@@ -1193,6 +1204,7 @@
 				CBDC5C6726E27C3600814972 /* Consent.json in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
 				CB51673826D3784400915FB2 /* CSS_files in Resources */,
+				CBC6572F2876609100F9A9A6 /* OpenBandConsentDoc.pdf in Resources */,
 				CB71EB3726EFA82B006BF3BD /* FollowUp_Consent.html in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
 				CB71EB3626EFA82B006BF3BD /* ConsentForm.html in Resources */,
@@ -1774,7 +1786,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenBandCyclist/OpenBandCyclist.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 25S45RFPZF;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Checkouts/polar-ble-sdk/polar-sdk-ios";
 				INFOPLIST_FILE = "$(SRCROOT)/OpenBandCyclist/Info.plist";
@@ -1782,7 +1794,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
 				PRODUCT_NAME = OpenBandCyclist;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1799,7 +1811,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenBandCyclist/OpenBandCyclist.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 25S45RFPZF;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Checkouts/polar-ble-sdk/polar-sdk-ios";
 				INFOPLIST_FILE = "$(SRCROOT)/OpenBandCyclist/Info.plist";
@@ -1807,7 +1819,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
 				PRODUCT_NAME = OpenBandCyclist;
 				PROVISIONING_PROFILE_SPECIFIER = "";
