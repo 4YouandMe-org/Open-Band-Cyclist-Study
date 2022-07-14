@@ -164,10 +164,9 @@ public class BleConnectionRecorder : RSDSampleRecorder, BleConnectionManagerDele
     
     public func onBleDeviceConnectionChange(deviceType: BleDeviceType, eventType: BleConnectionEventType) {
         
-        let timestamp = BleConnectionManager.shared.currentRelativeTimeInterval
-        
         // Log connection event time sample
-        let sample = BleConnectionSample(uptime: RSDClock.uptime(), timestamp: timestamp, stepPath: self.currentStepPath, device: deviceType, event: eventType)
+        let t = BleConnectionManager.shared.currentRelativeTimeInterval
+        let sample = BleConnectionSample(relativeTimestamp: t, stepPath: self.currentStepPath, device: deviceType, event: eventType)
         self.writeSample(sample)
         
         self.connectionDelegate?.onBleDeviceConnectionChange(deviceType: deviceType, eventType: eventType)
@@ -181,26 +180,45 @@ public enum BleConnectionEventType: String, Codable {
 
 public struct BleConnectionSample : RSDSampleRecord, RSDDelimiterSeparatedEncodable {
     
-    public let uptime: TimeInterval
-    public let timestamp: TimeInterval?
+    /// A  millisecond value representing the time in seconds since the user landed on the BLE connection screen
+    public let relativeTimestamp: TimeInterval?
+    
+    public var timestamp: TimeInterval?        
     public var timestampDate: Date?
     public let stepPath: String
     public let device: BleDeviceType
     public let event: BleConnectionEventType
     
-    public init(uptime: TimeInterval, timestamp: TimeInterval?, stepPath: String, device: BleDeviceType, event: BleConnectionEventType) {
-        self.uptime = uptime
-        self.timestamp = timestamp
+    public init(relativeTimestamp: TimeInterval, stepPath: String, device: BleDeviceType, event: BleConnectionEventType) {
+        
+        self.relativeTimestamp = relativeTimestamp
         self.stepPath = stepPath
         self.device = device
         self.event = event
     }
     
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.relativeTimestamp = try values.decode(TimeInterval.self, forKey: CodingKeys.relativeTimestamp)
+        self.stepPath = try values.decode(String.self, forKey: CodingKeys.stepPath)
+        self.device = try values.decode(BleDeviceType.self, forKey: CodingKeys.device)
+        self.event = try values.decode(BleConnectionEventType.self, forKey: CodingKeys.event)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(relativeTimestamp, forKey: CodingKeys.relativeTimestamp)
+        try container.encode(stepPath, forKey: CodingKeys.stepPath)
+        try container.encode(device, forKey: CodingKeys.device)
+        try container.encode(event, forKey: CodingKeys.event)
+    }
+    
     public static func codingKeys() -> [CodingKey] {
-        return [CodingKeys.uptime, CodingKeys.timestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.device, CodingKeys.event]
+        return [CodingKeys.relativeTimestamp, CodingKeys.timestampDate, CodingKeys.stepPath, CodingKeys.device, CodingKeys.event]
     }
     
     private enum CodingKeys : String, CodingKey, CaseIterable {
-        case uptime, timestamp, timestampDate, stepPath, device, event
+        case relativeTimestamp, timestampDate, stepPath, device, event
     }
 }

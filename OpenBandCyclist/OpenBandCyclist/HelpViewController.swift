@@ -40,7 +40,7 @@ open class HelpViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var data: [HelpSection] = [
         HelpSection(title: "Additional Links:", links: [
-            HelpLink(title: "Privacy Policy", url: "PrivacyPolicy.html"),
+            HelpLink(title: "Privacy Policy", url: "https://4youandme.org/cyclists-open-band-study-privacy-policy"),
             HelpLink(title: "Licenses", url: "Licenses.html")
         ]),
         HelpSection(title: "Contact Us:", links: [

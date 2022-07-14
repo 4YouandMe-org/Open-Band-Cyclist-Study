@@ -26,7 +26,7 @@
     {
       "identifier": "eligibilityQuiz1",
       "type": "consentQuiz",
-      "title": "Are you 18 years old or over?",
+      "title": "Are you 18 years of age or older?",
       "inputFields": [
         {
           "uiHint": "list",
@@ -167,7 +167,7 @@
       "identifier": "research_activities",
       "type": "onboardingInstruction",
       "title": "Activities",
-      "text": "You will wear your Polar H10 chest strap and the provided Open Band during four activites: Cycling, Walking, Sitting, and Sleeping. You will use the app to track your activited. Data trasnferred from this app may count aganist your mobile data plan.",
+      "text": "You will wear your Polar H10 chest strap and the provided Open Band during four activites: Cycling, Walking, Sitting, and Sleeping. You will use the app to track your activities. Data transferred from this app may count aganist your mobile data plan.",
       "image": {
         "type": "fetchable",
         "imageName": "consent_icon_activities_and_surveys",
@@ -186,7 +186,7 @@
       "identifier": "time_commitment",
       "type": "onboardingInstruction",
       "title": "Time commitment",
-      "text": "You need to complete each activity 1-2 times a week (up to 6 times for each activity). Your participation in the study will last approximately 4 weeks.",
+      "text": "You need to complete 6 cycles of each activity when it is convenient for you over your 4 week study participation.",
       "image": {
         "type": "fetchable",
         "imageName": "consent_icon_time_commitment",
@@ -205,7 +205,7 @@
       "identifier": "potential_benefits",
       "type": "onboardingInstruction",
       "title": "Potential benefits",
-      "text": "The main goal of this study is to validate the provided Open Band device so we can use it in future research. You will not not directly benefit from volunteering for this research study.",
+      "text": "The main goal of this study is to validate the provided Open Band device so we can use it in future research. You will not directly benefit from volunteering for this research study.",
       "image": {
         "type": "fetchable",
         "imageName": "consent_icon_potential_benefits",
@@ -243,7 +243,7 @@
       "identifier": "privacy",
       "type": "onboardingInstruction",
       "title": "Sharable data",
-      "text": "Only coded study data would be shared for research. Coded study data do not include your name or email address. A random code is used instead.",
+      "text": "Only coded study data will be shared for research. Coded study data do not include your name or email address. A random code is used instead.",
       "image": {
         "type": "fetchable",
         "imageName": "consent_icon_sharable_data",
@@ -262,7 +262,7 @@
       "identifier": "qualified_researchers",
       "type": "onboardingInstruction",
       "title": "Qualified researchers",
-      "text": "With your permission, we will share your coded study data with qualified researchers worldwide. We have rules to qualify researchers. We do not control the research that they do with the shared data.",
+      "text": "With your permission, we will share your coded study data with “Qualified Researchers” worldwide. We have rules to qualify researchers. We do not control the research that they do with the shared data.",
       "image": {
         "type": "fetchable",
         "imageName": "consent_icon_future_research",
@@ -325,11 +325,11 @@
           "type": "singleChoice.string",
           "choices": [
             {
-              "text": "I can choose one of the three activities to complete each week",
+              "text": "I will need to cycle 1 hour several times a week for 4 weeks",
               "value": "false"
             },
             {
-              "text": "I will need to do each activity 1-2 times a week",
+              "text": "I will need to complete 6 cycles of 4 different activities over 4 weeks",
               "value": "true"
             }
           ]
@@ -337,10 +337,10 @@
       ],
       "expectedAnswer": "true",
       "answerCorrectTitle": "Good job!",
-      "answerCorrectText": "You will need to do each activity 1-2 times a week",
+      "answerCorrectText": "You will need to complete 6 cycles of 4 different activities over 4 weeks",
       "answerCorrectContinueButtonTitle": "Next",
       "answerIncorrectTitle": "Not quite!",
-      "answerIncorrectText": "You will need to do each activity 1-2 times a week",
+      "answerIncorrectText": "You will need to complete 6 cycles of 4 different activities over 4 weeks",
       "answerIncorrectContinueButtonTitle": "Try again"
     },
     {
