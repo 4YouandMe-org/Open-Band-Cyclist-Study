@@ -60,6 +60,9 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
     public static let UK_REGION_CODE = "GB" // (UK excluding Isle of Man)
     public static let UK_COUNTRY_CODE = "+44"
     
+    public static let FRENCH_REGION_CODE = "FR"
+    public static let FRENCH_COUNTRY_CODE = "+33"
+    
     /// The ISO country code for the region the user's phone number is in, defaults to US
     var regionCode: String? = US_REGION_CODE
     
@@ -67,6 +70,8 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
         switch regionCode {
         case SignInTaskViewController.UK_REGION_CODE:
             return SignInTaskViewController.UK_COUNTRY_CODE
+        case SignInTaskViewController.FRENCH_REGION_CODE:
+            return SignInTaskViewController.FRENCH_COUNTRY_CODE
         default:
             return SignInTaskViewController.US_COUNTRY_CODE
         }
