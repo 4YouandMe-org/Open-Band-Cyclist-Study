@@ -116,6 +116,7 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
     }
 
     func signUpAndRequestSMSLink(completion: @escaping SBBNetworkManagerCompletionBlock) {
+        
         guard let phoneNumber = self.phoneNumber,
             let regionCode = self.regionCode,
             !phoneNumber.isEmpty,
@@ -123,14 +124,18 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
                 debugPrint("Unable to sign up and request SMS link: phone number or region code is missing or empty")
                 return
         }
+        
+        if phoneNumber == "+10000000000" {
+            self.handleAppleTestUser()
+            return
+        }
+        
         let signUp: SBBSignUp = SBBSignUp()
         signUp.checkForConsent = true
         signUp.phone = SBBPhone()
         signUp.phone!.number = phoneNumber
         signUp.phone!.regionCode = regionCode
         
-        // TODO: mdephillips 3/1/21 remove for launch
-        signUp.dataGroups = ["test_user"]
         signUp.sharingScope = "all_qualified_researchers"
         
         BridgeSDK.authManager.signUpStudyParticipant(signUp, completion: { (task, result, error) in
@@ -201,5 +206,30 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
                 }
             }
         })
+    }
+    
+    private func handleAppleTestUser() {
+        self.presentAlertWithYesNo(title: "Are you a tester?", message: "") { yesTapped in
+            if yesTapped {
+                self.showLoadingView()
+                BridgeSDK.authManager.signIn(withExternalId: "AppleTest1", password: "Abc12345!") { task, response, error in
+                    DispatchQueue.main.async {
+                        self.hideLoadingIfNeeded()
+                        var needsToConsent = false
+                        if (error != nil) {
+                            needsToConsent = (error! as NSError).code == SBBErrorCode.serverPreconditionNotMet.rawValue
+                        }
+                        if error == nil || needsToConsent {
+                            self.afterSignIn(succeeded: true, needsToConsent: needsToConsent)
+                        } else {
+                            self.presentAlertWithOk(title: "Error", message: error?.localizedDescription ?? "", actionHandler: nil)
+                            return
+                        }
+                    }
+                }
+            } else {
+                self.hideLoadingIfNeeded()
+            }
+        }
     }
 }
