@@ -80,6 +80,8 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate {
         let mainBundle = LocalizationBundle(bundle: Bundle.main, tableName: "OpenBandCyclistValidation")
         Localization.insert(bundle: mainBundle, at: 0)
         
+        UITabBar.appearance().barTintColor = AppDelegate.colorPalette.primary.normal.color
+        
         return super.application(application, willFinishLaunchingWithOptions: launchOptions)
     }
     
