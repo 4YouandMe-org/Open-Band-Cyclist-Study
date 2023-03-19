@@ -64,7 +64,7 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
     public static let FRENCH_COUNTRY_CODE = "+33"
     
     /// The ISO country code for the region the user's phone number is in, defaults to US
-    var regionCode: String? = US_REGION_CODE
+    var regionCode: String = US_REGION_CODE
     
     var countryCode: String? {
         switch regionCode {
@@ -74,6 +74,16 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
             return SignInTaskViewController.FRENCH_COUNTRY_CODE
         default:
             return SignInTaskViewController.US_COUNTRY_CODE
+        }
+    }
+    
+    func regionCode(from phoneNumber: String) -> String? {
+        if phoneNumber.starts(with: SignInTaskViewController.FRENCH_COUNTRY_CODE) {
+            return SignInTaskViewController.FRENCH_REGION_CODE
+        } else if phoneNumber.starts(with: SignInTaskViewController.UK_COUNTRY_CODE) {
+            return SignInTaskViewController.UK_REGION_CODE
+        } else {
+            return nil
         }
     }
 
@@ -118,12 +128,11 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
     func signUpAndRequestSMSLink(completion: @escaping SBBNetworkManagerCompletionBlock) {
         
         guard let phoneNumber = self.phoneNumber,
-            let regionCode = self.regionCode,
-            !phoneNumber.isEmpty,
-            !regionCode.isEmpty else {
+            !phoneNumber.isEmpty else {
                 debugPrint("Unable to sign up and request SMS link: phone number or region code is missing or empty")
                 return
         }
+        let regionCode = self.resolveRegionCode(from: phoneNumber)
         
         if phoneNumber == "+10000000000" {
             self.handleAppleTestUser()
@@ -168,19 +177,25 @@ public class SignInTaskViewController: RSDTaskViewController, SignInDelegate {
             self.taskViewModel.goBack()
         }
     }
+    
+    func resolveRegionCode(from phoneNumber: String) -> String {
+        if let phoneNumRegionCode = self.regionCode(from: phoneNumber) {
+            return phoneNumRegionCode
+        }
+        return self.regionCode
+    }
 
     func signIn(token: String) {
         // Should never happen in production since we don't allow them to get this far without entering a phone number, and the regionCode is hardcoded
         guard let phoneNumber = self.phoneNumber,
-            !phoneNumber.isEmpty,
-            let regionCode = self.regionCode,
-            !regionCode.isEmpty else {
+            !phoneNumber.isEmpty else {
                 #if DEBUG
                 print("Unable to sign in: phone number: \(String(describing: self.phoneNumber)) and/or region code: \(String(describing: self.regionCode)) is missing or empty.")
                 #endif
                 self.afterSignIn(succeeded: false, needsToConsent: false)
                 return
         }
+        let regionCode = self.resolveRegionCode(from: phoneNumber)
         
         BridgeSDK.authManager.signIn(withPhoneNumber:phoneNumber, regionCode:regionCode, token:token, completion: { (task, result, error) in
             DispatchQueue.main.async {
