@@ -113,7 +113,7 @@
 		CBC28AB725C7D963009950B1 /* PolarBleSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CBC28AB825C7D964009950B1 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; };
 		CBC28AB925C7D964009950B1 /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CBC6572F2876609100F9A9A6 /* OpenBandConsentDoc.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CBC6570E2876609100F9A9A6 /* OpenBandConsentDoc.pdf */; };
+		CBCCCED929C505AF0082BE27 /* OpenBandConsentDoc.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CBCCCEB729C505AF0082BE27 /* OpenBandConsentDoc.pdf */; };
 		CBDC5C5726E2782400814972 /* ConsentReviewStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */; };
 		CBDC5C5826E2782400814972 /* ConsentQuizStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */; };
 		CBDC5C5926E2782400814972 /* ConsentReviewStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC5C5626E2782400814972 /* ConsentReviewStepViewController.swift */; };
@@ -443,7 +443,7 @@
 		CBC28AA625C7D8F5009950B1 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = RxSwift.xcframework; sourceTree = "<group>"; };
 		CBC28AAB25C7D945009950B1 /* PolarBleSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PolarBleSdk.xcframework; sourceTree = "<group>"; };
 		CBC6519523F392C700C3FF0C /* OpenBandCyclist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclist.entitlements; sourceTree = "<group>"; };
-		CBC6570E2876609100F9A9A6 /* OpenBandConsentDoc.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = OpenBandConsentDoc.pdf; path = ../../../../../../Downloads/OpenBandConsentDoc.pdf; sourceTree = "<group>"; };
+		CBCCCEB829C505AF0082BE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Base; path = Base.lproj/OpenBandConsentDoc.pdf; sourceTree = "<group>"; };
 		CBD67D8622DFC45200998516 /* OpenBandCyclistValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenBandCyclistValidation.entitlements; sourceTree = "<group>"; };
 		CBDC5C3426E2782400814972 /* ConsentReviewStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsentReviewStepViewController.xib; sourceTree = "<group>"; };
 		CBDC5C5526E2782400814972 /* ConsentQuizStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentQuizStepViewController.swift; sourceTree = "<group>"; };
@@ -533,7 +533,7 @@
 		CB1754FB28761389005E9BB4 /* PDF */ = {
 			isa = PBXGroup;
 			children = (
-				CBC6570E2876609100F9A9A6 /* OpenBandConsentDoc.pdf */,
+				CBCCCEB729C505AF0082BE27 /* OpenBandConsentDoc.pdf */,
 			);
 			name = PDF;
 			sourceTree = "<group>";
@@ -1204,7 +1204,7 @@
 				CBDC5C6726E27C3600814972 /* Consent.json in Resources */,
 				CBDCDC7123F383DC00E5CEB8 /* open-band-cyclist.pem in Resources */,
 				CB51673826D3784400915FB2 /* CSS_files in Resources */,
-				CBC6572F2876609100F9A9A6 /* OpenBandConsentDoc.pdf in Resources */,
+				CBCCCED929C505AF0082BE27 /* OpenBandConsentDoc.pdf in Resources */,
 				CB71EB3726EFA82B006BF3BD /* FollowUp_Consent.html in Resources */,
 				CBDCDC7223F383DC00E5CEB8 /* BridgeInfo-private.plist in Resources */,
 				CB71EB3626EFA82B006BF3BD /* ConsentForm.html in Resources */,
@@ -1529,6 +1529,14 @@
 				CBA0250923FC6B2500604F2D /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CBCCCEB729C505AF0082BE27 /* OpenBandConsentDoc.pdf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBCCCEB829C505AF0082BE27 /* Base */,
+			);
+			name = OpenBandConsentDoc.pdf;
 			sourceTree = "<group>";
 		};
 		CBDC5C6526E27C3600814972 /* Consent.json */ = {
