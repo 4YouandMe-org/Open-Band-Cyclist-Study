@@ -1794,7 +1794,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenBandCyclist/OpenBandCyclist.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 25S45RFPZF;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Checkouts/polar-ble-sdk/polar-sdk-ios";
 				INFOPLIST_FILE = "$(SRCROOT)/OpenBandCyclist/Info.plist";
@@ -1802,7 +1802,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.1;
+				MARKETING_VERSION = 0.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
 				PRODUCT_NAME = OpenBandCyclist;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1819,7 +1819,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenBandCyclist/OpenBandCyclist.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 25S45RFPZF;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Checkouts/polar-ble-sdk/polar-sdk-ios";
 				INFOPLIST_FILE = "$(SRCROOT)/OpenBandCyclist/Info.plist";
@@ -1827,7 +1827,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.1;
+				MARKETING_VERSION = 0.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.4youandme.openbandcyclist;
 				PRODUCT_NAME = OpenBandCyclist;
 				PROVISIONING_PROFILE_SPECIFIER = "";
